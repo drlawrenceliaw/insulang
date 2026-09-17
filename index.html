@@ -3,57 +3,269 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#1769e0">
+<meta name="theme-color" content="#d7f3f8">
 <link rel="manifest" href="/manifest.json">
-<title>Insu Lang｜by Dr. Lawrence Liaw</title>
-<meta name="description" content="Insu Lang by Dr. Lawrence Liaw。用科技与专业框架，把复杂的保险风险讲清楚。免费完成 Insu Lang Quick Check。">
+<title>Insu Lang｜Dr. Lawrence Liaw</title>
+<meta name="description" content="Quick Check：用家庭生活费、贷款与现有保障，看清保障缺口。由 Dr. Lawrence Liaw 创建。">
 <style>
-:root{--blue:#1769e0;--blue2:#0e55bd;--ink:#132033;--muted:#667085;--line:#e4e9f0;--bg:#f6f8fb;--white:#fff;--soft:#eef5ff;--dark:#0f2441;--gold:#c97700;--red:#d72c3f}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;background:var(--bg);color:var(--ink)}a{color:inherit}.top{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}.topin{max-width:1080px;margin:auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:18px}.logo{font-weight:950;font-size:19px;letter-spacing:.3px}.logo small{display:block;font-size:10px;color:var(--muted);font-weight:700;letter-spacing:.2px}.nav{display:flex;gap:20px;font-size:13px;color:var(--muted)}.nav a{text-decoration:none}.nav a:hover{color:var(--ink)}.wrap{max-width:1080px;margin:auto;padding:0 20px}
-.hero{background:#fff;border-bottom:1px solid var(--line)}.hero-in{max-width:1080px;margin:auto;padding:72px 20px 62px;display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:center}.eyebrow{font-size:12px;color:var(--blue);font-weight:900;letter-spacing:1.3px}.hero h1{font-size:48px;line-height:1.05;margin:12px 0 18px;letter-spacing:-1.5px}.hero p{color:var(--muted);font-size:18px;line-height:1.7;max-width:690px}.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}.btn{display:inline-block;border:0;border-radius:12px;padding:14px 20px;font-weight:850;text-decoration:none;cursor:pointer;font-size:14px}.primary{background:var(--blue);color:#fff}.primary:hover{background:var(--blue2)}.ghost{background:#fff;border:1px solid var(--line)}.secondary{background:var(--soft);color:var(--blue)}.brand-card{background:linear-gradient(145deg,#0f2441,#1769e0);border-radius:28px;padding:34px;color:#fff;min-height:350px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 20px 48px rgba(15,36,65,.18)}.brand-mark{width:76px;height:76px;border:1px solid rgba(255,255,255,.35);border-radius:24px;display:grid;place-items:center;font-size:28px;font-weight:950}.brand-card h2{font-size:30px;margin:0 0 8px}.brand-card p{color:#d7e5f7;font-size:14px;margin:0}.rating{display:inline-flex;align-items:center;gap:6px;margin-top:16px;background:#fff7e6;color:var(--gold);border-radius:999px;padding:8px 14px;font-weight:800;font-size:13px}
-.social-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.social-icon{width:42px;height:42px;border-radius:50%;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--ink);transition:.15s}.social-icon:hover{border-color:var(--blue);color:var(--blue);transform:translateY(-2px)}.social-icon svg{width:21px;height:21px}.social-icon.xhs svg{width:24px;height:24px}.social-icon.douyin svg{width:22px;height:22px}
-.section{padding:66px 0}.section.white{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.section.tint{background:#eef4fb}.section h2{text-align:center;font-size:30px;margin:0 0 10px}.sub{text-align:center;color:var(--muted);margin:0 0 34px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px}.card b{display:block;margin-bottom:8px}.card p{color:var(--muted);font-size:14px;line-height:1.65;margin:0}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.step{background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px}.step span{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--soft);color:var(--blue);font-weight:900;margin-bottom:13px}.review-wrap{max-width:920px;margin:auto}.reviews-more{text-align:center;margin-top:24px}.faq-list{max-width:760px;margin:0 auto}.faq-item{background:#fff;border:1px solid var(--line);border-radius:14px;padding:2px 20px;margin-bottom:12px}.faq-item summary{list-style:none;cursor:pointer;padding:16px 0;font-weight:800;font-size:15px;display:flex;justify-content:space-between;align-items:center;gap:16px}.faq-item summary::-webkit-details-marker{display:none}.faq-item summary::after{content:"+";font-size:20px;color:var(--blue);flex-shrink:0}.faq-item[open] summary::after{content:"–"}.faq-item p{margin:0 0 18px;color:var(--muted);font-size:14px;line-height:1.7}.cta{background:var(--dark);color:#fff;border-radius:24px;padding:38px;text-align:center;margin:10px 0 60px}.cta p{color:#c8d7e8}.footer{border-top:1px solid var(--line);padding:36px 0 46px;color:var(--muted);font-size:13px;background:#fff}.footer-in{display:grid;grid-template-columns:1.4fr .8fr .8fr;gap:28px}.footer strong{color:var(--ink);display:block;margin-bottom:7px}.footer a{text-decoration:none}.footer a:hover{color:var(--blue)}.footer-social{display:flex;gap:8px;margin-top:10px}.footer-social .social-icon{width:36px;height:36px}.footer-social .social-icon svg{width:18px;height:18px}
-@media(max-width:760px){.nav{display:none}.hero-in{grid-template-columns:1fr;padding-top:48px}.hero h1{font-size:38px}.brand-card{min-height:270px}.grid3,.steps{grid-template-columns:1fr}.section{padding:48px 0}.cta{padding:28px 20px}.footer-in{grid-template-columns:1fr}.social-row{justify-content:flex-start}}
+:root{
+  --navy:#102a4c;
+  --navy2:#173d6c;
+  --blue:#2c8bd8;
+  --sky:#d7f3f8;
+  --sky2:#eefafd;
+  --ink:#142033;
+  --muted:#6c7889;
+  --line:#e6edf3;
+  --white:#fff;
+  --soft:#f8fbfd;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+
+/* top nav */
+.top{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.88);backdrop-filter:blur(14px);border-bottom:1px solid rgba(230,237,243,.9)}
+.topin{max-width:1120px;margin:auto;padding:13px 24px;display:flex;justify-content:flex-end;align-items:center;gap:26px}
+.nav{display:flex;align-items:center;gap:24px;font-size:13px;font-weight:700;color:#46566b}
+.nav a{text-decoration:none;transition:.15s}.nav a:hover{color:var(--navy)}
+.icon-link{width:38px;height:38px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;color:var(--navy);text-decoration:none;background:#fff;transition:.15s}
+.icon-link:hover{transform:translateY(-1px);border-color:#c8d8e8;background:#f8fbfe}
+.icon-link svg{width:19px;height:19px}
+
+/* hero */
+.hero{background:linear-gradient(180deg,var(--sky) 0%,#e9f9fc 100%);overflow:hidden}
+.hero-grid{max-width:1120px;margin:auto;padding:48px 24px 54px;display:grid;grid-template-columns:.9fr 1.1fr;align-items:center;gap:44px;min-height:610px}
+.brand-art{position:relative;height:540px;overflow:hidden;border-radius:30px;background:var(--sky)}
+.brand-art img{position:absolute;width:210%;max-width:none;left:50%;top:50%;transform:translate(-50%,-50%);display:block}
+.hero-copy{max-width:560px}
+.kicker{font-size:12px;letter-spacing:2.2px;text-transform:uppercase;color:var(--navy2);font-weight:850;margin-bottom:18px}
+.hero h1{font-size:56px;line-height:1.03;letter-spacing:-2.1px;margin:0 0 14px;color:var(--navy);font-weight:900}
+.hero .zh{font-size:24px;font-weight:700;margin:0 0 28px;color:#253b57}
+.founder{font-size:15px;color:#526276;margin:0 0 24px}
+.founder strong{display:block;color:var(--ink);font-size:18px;margin-bottom:4px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:0;border-radius:999px;padding:14px 24px;font-weight:850;text-decoration:none;cursor:pointer;font-size:14px;transition:.16s}
+.btn.primary{background:var(--navy);color:#fff;box-shadow:0 8px 20px rgba(16,42,76,.14)}
+.btn.primary:hover{background:#0a213d;transform:translateY(-1px)}
+.btn svg{width:16px;height:16px}
+
+/* principles */
+.principles{padding:66px 0 58px;background:#fff}
+.principle-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.principle{padding:30px 32px;min-height:170px}
+.principle+.principle{border-left:1px solid var(--line)}
+.principle-icon{width:42px;height:42px;border-radius:50%;background:var(--sky2);display:grid;place-items:center;color:var(--navy);margin-bottom:16px}
+.principle-icon svg{width:20px;height:20px}
+.principle h3{font-size:17px;margin:0 0 8px;color:var(--navy)}
+.principle p{margin:0;color:var(--muted);font-size:14px;line-height:1.65}
+
+/* how */
+.how{padding:64px 0;background:var(--soft)}
+.section-title{text-align:center;margin-bottom:36px}
+.section-title h2{font-size:31px;letter-spacing:-.5px;margin:0 0 8px;color:var(--navy)}
+.section-title p{color:var(--muted);margin:0;font-size:14px}
+.flow{display:grid;grid-template-columns:1fr 58px 1fr 58px 1fr;align-items:center;max-width:900px;margin:0 auto}
+.flow-step{text-align:center;padding:8px 12px}
+.flow-num{width:40px;height:40px;border-radius:50%;background:#e8f6fb;color:var(--navy);display:grid;place-items:center;margin:0 auto 13px;font-weight:900}
+.flow-step h3{margin:0 0 6px;font-size:16px;color:var(--navy)}
+.flow-step p{margin:0;color:var(--muted);font-size:13px;line-height:1.55}
+.flow-arrow{text-align:center;color:#9bb1c7;font-size:28px;font-weight:300}
+
+/* reviews */
+.reviews{padding:68px 0;background:#fff}
+.review-wrap{max-width:940px;margin:0 auto}
+.review-wrap>h2{text-align:center;font-size:31px;color:var(--navy);margin:0 0 28px}
+.reviews-more{text-align:center;margin-top:18px}
+.reviews-more a{font-size:13px;color:#617188;text-decoration:none;border-bottom:1px solid #cfd9e3;padding-bottom:2px}
+
+/* FAQ */
+.faq{padding:68px 0;background:var(--soft)}
+.faq-shell{max-width:850px;margin:0 auto}
+.faq-head{display:grid;grid-template-columns:220px 1fr;gap:42px;align-items:start}
+.faq-label h2{font-size:38px;margin:0 0 6px;color:var(--navy)}
+.faq-label p{margin:0;color:var(--muted);font-size:14px}
+.faq-list{border-top:1px solid #dbe5ed}
+.faq-item{border-bottom:1px solid #dbe5ed}
+.faq-item summary{list-style:none;cursor:pointer;padding:18px 0;font-weight:780;font-size:15px;display:flex;justify-content:space-between;gap:18px;align-items:center;color:#263b55}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:"+";color:var(--navy);font-size:21px;font-weight:400}
+.faq-item[open] summary::after{content:"–"}
+.faq-item p{margin:-4px 0 20px;color:var(--muted);font-size:14px;line-height:1.7;padding-right:36px}
+
+/* final CTA */
+.final{background:linear-gradient(180deg,#e9f9fc 0%,var(--sky) 100%);padding:54px 20px;text-align:center}
+.final h2{font-size:34px;letter-spacing:-.6px;color:var(--navy);margin:0 0 8px}
+.final p{color:#5f7185;margin:0 0 22px}
+
+/* footer */
+.footer{padding:34px 0 42px;border-top:1px solid var(--line);background:#fff;color:var(--muted);font-size:12px}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:36px;align-items:end}
+.contact strong{display:block;color:var(--navy);font-size:15px;margin-bottom:7px}
+.contact a{text-decoration:none}.contact a:hover{color:var(--navy)}
+.socials{display:flex;justify-content:flex-end;align-items:center;gap:9px;margin-bottom:13px}
+.social-icon{width:36px;height:36px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;text-decoration:none;color:var(--navy);background:#fff;transition:.15s}
+.social-icon:hover{transform:translateY(-1px);border-color:#c6d8e8;background:#f7fbfe}
+.social-icon svg{width:18px;height:18px;display:block}
+.social-icon .social-text{font-size:8px;font-weight:900;letter-spacing:-.3px;color:currentColor}
+.footer-links{text-align:right}.footer-links a{text-decoration:none;margin-left:16px}.footer-links a:hover{color:var(--navy)}
+
+@media(max-width:860px){
+  .hero-grid{grid-template-columns:1fr;gap:16px;padding-top:24px;text-align:center;min-height:auto}
+  .brand-art{height:410px;max-width:420px;width:100%;margin:0 auto}
+  .brand-art img{width:210%}
+  .hero-copy{max-width:640px;margin:0 auto;padding-bottom:10px}
+  .hero h1{font-size:45px}.hero .zh{font-size:21px}
+  .principle-grid{grid-template-columns:1fr}.principle+.principle{border-left:0;border-top:1px solid var(--line)}
+  .flow{grid-template-columns:1fr;gap:8px}.flow-arrow{transform:rotate(90deg);font-size:22px}
+  .faq-head{grid-template-columns:1fr;gap:24px}.faq-label{text-align:center}
+  .footer-grid{grid-template-columns:1fr;text-align:center}.socials{justify-content:center}.footer-links{text-align:center}.footer-links a{margin:0 8px}
+}
+@media(max-width:620px){
+  .topin{padding:11px 14px}.nav{gap:15px}.nav a:nth-child(2){display:none}.nav a:nth-child(4){display:none}
+  .wrap{padding:0 16px}
+  .hero-grid{padding:18px 16px 42px}
+  .brand-art{height:365px;max-width:360px;border-radius:24px}
+  .hero h1{font-size:39px;letter-spacing:-1.4px}.hero .zh{font-size:19px;margin-bottom:20px}.kicker{font-size:10px;letter-spacing:1.7px}
+  .principles,.how,.reviews,.faq{padding:52px 0}.principle{padding:25px 22px;min-height:0}
+  .section-title h2,.review-wrap>h2{font-size:27px}.faq-label h2{font-size:31px}.final h2{font-size:29px}
+}
 </style>
 </head>
 <body>
-<header class="top"><div class="topin"><div class="logo">Insu Lang<small>by Dr. Lawrence Liaw</small></div><nav class="nav"><a href="#method">怎么分析</a><a href="#reviews">Reviews</a><a href="/self-check.html">Quick Check</a><a href="#faq">FAQ</a><a href="#contact">Contact</a></nav></div></header>
 
-<section class="hero"><div class="hero-in"><div><div class="eyebrow">INSURANCE × TECHNOLOGY × RISK ANALYSIS</div><h1>把保险，讲成你看得懂的风险。</h1><p>Insu Lang 是 Dr. Lawrence Liaw 创建的保险品牌。先用简单的数据看清楚家庭生活费、贷款与现有保障之间的距离，再决定下一步。</p><div class="rating">★★★★★ 5.0 ｜ 29 则 Google 评论</div><div class="btns"><a class="btn primary" href="/self-check.html">开始 Quick Check</a><a class="btn ghost" id="waTop" href="#">WhatsApp Dr. Lawrence</a></div><div class="social-row" id="socialRow"></div></div><div class="brand-card"><div class="brand-mark">IL</div><div><h2>Insu Lang</h2><p>Smart protection. Clear decisions.<br>by Dr. Lawrence Liaw</p></div></div></div></section>
+<header class="top">
+  <div class="topin">
+    <nav class="nav">
+      <a href="/self-check.html">Quick Check</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+      <a class="icon-link" id="waTop" href="#" aria-label="WhatsApp Dr. Lawrence" title="WhatsApp">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 11.7a8.5 8.5 0 0 1-12.7 7.4L3 20.5l1.4-4.6A8.5 8.5 0 1 1 20.5 11.7Z"/><path d="M8.1 8.2c.2-.5.4-.5.7-.5h.5c.2 0 .4.1.5.4l.8 1.8c.1.3.1.5-.1.7l-.6.8c-.2.2-.1.4 0 .6.6 1.1 1.5 2 2.6 2.6.2.1.4.2.6 0l.8-1c.2-.2.4-.3.7-.2l1.8.8c.3.1.4.3.4.6 0 .7-.3 1.4-.8 1.9-.5.5-1.2.7-2 .7-1.3 0-3.1-.7-4.8-2.2-2-1.7-3.2-4-3.2-5.5 0-.6.1-1.1.3-1.5Z"/></svg>
+      </a>
+    </nav>
+  </div>
+</header>
 
-<section class="section" id="method"><div class="wrap"><h2>不是用 AI 乱算。</h2><p class="sub">核心判断来自 Insu Lang 的固定保障框架，AI 只负责把结果解释清楚。</p><div class="grid3"><div class="card"><b>Rule-Based</b><p>Life、Critical Illness、Medical 与 Accident 都按固定规则计算，结果不会因为 AI 说法不同而改变。</p></div><div class="card"><b>Quick Check</b><p>约 3–5 分钟。只问影响初步保障判断的资料，不把完整 Fact Find 塞进第一轮。</p></div><div class="card"><b>Privacy First</b><p>AI 不接收姓名、电话。只有当你主动选择 Full Review 时，才通过 WhatsApp 联系 Dr. Lawrence。</p></div></div></div></section>
+<section class="hero">
+  <div class="hero-grid">
+    <div class="brand-art" aria-label="Insu Lang brand artwork">
+      <img src="/insu-lang-logo.png" alt="Insu Lang">
+    </div>
+    <div class="hero-copy">
+      <div class="kicker">PhD × Insurance × Technology</div>
+      <h1>Protection,<br>made clearer.</h1>
+      <p class="zh">用数据，看清你的保障。</p>
+      <p class="founder"><strong>Dr. Lawrence Liaw</strong>Senior Insurance Consultant</p>
+      <a class="btn primary" href="/self-check.html">Quick Check
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
 
-<section class="section white"><div class="wrap"><h2>怎么使用？</h2><p class="sub">先自检，再决定要不要深入。</p><div class="steps"><div class="step"><span>1</span><b>Quick Check</b><p>免费、自助，先看保障评分与主要 gap。</p></div><div class="step"><span>2</span><b>AI Explanation</b><p>想知道评分原因时再开启，AI 只解释结果，不重新计算。</p></div><div class="step" id="full"><span>3</span><b>Full Review</b><p>需要更完整规划时，再由 Dr. Lawrence 一对一检视资料与保单。</p></div></div></div></section>
+<section class="principles" id="method">
+  <div class="wrap">
+    <div class="principle-grid">
+      <div class="principle">
+        <div class="principle-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h5"/></svg></div>
+        <h3>Structured Analysis</h3>
+        <p>以家庭生活费、剩余贷款与现有保障为基础，按固定框架找出保障缺口。</p>
+      </div>
+      <div class="principle">
+        <div class="principle-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 4a3 3 0 0 0-3 3v1a3 3 0 0 0-2 3c0 1 .5 2 1.4 2.5A3.5 3.5 0 0 0 9 19h1V4H9Z"/><path d="M15 4a3 3 0 0 1 3 3v1a3 3 0 0 1 2 3c0 1-.5 2-1.4 2.5A3.5 3.5 0 0 1 15 19h-1V4h1Z"/></svg></div>
+        <h3>AI Analysis</h3>
+        <p>AI 将分析结果整理成清晰易懂的解读，不参与评分计算。</p>
+      </div>
+      <div class="principle">
+        <div class="principle-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>
+        <h3>Privacy First</h3>
+        <p>资料只用于完成本次分析；个人联系方式不会交由 AI 处理。</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-<section class="section tint" id="reviews"><div class="wrap review-wrap"><h2>客户怎么说？</h2><p class="sub">来自客户的 Google Review</p><script src="https://elfsightcdn.com/platform.js" async></script><div class="elfsight-app-b89ff392-96ab-432e-a747-9d65b7e0d287" data-elfsight-app-lazy></div><div class="reviews-more"><a class="btn secondary" href="https://www.google.com/searchviewer/10?output=search&svid=CAwSKRInCgNwdnESIE9oWXdlREE2TUhoalpHSmlZV1ZrWVRZNVlUSXlPVGN6GAo&hl=en-GB&gl=MY#sv=CAESzQEKuQEStgEKd0FKaVQ0dEpUMVc0VjZKZlR2UkxVOEFucW9vdE8xeXhQcW1aaUxJaTZtOTBkVkVtaGlWYTB2T1dYd3VVS0lMbGJBXzd4ZGtjY2xHR2Jyd1FBcUpSZE9rcTRfMW80LUd2NTB1MTJTN2dodzl3dF96Q0ViMkp0MmdREhdwSzJyYXRYdENZX0E0LUVQc3AtOHdRRRoiQURzcjlmUTdvc04xTEVJbURnd1NyOFU1RWl5T1p3OG1DQRIEODA1MRoBMyoAMAA4AUAAGAAgs52t_gJKAhAB" target="_blank" rel="noopener">查看全部 Google Review →</a></div></div></section>
+<section class="how">
+  <div class="wrap">
+    <div class="section-title"><h2>How It Works</h2><p>简单三步，看清目前的保障状况。</p></div>
+    <div class="flow">
+      <div class="flow-step"><div class="flow-num">01</div><h3>Quick Check</h3><p>3–5 分钟完成基本资料</p></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="flow-num">02</div><h3>AI Analysis</h3><p>查看评分与个性化解读</p></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step" id="full"><div class="flow-num">03</div><h3>Full Review</h3><p>进一步强化分析</p></div>
+    </div>
+  </div>
+</section>
 
-<section class="section" id="faq"><div class="wrap"><h2>常见问题</h2><p class="sub">FAQ</p><div class="faq-list">
-<details class="faq-item"><summary>做这个保障自检需要付费吗？</summary><p>不用，完全免费。也不需要提供付款资料。</p></details>
-<details class="faq-item"><summary>我已经有保险了，还需要做吗？</summary><p>可以。重点不是有没有保险，而是现有保障是否还符合你现在的家庭生活费、贷款责任和保障需要。</p></details>
-<details class="faq-item"><summary>填完资料后，会有人一直联系我吗？</summary><p>不会。除非你主动选择 Insu Lang Full Review 并通过 WhatsApp 联系 Dr. Lawrence，否则不会因为完成 Quick Check 而自动收到推销联系。</p></details>
-<details class="faq-item"><summary>自检结果可以直接拿来买保险吗？</summary><p>不能把它当成投保建议。这份结果只是帮你找出可能需要进一步检视的保障 gap。</p></details>
-<details class="faq-item"><summary>完成一次大概要多久？</summary><p>大约 3–5 分钟，部分题目会根据你的回答自动跳过。</p></details>
-</div></div></section>
+<section class="reviews" id="reviews">
+  <div class="wrap review-wrap">
+    <h2>客户怎么说？</h2>
+    <script src="https://elfsightcdn.com/platform.js" async></script>
+    <div class="elfsight-app-b89ff392-96ab-432e-a747-9d65b7e0d287" data-elfsight-app-lazy></div>
+    <div class="reviews-more"><a href="https://www.google.com/searchviewer/10?output=search&svid=CAwSKRInCgNwdnESIE9oWXdlREE2TUhoalpHSmlZV1ZrWVRZNVlUSXlPVGN6GAo&hl=en-GB&gl=MY#sv=CAESzQEKuQEStgEKd0FKaVQ0dEpUMVc0VjZKZlR2UkxVOEFucW9vdE8xeXhQcW1aaUxJaTZtOTBkVkVtaGlWYTB2T1dYd3VVS0lMbGJBXzd4ZGtjY2xHR2Jyd1FBcUpSZE9rcTRfMW80LUd2NTB1MTJTN2dodzl3dF96Q0ViMkp0MmdREhdwSzJyYXRYdENZX0E0LUVQc3AtOHdRRRoiQURzcjlmUTdvc04xTEVJbURnd1NyOFU1RWl5T1p3OG1DQRIEODA1MRoBMyoAMAA4AUAAGAAgs52t_gJKAhAB" target="_blank" rel="noopener">查看全部 Google Review →</a></div>
+  </div>
+</section>
 
-<div class="wrap"><section class="cta"><h2>先做 Quick Check。</h2><p>不用先预约，也不用先买任何东西。</p><a class="btn primary" href="/self-check.html">开始保障自检</a></section></div>
+<section class="faq" id="faq">
+  <div class="wrap faq-shell">
+    <div class="faq-head">
+      <div class="faq-label"><h2>FAQ</h2><p>常见问题</p></div>
+      <div class="faq-list">
+        <details class="faq-item"><summary>保障自检需要付费吗？</summary><p>不用，Quick Check 完全免费。</p></details>
+        <details class="faq-item"><summary>我已经有保险了，还需要做吗？</summary><p>Quick Check 可以看看现有保障是否还跟得上。</p></details>
+        <details class="faq-item"><summary>评分是怎么来的？</summary><p>以家庭生活费、剩余贷款和现有保障为基础，按固定规则计算。</p></details>
+        <details class="faq-item"><summary>AI 会影响结果吗？</summary><p>不会。评分先由固定规则完成，AI 只负责把分析结果解释清楚。</p></details>
+        <details class="faq-item"><summary>如果我想进一步了解呢？</summary><p>可以进入 Full Review，由 Dr. Lawrence 进一步强化分析。</p></details>
+      </div>
+    </div>
+  </div>
+</section>
 
-<footer class="footer" id="contact"><div class="wrap footer-in"><div><strong>Dr. Lawrence Liaw</strong>Prudential Malaysia<br>Senior Insurance Consultant<br><br>Level 12, Tower A, Menara Prudential Jaya,<br>99, Jalan Tun Sri Lanang, 75100 Melaka<br><br>HP：<a href="tel:01110700969">011-1070 0969</a><br>Email：<a href="mailto:chuinming811@pruparter.com.my">chuinming811@pruparter.com.my</a><br>By Appointment Only</div><div><strong>Insu Lang</strong><a href="/self-check.html">Quick Check</a><br><a href="#full">Full Review</a><br><a href="/privacy.html">Privacy Notice</a><br><a href="#reviews">Google Reviews</a></div><div><strong>Follow</strong><div class="footer-social" id="footerSocial"></div></div></div></footer>
+<section class="final">
+  <h2>看清楚，再决定。</h2>
+  <p>3–5 分钟完成你的保障自检。</p>
+  <a class="btn primary" href="/self-check.html">Quick Check
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </a>
+</section>
+
+<footer class="footer" id="contact">
+  <div class="wrap footer-grid">
+    <div class="contact">
+      <strong>Dr. Lawrence Liaw</strong>
+      Prudential Malaysia · Senior Insurance Consultant<br>
+      HP：<a href="tel:01110700969">011-1070 0969</a>　
+      Email：<a href="mailto:chuinming811@pruparter.com.my">chuinming811@pruparter.com.my</a><br>
+      By Appointment Only
+    </div>
+    <div>
+      <div class="socials" id="footerSocial"></div>
+      <div class="footer-links"><a href="/privacy.html">Privacy</a><a href="/self-check.html">Quick Check</a></div>
+    </div>
+  </div>
+</footer>
 
 <script>
 const W="601110700969";
-const msg=encodeURIComponent("你好 Dr. Lawrence，我想了解 Insu Lang 的保障检视。");
-for(const id of["waTop"]){const el=document.getElementById(id);el.href=`https://wa.me/${W}?text=${msg}`;el.target="_blank"}
+const msg=encodeURIComponent("你好 Dr. Lawrence，我想了解保障检视。");
+const wa=document.getElementById("waTop");
+wa.href=`https://wa.me/${W}?text=${msg}`;wa.target="_blank";wa.rel="noopener";
 
 const SOCIALS=[
- {name:"Instagram",url:"https://www.instagram.com/dr_lawrenceliaw",cls:"",svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>'},
- {name:"Facebook",url:"https://www.facebook.com/dr.lawrenceliaw",cls:"",svg:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.6h2.6l.4-3H13.5V8.4c0-.87.24-1.46 1.5-1.46h1.6V4.28c-.3-.08-1.2-.18-2.3-.18-2.3 0-3.9 1.4-3.9 4v2.4H7.8v3h2.6V21h3.1z"/></svg>'},
- {name:"TikTok",url:"https://www.tiktok.com/@dr_lawrenceliaw",cls:"",svg:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.5c.8.9 1.9 1.5 3.1 1.6v2.6c-1.3 0-2.6-.4-3.6-1.1v6.1c0 3-2.4 5.4-5.4 5.4S5.3 17 5.3 14s2.4-5.4 5.4-5.4c.3 0 .6 0 .9.1v2.7c-.3-.1-.6-.2-.9-.2-1.5 0-2.7 1.2-2.7 2.7s1.2 2.7 2.7 2.7 2.8-1.1 2.8-2.6V3h2.7c.1.9.5 1.8 1.4 2.5z"/></svg>'},
- {name:"小红书",url:"https://xhslink.com/m/8we03HACL4k",cls:"xhs",svg:'<svg viewBox="0 0 28 28" aria-hidden="true"><rect x="2.5" y="4.5" width="23" height="19" rx="6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M7 10h14M7 14h7M7 18h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="20.5" cy="14" r="2" fill="currentColor"/></svg>'},
- {name:"抖音",url:"https://v.douyin.com/SiCuXeYRX6w/",cls:"douyin",svg:'<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.8 3.2h2.6c.2 1.4 1 2.6 2.1 3.4.7.5 1.5.8 2.3.9v2.7c-1.6-.1-3.1-.6-4.4-1.6v6.1a5.5 5.5 0 1 1-5.5-5.5c.4 0 .8 0 1.2.1v2.8a2.8 2.8 0 1 0 1.7 2.6V3.2z"/></svg>'}
+ {name:"Instagram",url:"https://www.instagram.com/dr_lawrenceliaw",svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.05" fill="currentColor" stroke="none"/></svg>'},
+ {name:"Facebook",url:"https://www.facebook.com/dr.lawrenceliaw",svg:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.6 21v-7.3h2.5l.4-2.9h-2.9V8.9c0-.9.3-1.5 1.5-1.5h1.6V4.8c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.1H8v2.9h2.5V21h3.1Z"/></svg>'},
+ {name:"TikTok",url:"https://www.tiktok.com/@dr_lawrenceliaw",svg:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.7 3.3h2.4c.2 1.3.9 2.4 2 3.2.6.5 1.3.7 2 .8v2.5c-1.5-.1-2.9-.6-4-1.5v5.8a5.1 5.1 0 1 1-5.1-5.1c.4 0 .8 0 1.1.1v2.6a2.6 2.6 0 1 0 1.6 2.4V3.3Z"/></svg>'},
+ {name:"小红书",url:"https://xhslink.com/m/8we03HACL4k",svg:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><text x="12" y="14.7" text-anchor="middle" font-size="6.2" font-weight="800" fill="currentColor" font-family="Arial, sans-serif">XHS</text></svg>'},
+ {name:"抖音",url:"https://v.douyin.com/SiCuXeYRX6w/",svg:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.7 3.3h2.4c.2 1.3.9 2.4 2 3.2.6.5 1.3.7 2 .8v2.5c-1.5-.1-2.9-.6-4-1.5v5.8a5.1 5.1 0 1 1-5.1-5.1c.4 0 .8 0 1.1.1v2.6a2.6 2.6 0 1 0 1.6 2.4V3.3Z"/></svg>'}
 ];
-function socialHTML(){return SOCIALS.map(s=>`<a class="social-icon ${s.cls}" href="${s.url}" target="_blank" rel="noopener" title="${s.name}" aria-label="${s.name}">${s.svg}</a>`).join("")}
-document.getElementById("socialRow").innerHTML=socialHTML();
+function socialHTML(){return SOCIALS.map(s=>`<a class="social-icon" href="${s.url}" target="_blank" rel="noopener" title="${s.name}" aria-label="${s.name}">${s.svg}</a>`).join("")}
 document.getElementById("footerSocial").innerHTML=socialHTML();
+
 if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}));}
 </script>
-</body></html>
+</body>
+</html>
