@@ -9,14 +9,14 @@
 <meta name="description" content="Insu Lang Quick Check：以家庭生活费、贷款及现有保障，初步看清保障Gap。">
 <style>
 :root{
-  --navy:#112c54;
-  --blue:#1769e0;
-  --blue2:#0f55bd;
+  --navy:#132d56;
+  --blue:#1b6fe8;
+  --blue2:#0f59c5;
   --sky:#eaf7fb;
   --soft:#f7fafc;
-  --ink:#142033;
-  --muted:#687589;
-  --line:#e3eaf1;
+  --ink:#152136;
+  --muted:#68778b;
+  --line:#e3ebf2;
   --white:#fff;
 }
 *{box-sizing:border-box}
@@ -30,157 +30,168 @@ body{
 }
 a{color:inherit}
 .wrap{max-width:1180px;margin:auto;padding:0 28px}
+.grid-shell{max-width:1040px;margin:0 auto}
 
 /* NAV */
 .top{
-  position:sticky;top:0;z-index:30;
+  position:sticky;top:0;z-index:40;
   background:rgba(255,255,255,.94);
   backdrop-filter:blur(14px);
-  border-bottom:1px solid rgba(227,234,241,.92);
+  border-bottom:1px solid rgba(227,235,242,.95);
 }
 .topin{
   max-width:1180px;margin:auto;padding:10px 28px;
-  display:flex;align-items:center;justify-content:space-between;gap:28px;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
 }
-.nav-logo img{width:118px;height:auto;display:block}
-.nav{display:flex;align-items:center;gap:26px;font-size:13px;font-weight:720;color:#4a5870}
+.nav-logo img{width:126px;height:auto;display:block}
+.nav{display:flex;align-items:center;gap:26px;font-size:13px;font-weight:740;color:#4e5d74}
 .nav a{text-decoration:none}
 .nav a:hover{color:var(--blue)}
 .wa{
   width:38px;height:38px;border-radius:50%;
   display:grid;place-items:center;text-decoration:none;
-  color:#fff;background:#18b862;
+  color:#fff;background:#1cb95f;box-shadow:0 6px 18px rgba(28,185,95,.18)
 }
 .wa svg{width:19px;height:19px}
 
 /* HERO */
 .hero{
   position:relative;overflow:hidden;
-  background:linear-gradient(125deg,#fff 0%,#fff 44%,#effaff 100%);
-}
-.hero:after{
-  content:"";position:absolute;right:-90px;bottom:-190px;
-  width:520px;height:520px;border-radius:50%;background:#eaf7fb;z-index:0;
+  background:linear-gradient(160deg,#fff 0%,#fff 44%,#eef9fd 100%);
 }
 .hero-grid{
-  position:relative;z-index:1;
-  max-width:1180px;margin:auto;padding:58px 28px 52px;
-  display:grid;grid-template-columns:1.02fr .98fr;align-items:center;gap:58px;
-  min-height:590px;
+  max-width:1180px;margin:auto;padding:48px 28px 50px;
+  display:grid;grid-template-columns:.98fr 1.02fr;align-items:center;gap:52px;
 }
 .kicker{
-  font-size:12px;letter-spacing:2.5px;
-  color:#536884;font-weight:850;margin-bottom:22px;
+  font-size:12px;letter-spacing:2.4px;color:#5d6f87;font-weight:850;margin-bottom:18px;
 }
 .hero h1{
   margin:0;color:var(--navy);
-  font-size:65px;line-height:.99;letter-spacing:-2.8px;font-weight:900;
+  font-size:64px;line-height:.99;letter-spacing:-2.6px;font-weight:900;
 }
-.hero h1 .dot{color:#2d95ff}
+.hero h1 .dot{color:#2f9bff}
 .zh{
-  margin:20px 0 28px;
-  font-size:25px;line-height:1.5;font-weight:720;color:#2c405c;
+  margin:18px 0 24px;font-size:25px;line-height:1.45;
+  font-weight:730;color:#2d405d;
 }
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:10px;
   border:0;border-radius:999px;padding:14px 25px;
   font-weight:850;font-size:14px;text-decoration:none;cursor:pointer;
 }
-.btn.primary{background:var(--blue);color:#fff;box-shadow:0 9px 22px rgba(23,105,224,.16)}
+.btn.primary{background:var(--blue);color:#fff;box-shadow:0 10px 22px rgba(27,111,232,.16)}
 .btn.primary:hover{background:var(--blue2)}
 .btn svg{width:17px;height:17px}
-.trust{
-  margin-top:20px;display:flex;flex-wrap:wrap;gap:8px;
-}
+.trust{margin-top:20px;display:flex;flex-wrap:wrap;gap:9px}
 .trust span{
-  background:#f0f5fa;color:#5d6d81;border-radius:999px;
-  padding:7px 11px;font-size:12px;font-weight:700;
+  display:inline-flex;align-items:center;justify-content:center;
+  background:#f1f5fa;color:#5e6f84;border-radius:999px;
+  padding:7px 12px;font-size:12px;font-weight:760;
 }
-.hero-art{
-  display:flex;align-items:center;justify-content:center;min-width:0;
+.hero-scene{
+  position:relative;min-height:560px;border-radius:34px;overflow:hidden;
+  background:linear-gradient(180deg,#eefafd 0%,#e2f5fa 100%);
+  border:1px solid #e2eef5;
 }
-.hero-art img{
-  width:min(100%,520px);height:auto;display:block;
+.hero-scene:before{
+  content:"";position:absolute;inset:auto 0 0 0;height:56%;
+  background:linear-gradient(180deg,rgba(255,255,255,0) 0%,rgba(234,247,251,.35) 30%,rgba(234,247,251,.75) 100%);
+}
+.skyline{
+  position:absolute;left:0;right:0;bottom:80px;width:100%;height:210px;
+  opacity:.78;
+}
+.hero-figure{
+  position:absolute;right:40px;bottom:-12px;width:min(46%,310px);height:auto;z-index:3;
+  filter:drop-shadow(0 16px 28px rgba(15,50,86,.12));
+}
+.scene-logo{
+  position:absolute;left:28px;top:28px;width:min(36%,168px);height:auto;z-index:2;opacity:.98
+}
+.scene-note{
+  position:absolute;left:28px;bottom:24px;z-index:3;
+  font-size:12px;font-weight:760;color:#58708d;background:rgba(255,255,255,.72);
+  border:1px solid rgba(218,231,242,.9);backdrop-filter:blur(7px);
+  padding:9px 12px;border-radius:999px;
 }
 
-/* VALUE STRIP */
-.value{padding:22px 0 16px}
+/* VALUE */
+.value{padding:22px 0 10px}
 .value-grid{
   display:grid;grid-template-columns:repeat(3,1fr);
   border-top:1px solid var(--line);border-bottom:1px solid var(--line);
 }
 .value-item{
-  padding:28px 26px;display:grid;grid-template-columns:48px 1fr;gap:15px;align-items:start;
+  padding:28px 24px;display:grid;grid-template-columns:46px 1fr;gap:14px;align-items:start;
 }
 .value-item+.value-item{border-left:1px solid var(--line)}
 .icon{
-  width:45px;height:45px;border-radius:50%;background:#eef7ff;
-  display:grid;place-items:center;color:var(--blue)
+  width:44px;height:44px;border-radius:50%;background:#eef7ff;
+  display:grid;place-items:center;color:var(--blue);
 }
-.icon svg{width:22px;height:22px}
+.icon svg{width:21px;height:21px}
 .value-item h3{margin:1px 0 6px;font-size:17px;color:var(--navy)}
 .value-item p{margin:0;color:var(--muted);font-size:13px;line-height:1.6}
 
 /* FLOW */
-.how{padding:34px 0 48px}
+.how{padding:26px 0 42px}
 .flow{
-  display:grid;grid-template-columns:1fr 1fr 1fr;
-  gap:0;max-width:980px;margin:auto;
+  display:grid;grid-template-columns:repeat(3,1fr);
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
 }
-.step{
-  position:relative;padding:18px 30px 18px 76px;min-height:86px;
+.flow-step{
+  position:relative;padding:24px 24px 24px 76px;min-height:102px;background:#fff;
 }
-.step:not(:last-child):after{
-  content:"";position:absolute;right:-1px;top:50%;
-  width:1px;height:42px;background:var(--line);transform:translateY(-50%);
+.flow-step+.flow-step{border-left:1px solid var(--line)}
+.flow-step:not(:last-child):after{
+  content:"→";position:absolute;right:18px;top:22px;color:#a5b7ca;font-size:18px;font-weight:400;
 }
-.num{
-  position:absolute;left:20px;top:18px;width:42px;height:42px;border-radius:50%;
-  background:#e9f6ff;color:var(--navy);display:grid;place-items:center;font-weight:900;
+.flow-num{
+  position:absolute;left:22px;top:22px;width:42px;height:42px;border-radius:50%;
+  background:#e8f5ff;color:var(--navy);display:grid;place-items:center;font-weight:900;
 }
-.step h3{margin:0 0 6px;color:var(--navy);font-size:16px}
-.step p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
+.flow-step h3{margin:0 0 6px;color:var(--navy);font-size:16px}
+.flow-step p{margin:0;color:var(--muted);font-size:13px;line-height:1.55}
 
 /* STATEMENT */
 .statement{
-  margin:0 auto;background:linear-gradient(180deg,#f6fcff,#eaf7fb);
-  text-align:center;padding:38px 22px;
+  margin:6px auto 0;background:linear-gradient(180deg,#f6fcff,#eaf7fb);
+  text-align:center;padding:40px 24px;border-radius:26px;
 }
 .statement h2{margin:0 0 8px;color:var(--navy);font-size:31px;letter-spacing:-.6px}
-.statement p{margin:0;color:#66768b;font-size:14px}
+.statement p{margin:0;color:#68798e;font-size:14px}
 
-/* REVIEWS + FAQ */
-.info{padding:52px 0 42px}
-.info-grid{
-  display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:start;
+/* INFO */
+.info{padding:50px 0 42px}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:stretch}
+.panel{
+  border:1px solid var(--line);border-radius:22px;background:#fff;
+  padding:22px 22px 20px;display:flex;flex-direction:column;min-height:430px;
 }
-.block-title{
-  display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:18px
+.panel-head{
+  text-align:center;margin-bottom:18px;min-height:58px;display:flex;flex-direction:column;justify-content:center;
 }
-.block-title h2{margin:0;color:var(--navy);font-size:26px}
-.block-title a{font-size:12px;color:var(--blue);text-decoration:none}
-.review-panel{
-  border:1px solid var(--line);border-radius:18px;padding:18px;background:#fff;min-height:250px;
-}
-.faq-list{border-top:1px solid var(--line)}
+.panel-head h2{margin:0;color:var(--navy);font-size:27px}
+.panel-head a{margin-top:8px;font-size:12px;color:var(--blue);text-decoration:none}
+.review-body{flex:1;min-height:280px}
+.faq-list{border-top:1px solid var(--line);margin-top:4px}
 .faq-item{border-bottom:1px solid var(--line)}
 .faq-item summary{
   list-style:none;cursor:pointer;padding:16px 0;
   display:flex;justify-content:space-between;gap:16px;align-items:center;
-  font-size:14px;font-weight:780;color:#2a3d58;
+  font-size:14px;font-weight:780;color:#2b3e59;
 }
 .faq-item summary::-webkit-details-marker{display:none}
 .faq-item summary:after{content:"+";font-size:20px;color:var(--blue);font-weight:500}
 .faq-item[open] summary:after{content:"−"}
 .faq-item p{
-  margin:-3px 0 17px;padding-right:26px;
-  color:var(--muted);font-size:13px;line-height:1.7;
+  margin:-3px 0 16px;padding-right:26px;color:var(--muted);font-size:13px;line-height:1.72;
 }
 
 /* FINAL */
 .final{
-  background:#f5fbfe;text-align:center;padding:42px 20px;
-  border-top:1px solid #edf3f6;
+  background:#f5fbfe;text-align:center;padding:42px 20px;border-top:1px solid #edf3f6;
 }
 .final h2{margin:0 0 8px;color:var(--navy);font-size:31px}
 .final p{margin:0 0 20px;color:var(--muted);font-size:14px}
@@ -195,43 +206,122 @@ a{color:inherit}
 .contact a{text-decoration:none}
 .socials{display:flex;justify-content:flex-end;gap:9px;margin-bottom:13px}
 .social{
-  width:34px;height:34px;border:1px solid var(--line);border-radius:50%;
-  display:grid;place-items:center;color:var(--navy);text-decoration:none;
+  width:36px;height:36px;border:1px solid var(--line);border-radius:50%;
+  display:grid;place-items:center;color:var(--navy);text-decoration:none;background:#fff;
 }
-.social svg{width:17px;height:17px}
+.social svg{width:18px;height:18px}
 .footer-links{text-align:right;font-size:12px;color:var(--muted)}
 .footer-links a{text-decoration:none;margin-left:16px}
 
-@media(max-width:880px){
-  .hero-grid{grid-template-columns:1fr;gap:22px;text-align:center;padding-top:42px}
-  .hero-copy{order:1}.hero-art{order:2}
-  .hero h1{font-size:53px}.zh{font-size:22px}
+@media(max-width:920px){
+  .hero-grid{grid-template-columns:1fr;gap:22px;text-align:center}
+  .hero h1{font-size:52px}.zh{font-size:22px}
   .trust{justify-content:center}
-  .hero-art img{width:min(80%,470px)}
-  .value-grid,.flow{grid-template-columns:1fr}
-  .value-item+.value-item{border-left:0;border-top:1px solid var(--line)}
-  .step{max-width:520px;width:100%;margin:auto}
-  .step:not(:last-child):after{display:none}
-  .info-grid,.footer-grid{grid-template-columns:1fr}
-  .socials{justify-content:flex-start}.footer-links{text-align:left}
+  .hero-scene{min-height:500px;max-width:520px;margin:0 auto}
+  .scene-logo{left:50%;transform:translateX(-50%)}
+  .hero-figure{left:50%;right:auto;transform:translateX(-50%);width:min(48%,290px)}
+  .scene-note{left:50%;transform:translateX(-50%)}
+  .value-grid,.flow,.info-grid,.footer-grid{grid-template-columns:1fr}
+  .value-item+.value-item,.flow-step+.flow-step{border-left:0;border-top:1px solid var(--line)}
+  .flow-step:not(:last-child):after{right:18px;top:22px}
+  .panel{min-height:0}
+  .socials,.footer-links{text-align:left;justify-content:flex-start}
 }
 @media(max-width:620px){
   .wrap{padding:0 16px}
   .topin{padding:9px 14px}
-  .nav-logo img{width:105px}
+  .nav-logo img{width:110px}
   .nav{gap:14px}.nav a:nth-child(2),.nav a:nth-child(4){display:none}
-  .hero-grid{padding:34px 16px 38px;min-height:auto}
+  .hero-grid{padding:34px 16px 38px}
   .hero h1{font-size:44px;letter-spacing:-1.8px}
-  .zh{font-size:19px;margin:16px 0 22px}
-  .kicker{font-size:10px;letter-spacing:1.8px;margin-bottom:17px}
-  .hero-art img{width:min(92%,410px)}
-  .value{padding-top:8px}
-  .value-item{padding:23px 18px}
-  .statement h2{font-size:26px}
-  .info{padding:42px 0 34px}.info-grid{gap:36px}
-  .block-title h2{font-size:23px}
-  .final h2{font-size:27px}
+  .zh{font-size:19px;margin:16px 0 20px}
+  .kicker{font-size:10px;letter-spacing:1.8px}
+  .hero-scene{min-height:430px;border-radius:26px}
+  .scene-logo{width:150px;top:22px}
+  .hero-figure{width:min(52%,250px)}
+  .skyline{height:174px;bottom:70px}
+  .value-item,.flow-step{padding-left:18px;padding-right:18px}
+  .flow-step{padding-top:66px;min-height:0}
+  .flow-num{left:18px;top:16px}
+  .flow-step:not(:last-child):after{display:none}
+  .statement{padding:34px 18px}
+  .statement h2,.final h2{font-size:27px}
+  .panel-head h2{font-size:24px}
 }
+
+/* FINAL HOMEPAGE REFINEMENTS */
+.hero-words{
+  margin-top:16px;
+  color:#60728a;
+  font-size:12px;
+  font-weight:720;
+  letter-spacing:.15px;
+}
+.hero-words span{padding:0 7px;color:#9caabc}
+.scene-note{
+  left:auto !important;
+  right:28px !important;
+  bottom:28px !important;
+  transform:none !important;
+  background:transparent !important;
+  border:0 !important;
+  backdrop-filter:none !important;
+  padding:0 !important;
+  color:#2868bd !important;
+  font-family:"Segoe Print","Bradley Hand","Comic Sans MS",cursive !important;
+  font-size:22px !important;
+  line-height:1.1 !important;
+  font-weight:600 !important;
+  font-style:italic !important;
+  transform:rotate(-6deg) !important;
+}
+.value-grid,.flow{
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+}
+.value-item,.flow-step{
+  min-width:0;
+}
+.value-item{
+  min-height:122px;
+}
+.flow-step{
+  min-height:104px;
+}
+.value-item h3,.flow-step h3{
+  white-space:nowrap;
+}
+.social{
+  color:#111 !important;
+}
+@media(max-width:920px){
+  .scene-note{
+    right:22px !important;
+    bottom:22px !important;
+    font-size:19px !important;
+  }
+}
+@media(max-width:620px){
+  .hero-words{
+    font-size:11px;
+    line-height:1.7;
+  }
+  .hero-words span{padding:0 4px}
+  .scene-note{
+    right:18px !important;
+    bottom:18px !important;
+    font-size:17px !important;
+  }
+  .value-grid,.flow{
+    grid-template-columns:1fr !important;
+  }
+  .value-item,.flow-step{
+    min-height:0;
+  }
+  .value-item h3,.flow-step h3{
+    white-space:normal;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -247,7 +337,9 @@ a{color:inherit}
       <a href="#faq">FAQ</a>
       <a href="#contact">Contact</a>
       <a class="wa" id="waTop" href="#" aria-label="WhatsApp Dr. Lawrence">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.009-.371-.011-.57-.011-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479s1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.693.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.981.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.89-9.884a9.82 9.82 0 0 1 7.021 2.91 9.82 9.82 0 0 1 2.9 7.019c-.002 5.45-4.437 9.884-9.884 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.14 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M20.5 11.7a8.5 8.5 0 0 1-12.7 7.4L3 20.5l1.4-4.6A8.5 8.5 0 1 1 20.5 11.7Zm-8.4-6.3A6.8 6.8 0 0 0 6.3 15.8l.2.3-.8 2.5 2.6-.8.3.2A6.8 6.8 0 1 0 12.1 5.4Zm3.9 8.6c-.2-.1-1.2-.6-1.4-.7-.2-.1-.3-.1-.4.1l-.6.7c-.1.1-.2.2-.4.1-.2-.1-.8-.3-1.5-.9-.6-.5-.9-1.1-1.1-1.3-.1-.2 0-.2.1-.3l.3-.4c.1-.1.1-.2.2-.3.1-.1 0-.2 0-.3l-.6-1.3c-.1-.2-.2-.2-.4-.2h-.3c-.1 0-.3.1-.5.3-.2.2-.6.6-.6 1.4s.6 1.7.7 1.8c.1.1 1.2 2 3 2.7.4.2.8.3 1.1.3.5.1.9.1 1.2.1.4-.1 1.2-.5 1.4-1 .2-.5.2-1 .1-1.1-.1-.1-.2-.1-.4-.2Z"/>
+        </svg>
       </a>
     </nav>
   </div>
@@ -258,7 +350,7 @@ a{color:inherit}
     <div class="hero-copy">
       <div class="kicker">PhD × Insurance × Technology</div>
       <h1>Protection,<br>made clearer<span class="dot">.</span></h1>
-      <p class="zh">用数据，看清你的保障Gap。</p>
+      <p class="zh">用数据，看懂你的保障。</p>
       <a class="btn primary" href="/self-check.html">Quick Check
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
@@ -267,62 +359,116 @@ a{color:inherit}
         <span>纯属分析Gap</span>
         <span>不构成投保建议</span>
       </div>
+      <div class="hero-words">Better Insight <span>·</span> Better Decision <span>·</span> Stronger Protection</div>
     </div>
-    <div class="hero-art">
-      <img src="/images/insu-lang-hero.png" alt="Insu Lang">
+
+    <div class="hero-scene">
+      <img class="scene-logo" src="/images/insu-lang-logo-small.png" alt="Insu Lang">
+      <svg class="skyline" viewBox="0 0 760 230" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M0 206H760" stroke="#BBD7E5" stroke-width="2"/>
+        <path d="M18 206V170H48V206M59 206V150H86V206M94 206V186H120V206M136 206V126H175V206M188 206V175H210V206M224 206V161H256V206M266 206V118H308V206M322 206V176H346V206M358 206V146H392V206M406 206V98H440V206M451 206V162H476V206M488 206V135H520V206M531 206V169H553V206M564 206V72H604V206M614 206V145H646V206M657 206V185H684V206M694 206V157H725V206" stroke="#8AB8CF" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M584 72V32L592 14L600 32V72" stroke="#6CA6C1" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M591.5 16V6" stroke="#6CA6C1" stroke-width="2" stroke-linecap="round"/>
+        <path d="M564 72H604" stroke="#6CA6C1" stroke-width="2"/>
+        <path d="M406 98H440M266 118H308M136 126H175" stroke="#A8CCDC" stroke-width="2"/>
+      </svg>
+      <img class="hero-figure" src="/images/insu-lang-hero.png" alt="Insu Lang character artwork">
+      <div class="scene-note">Brighter Tomorrow</div>
     </div>
   </div>
 </section>
 
 <section class="value">
-  <div class="wrap">
+  <div class="wrap grid-shell">
     <div class="value-grid">
       <div class="value-item">
-        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M5 19V10M12 19V5M19 19v-7"/></svg></div>
-        <div><h3>保障Gap</h3><p>用数据看出目前的保障缺口。</p></div>
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
+            <path d="M4 5h16v14H4z"/>
+            <path d="M8 9h8M8 13h5"/>
+          </svg>
+        </div>
+        <div>
+          <h3>Structured Analysis</h3>
+          <p>以家庭生活费、剩余贷款与现有保障为基础，找出保障Gap。</p>
+        </div>
       </div>
+
       <div class="value-item">
-        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 4a3 3 0 0 0-3 3v1a3 3 0 0 0-2 3c0 1 .5 2 1.4 2.5A3.5 3.5 0 0 0 9 19h1V4H9Z"/><path d="M15 4a3 3 0 0 1 3 3v1a3 3 0 0 1 2 3c0 1-.5 2-1.4 2.5A3.5 3.5 0 0 1 15 19h-1V4h1Z"/></svg></div>
-        <div><h3>AI Explanation</h3><p>AI 负责解释已经算出的保障评分。</p></div>
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M9 4a3 3 0 0 0-3 3v1a3 3 0 0 0-2 3c0 1 .5 2 1.4 2.5A3.5 3.5 0 0 0 9 19h1V4H9Z"/>
+            <path d="M15 4a3 3 0 0 1 3 3v1a3 3 0 0 1 2 3c0 1-.5 2-1.4 2.5A3.5 3.5 0 0 1 15 19h-1V4h1Z"/>
+          </svg>
+        </div>
+        <div>
+          <h3>AI Explanation</h3>
+          <p>AI 负责解释已经算出的保障评分。</p>
+        </div>
       </div>
+
       <div class="value-item">
-        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h10l4 4v12H5z"/><path d="M15 4v5h5M8 13h8M8 17h6"/></svg></div>
-        <div><h3>Full Review</h3><p>进一步分析整体规划。</p></div>
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="5" y="10" width="14" height="10" rx="2"/>
+            <path d="M8 10V7a4 4 0 0 1 8 0v3"/>
+          </svg>
+        </div>
+        <div>
+          <h3>Privacy First</h3>
+          <p>资料只用于完成本次分析，个人联络方式不会交由 AI 处理。</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <section class="how">
-  <div class="wrap">
+  <div class="wrap grid-shell">
     <div class="flow">
-      <div class="step"><div class="num">01</div><h3>Quick Check</h3><p>回答 13 个核心问题</p></div>
-      <div class="step"><div class="num">02</div><h3>AI Explanation</h3><p>看懂评分与保障Gap</p></div>
-      <div class="step"><div class="num">03</div><h3>Full Review</h3><p>进一步分析整体规划</p></div>
+      <div class="flow-step">
+        <div class="flow-num">01</div>
+        <h3>Quick Check</h3>
+        <p>3–5 分钟完成基本分析</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">02</div>
+        <h3>AI Explanation</h3>
+        <p>看懂评分与保障Gap</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">03</div>
+        <h3>Full Review</h3>
+        <p>进一步分析整体规划</p>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="statement">
-  <h2>有保险，不代表保障一定够。</h2>
-  <p>随着人生阶段与责任的变化，现有保障也需要重新看看。</p>
+<section class="wrap">
+  <div class="statement">
+    <h2>有保险，不代表保障一定够。</h2>
+    <p>随着人生阶段与责任的变化，现有保障也需要重新看看。</p>
+  </div>
 </section>
 
 <section class="info">
   <div class="wrap info-grid">
-    <div id="reviews">
-      <div class="block-title">
+    <div class="panel" id="reviews">
+      <div class="panel-head">
         <h2>客户怎么说？</h2>
         <a href="https://www.google.com/searchviewer/10?output=search&svid=CAwSKRInCgNwdnESIE9oWXdlREE2TUhoalpHSmlZV1ZrWVRZNVlUSXlPVGN6GAo&hl=en-GB&gl=MY" target="_blank" rel="noopener">查看更多评价 →</a>
       </div>
-      <div class="review-panel">
+      <div class="review-body">
         <script src="https://elfsightcdn.com/platform.js" async></script>
         <div class="elfsight-app-b89ff392-96ab-432e-a747-9d65b7e0d287" data-elfsight-app-lazy></div>
       </div>
     </div>
 
-    <div id="faq">
-      <div class="block-title"><h2>常见问题</h2></div>
+    <div class="panel" id="faq">
+      <div class="panel-head">
+        <h2>常见问题</h2>
+      </div>
       <div class="faq-list">
         <details class="faq-item"><summary>保障自检需要付费吗？</summary><p>不用，Quick Check 完全免费。</p></details>
         <details class="faq-item"><summary>我已经有保险了，还需要做吗？</summary><p>Quick Check 可以看看现有保障是否还跟得上。</p></details>
@@ -336,7 +482,7 @@ a{color:inherit}
 
 <section class="final">
   <h2>看清楚，再决定。</h2>
-  <p>3–5 分钟完成你的保障自检。</p>
+  <p>3–5 分钟完成检测。</p>
   <a class="btn primary" href="/self-check.html">Quick Check
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
   </a>
@@ -349,7 +495,7 @@ a{color:inherit}
       Prudential Malaysia · Senior Insurance Consultant<br>
       Level 12, Tower A, Menara Prudential Jaya,<br>
       99, Jalan Tun Sri Lanang, 75100 Melaka<br>
-      HP：<a href="tel:01110700969">011-1070 0969</a>　
+      HP：<a href="tel:01110700969">011-1070 0969</a><br>
       Email：<a href="mailto:chuinming811@pruparter.com.my">chuinming811@pruparter.com.my</a><br>
       By Appointment Only
     </div>
@@ -364,18 +510,21 @@ a{color:inherit}
 const W="601110700969";
 const msg=encodeURIComponent("你好 Dr. Lawrence，我想了解保障检视。");
 const wa=document.getElementById("waTop");
-wa.href=`https://wa.me/${W}?text=${msg}`;wa.target="_blank";wa.rel="noopener";
+wa.href=`https://wa.me/${W}?text=${msg}`;
+wa.target="_blank"; wa.rel="noopener";
 
 const SOCIALS=[
  {name:"Instagram",url:"https://www.instagram.com/dr_lawrenceliaw",svg:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.05" fill="currentColor" stroke="none"/></svg>'},
  {name:"Facebook",url:"https://www.facebook.com/dr.lawrenceliaw",svg:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.6 21v-7.3h2.5l.4-2.9h-2.9V8.9c0-.9.3-1.5 1.5-1.5h1.6V4.8c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.1H8v2.9h2.5V21h3.1Z"/></svg>'},
  {name:"TikTok",url:"https://www.tiktok.com/@dr_lawrenceliaw",svg:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.7 3.3h2.4c.2 1.3.9 2.4 2 3.2.6.5 1.3.7 2 .8v2.5c-1.5-.1-2.9-.6-4-1.5v5.8a5.1 5.1 0 1 1-5.1-5.1c.4 0 .8 0 1.1.1v2.6a2.6 2.6 0 1 0 1.6 2.4V3.3Z"/></svg>'},
- {name:"小红书",url:"https://xhslink.com/m/8we03HACL4k",svg:'<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><text x="12" y="14.6" text-anchor="middle" font-size="6" font-weight="800" fill="currentColor">XHS</text></svg>'},
+ {name:"小红书",url:"https://xhslink.com/m/8we03HACL4k",svg:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M7 9h10M7 12h10M7 15h7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>'}
  {name:"抖音",url:"https://v.douyin.com/SiCuXeYRX6w/",svg:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.7 3.3h2.4c.2 1.3.9 2.4 2 3.2.6.5 1.3.7 2 .8v2.5c-1.5-.1-2.9-.6-4-1.5v5.8a5.1 5.1 0 1 1-5.1-5.1c.4 0 .8 0 1.1.1v2.6a2.6 2.6 0 1 0 1.6 2.4V3.3Z"/></svg>'}
 ];
 document.getElementById("footerSocial").innerHTML=SOCIALS.map(s=>`<a class="social" href="${s.url}" target="_blank" rel="noopener" title="${s.name}" aria-label="${s.name}">${s.svg}</a>`).join("");
 
-if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}));}
+if("serviceWorker" in navigator){
+  window.addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}));
+}
 </script>
 </body>
 </html>
