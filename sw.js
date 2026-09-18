@@ -1,4 +1,4 @@
-const CACHE_NAME = "insu-lang-quick-check-v8";
+const CACHE_NAME = "insu-lang-quick-check-v9";
 const CORE_ASSETS = [
   "/manifest.json",
   "/icons/icon-192.png",
