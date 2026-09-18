@@ -58,12 +58,22 @@ a{color:inherit}
 .hero{
   position:relative;
   overflow:hidden;
-  background:linear-gradient(110deg,#dff5fb 0%,#eefbfe 48%,#dff4fb 100%);
+  background:
+    linear-gradient(
+      90deg,
+      rgba(225,246,252,.96) 0%,
+      rgba(225,246,252,.92) 28%,
+      rgba(225,246,252,.70) 44%,
+      rgba(225,246,252,.28) 62%,
+      rgba(225,246,252,.08) 100%
+    ),
+    url("/images/kl-city-view-blue.png") center center / cover no-repeat;
 }
 .hero-grid{
   position:relative;
-  max-width:1120px;margin:auto;
-  padding:54px 24px 32px;
+  max-width:1120px;
+  margin:auto;
+  padding:54px 24px 34px;
   min-height:500px;
   display:grid;
   grid-template-columns:1.02fr .98fr;
@@ -71,35 +81,64 @@ a{color:inherit}
   align-items:center;
   z-index:2;
 }
-.hero-copy{position:relative;z-index:4;max-width:520px;padding-top:10px}
+.hero-copy{
+  position:relative;
+  z-index:4;
+  max-width:520px;
+  padding-top:8px;
+}
 .kicker{
-  font-size:12px;letter-spacing:2.3px;
-  color:#45617e;font-weight:850;margin-bottom:18px;
+  font-size:12px;
+  letter-spacing:2.3px;
+  color:#45617e;
+  font-weight:850;
+  margin-bottom:18px;
 }
 .hero h1{
-  font-size:58px;line-height:1.01;letter-spacing:-2.2px;
-  margin:0 0 14px;color:var(--navy);font-weight:900;
+  font-size:58px;
+  line-height:1.01;
+  letter-spacing:-2.2px;
+  margin:0 0 14px;
+  color:var(--navy);
+  font-weight:900;
 }
 .hero .zh{
-  font-size:25px;font-weight:720;margin:0 0 18px;color:#29405f;
+  font-size:25px;
+  font-weight:720;
+  margin:0 0 24px;
+  color:#29405f;
 }
-.hero-meta{margin:0 0 22px;color:#2b3f59}
-.hero-meta strong{display:block;font-size:18px;line-height:1.25;color:#1a2f4d;margin-bottom:2px}
-.hero-meta span{display:block;font-size:14px;color:#6b7c90;font-weight:560}
 .btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:9px;
-  border:0;border-radius:999px;padding:14px 25px;
-  font-weight:850;text-decoration:none;cursor:pointer;font-size:14px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  border:0;
+  border-radius:999px;
+  padding:14px 25px;
+  font-weight:850;
+  text-decoration:none;
+  cursor:pointer;
+  font-size:14px;
 }
-.btn.primary{background:var(--blue);color:#fff;box-shadow:0 8px 20px rgba(23,105,224,.15)}
+.btn.primary{
+  background:var(--blue);
+  color:#fff;
+  box-shadow:0 8px 20px rgba(23,105,224,.15);
+}
 .btn.primary:hover{background:var(--blue2)}
 .btn svg{width:16px;height:16px}
 .hero-words{
-  margin-top:21px;color:#59708a;font-size:12px;font-weight:760;
+  margin-top:21px;
+  color:#59708a;
+  font-size:12px;
+  font-weight:760;
   letter-spacing:.05px;
 }
-.hero-words span{padding:0 8px;color:#9aa9b9}
-
+.hero-words span{
+  padding:0 8px;
+  color:#9aa9b9;
+}
 .hero-art{
   position:relative;
   min-height:440px;
@@ -107,39 +146,25 @@ a{color:inherit}
 }
 .hero-art img{
   position:absolute;
-  right:92px;
+  right:58px;
   bottom:-8px;
-  width:248px;
+  width:330px;
   height:auto;
   z-index:4;
-  filter:drop-shadow(0 18px 24px rgba(17,45,86,.12));
+  filter:drop-shadow(0 16px 22px rgba(17,45,86,.13));
 }
 .brighter{
   position:absolute;
   right:6px;
-  top:42px;
+  top:70px;
   z-index:5;
   color:#2f68b5;
   font-family:"Segoe Print","Bradley Hand","Comic Sans MS",cursive;
-  font-size:20px;
+  font-size:22px;
   line-height:1.04;
   font-style:italic;
-  transform:rotate(-8deg);
+  transform:rotate(-7deg);
   text-align:left;
-}
-.skyline{
-  position:absolute;
-  left:-8%;
-  right:-8%;
-  bottom:6px;
-  width:114%;
-  height:235px;
-  z-index:1;
-  opacity:.78;
-}
-.haze{
-  position:absolute;inset:auto 0 0 0;height:220px;z-index:1;
-  background:linear-gradient(180deg,rgba(255,255,255,0),rgba(222,245,251,.84));
 }
 
 /* 3 VALUE POINTS */
@@ -283,7 +308,6 @@ a{color:inherit}
     text-align:center;
     min-height:auto;
   }
-  .hero-meta strong,.hero-meta span{text-align:center}
   .hero-copy{max-width:640px;margin:0 auto}
   .hero h1{font-size:48px}
   .hero .zh{font-size:21px}
@@ -323,7 +347,7 @@ a{color:inherit}
   .kicker{font-size:10px;letter-spacing:1.7px}
   .hero-art{min-height:365px}
   .hero-art img{width:205px;bottom:-6px}
-  .brighter{right:3%;top:16px;font-size:15px}
+  .brighter{right:5%;top:18px;font-size:15px}
   .skyline{height:205px}
   .principles,.how,.info{padding:48px 0}
   .principle{padding:25px 22px;min-height:0}
@@ -362,8 +386,6 @@ a{color:inherit}
       <h1>Protection,<br>made clearer.</h1>
       <p class="zh">用数据，看懂你的保障。</p>
 
-      <div class="hero-meta"><strong>Dr. Lawrence Liaw</strong><span>Senior Insurance Consultant</span></div>
-
       <a class="btn primary" href="/self-check.html">
         Quick Check
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
@@ -377,20 +399,8 @@ a{color:inherit}
     </div>
 
     <div class="hero-art">
-      <div class="brighter">Clearer<br>Protection<br>Brighter<br>Tomorrow</div>
-
-      <svg class="skyline" viewBox="0 0 900 300" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M0 278H900" stroke="#B7D5E4" stroke-width="2"/>
-        <path d="M20 278V231H56V278M66 278V211H103V278M114 278V246H144V278M154 278V182H194V278M207 278V231H233V278M246 278V204H282V278M295 278V168H342V278M355 278V229H381V278M394 278V197H432V278M447 278V133H489V278M502 278V222H532V278M545 278V183H581V278M594 278V223H621V278M636 278V112H681V278M694 278V194H734V278M748 278V239H781V278M794 278V207H833V278M846 278V245H875V278" stroke="#8BB7CD" stroke-width="2.2" stroke-linejoin="round"/>
-        <path d="M636 112V62L648 27L659 62V112" stroke="#679EBB" stroke-width="2.2" stroke-linejoin="round"/>
-        <path d="M647.5 28V12" stroke="#679EBB" stroke-width="2.2" stroke-linecap="round"/>
-        <path d="M636 112H681" stroke="#679EBB" stroke-width="2.2"/>
-        <path d="M447 133H489M295 168H342M154 182H194" stroke="#A3C7D9" stroke-width="2"/>
-        <path d="M410 278V212L420 176L430 212V278M403 212H437" stroke="#A0C4D7" stroke-width="2"/>
-      </svg>
-
-      <div class="haze"></div>
-      <img src="/images/insu-lang-hero.png" alt="Insu Lang">
+      <div class="brighter">Brighter<br>Tomorrow</div>
+      <img src="/images/insu-lang-original-cutout.png" alt="Insu Lang">
     </div>
   </div>
 </section>
