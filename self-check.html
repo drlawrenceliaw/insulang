@@ -8,79 +8,203 @@
 <title>Insu Lang Quick Check</title>
 <style>
 :root{--blue:#1769e0;--blue2:#0f55bd;--ink:#132033;--muted:#667085;--line:#e4e9f0;--bg:#f6f8fb;--white:#fff;--green:#137a45;--yellow:#9a6800;--orange:#b85d00;--red:#bf3434;--grey:#707b8c;--soft:#eef5ff;--dark:#0f2441}
-*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;background:var(--bg);color:var(--ink)}button,input{font:inherit}.hide{display:none!important}.top{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}.topin{max-width:900px;margin:auto;padding:13px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}.back{font-size:13px;color:var(--muted);text-decoration:none}.brand{font-weight:950}.brand span{color:var(--blue)}.stepText{font-size:12px;color:var(--muted)}.progress{height:4px;background:#edf1f6}.progress i{display:block;height:100%;background:var(--blue);width:0;transition:.2s}.wrap{max-width:900px;margin:auto;padding:25px 18px 70px}.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px;box-shadow:0 8px 28px rgba(20,40,70,.05)}.start{padding:38px}.eyebrow{font-size:12px;color:var(--blue);font-weight:900;letter-spacing:1px}.start h1,.question{font-size:34px;line-height:1.18;margin:11px 0 14px}.start p,.hint{color:var(--muted);line-height:1.7}.brand-block{margin-top:25px;border-radius:18px;background:linear-gradient(145deg,#0f2441,#1769e0);color:#fff;padding:22px;display:flex;align-items:center;gap:15px}.brand-mark{width:54px;height:54px;border:1px solid rgba(255,255,255,.35);border-radius:16px;display:grid;place-items:center;font-weight:950}.brand-block small{color:#d7e5f7}.btn{border:0;border-radius:12px;padding:14px 19px;font-weight:850;cursor:pointer}.primary{background:var(--blue);color:#fff}.primary:hover{background:var(--blue2)}.ghost{background:#fff;border:1px solid var(--line);color:var(--ink)}.secondary{background:var(--soft);color:var(--blue)}.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.trust{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}.trust span{background:var(--soft);color:var(--blue);border-radius:999px;padding:7px 10px;font-size:12px;font-weight:750}.options{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:18px}.option{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;text-align:left;cursor:pointer;color:var(--ink);font-weight:760}.option:hover{border-color:#9dbbe8}.option.selected{border:2px solid var(--blue);background:#f3f7ff;padding:15px}.option small{display:block;color:var(--muted);font-weight:500;margin-top:4px}.footer-nav{display:flex;justify-content:space-between;gap:10px;margin-top:24px}.field{margin-top:18px}.field label{display:block;font-size:13px;font-weight:800;margin-bottom:7px}.field input{width:100%;border:1px solid var(--line);border-radius:12px;padding:14px;background:#fff}.unit-wrap{display:flex;align-items:center;border:1px solid var(--line);border-radius:12px;overflow:hidden}.unit-wrap span{padding:0 14px;color:var(--muted);font-weight:800}.unit-wrap input{border:0;border-radius:0;outline:none}.result-head{text-align:center;padding:8px 0 22px}.score{font-size:68px;font-weight:950;color:var(--blue);line-height:1}.score small{font-size:20px;color:var(--muted)}.badge{display:inline-block;border-radius:999px;padding:7px 11px;font-weight:850;font-size:12px}.green{background:#e8f7ef;color:var(--green)}.yellow{background:#fff6d8;color:var(--yellow)}.orange{background:#fff0df;color:var(--orange)}.red{background:#fdeaea;color:var(--red)}.grey{background:#eef1f4;color:var(--grey)}.result-sub{color:var(--muted);font-size:13px;margin-top:10px}.result-section{padding:22px 0;border-top:1px solid var(--line)}.result-section:first-of-type{border-top:0}.result-section h3{margin:0 0 14px;font-size:17px}.compact-section{padding-top:18px;padding-bottom:18px}.risk-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.metric{border:1px solid var(--line);border-radius:15px;padding:17px}.metric-top{display:flex;justify-content:space-between;gap:10px;align-items:center}.metric h4{margin:0;font-size:15px}.metric-score{font-size:26px;font-weight:900;margin:12px 0 7px}.bar{height:7px;background:#edf1f6;border-radius:20px;overflow:hidden}.bar i{display:block;height:100%;background:var(--blue)}.metric p{font-size:12px;color:var(--muted);line-height:1.55;margin:9px 0 0}.keys{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.key{background:#f8fafc;border-radius:12px;padding:13px}.key strong{display:block;font-size:17px}.key span{display:block;font-size:11px;color:var(--muted);margin-top:4px}.cash{display:flex;align-items:center;gap:14px;flex-wrap:wrap}.cash .big{font-size:28px;font-weight:900}.intent-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.intent{border:1px solid var(--line);background:#fff;border-radius:14px;padding:16px;text-align:left;cursor:pointer}.intent:hover{border-color:var(--blue)}.intent b{display:block;margin-bottom:6px}.intent small{color:var(--muted);line-height:1.4}.ai-box{background:#f8fbff;border:1px solid #d8e8fb;border-radius:15px;padding:18px;line-height:1.7}.ai-tag{display:inline-block;background:#eaf2ff;color:var(--blue);font-size:11px;font-weight:900;padding:4px 7px;border-radius:6px;margin-bottom:8px}.full-box{background:var(--dark);color:#fff;border-radius:17px;padding:22px}.full-box p{color:#cbd8e7;line-height:1.6}.small{font-size:11px;color:var(--muted);line-height:1.6}.manual{background:#fff4e7;border:1px solid #f3d3a7;border-radius:13px;padding:13px;color:#885000;font-size:13px;line-height:1.55;margin-top:10px}
-@media(max-width:680px){.wrap{padding:17px 13px 45px}.card{padding:20px;border-radius:16px}.start{padding:26px 20px}.start h1,.question{font-size:27px}.options,.risk-grid,.intent-grid{grid-template-columns:1fr}.keys{grid-template-columns:1fr}.btnrow{justify-content:flex-start}.score{font-size:58px}}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;background:var(--bg);color:var(--ink)}button,input{font:inherit}.hide{display:none!important}.top{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}.topin{max-width:900px;margin:auto;padding:13px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}.back{font-size:13px;color:var(--muted);text-decoration:none}.brand{font-weight:950}.brand span{color:var(--blue)}.stepText{font-size:12px;color:var(--muted)}.progress{height:4px;background:#edf1f6}.progress i{display:block;height:100%;background:var(--blue);width:0;transition:.2s}.wrap{max-width:900px;margin:auto;padding:25px 18px 70px}.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px;box-shadow:0 8px 28px rgba(20,40,70,.05)}.start{padding:38px}.eyebrow{font-size:12px;color:var(--blue);font-weight:900;letter-spacing:1px}.start h1,.question{font-size:34px;line-height:1.18;margin:11px 0 14px}.start p,.hint{color:var(--muted);line-height:1.7}.hint{white-space:pre-line}.brand-block{margin-top:25px;border-radius:18px;background:linear-gradient(145deg,#0f2441,#1769e0);color:#fff;padding:22px;display:flex;align-items:center;gap:15px}.brand-mark{width:54px;height:54px;border:1px solid rgba(255,255,255,.35);border-radius:16px;display:grid;place-items:center;font-weight:950}.brand-block small{color:#d7e5f7}.btn{border:0;border-radius:12px;padding:14px 19px;font-weight:850;cursor:pointer}.primary{background:var(--blue);color:#fff}.primary:hover{background:var(--blue2)}.ghost{background:#fff;border:1px solid var(--line);color:var(--ink)}.secondary{background:var(--soft);color:var(--blue)}.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.trust{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}.trust span{background:var(--soft);color:var(--blue);border-radius:999px;padding:7px 10px;font-size:12px;font-weight:750}.options{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:18px}.option{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;text-align:left;cursor:pointer;color:var(--ink);font-weight:760}.option:hover{border-color:#9dbbe8}.option.selected{border:2px solid var(--blue);background:#f3f7ff;padding:15px}.option small{display:block;color:var(--muted);font-weight:500;margin-top:4px}.footer-nav{display:flex;justify-content:space-between;gap:10px;margin-top:24px}.field{margin-top:18px}.field label{display:block;font-size:13px;font-weight:800;margin-bottom:7px}.field input{width:100%;border:1px solid var(--line);border-radius:12px;padding:14px;background:#fff}.unit-wrap{display:flex;align-items:center;flex-wrap:nowrap;border:1px solid var(--line);border-radius:12px;overflow:hidden}.unit-wrap span{padding:0 14px;color:var(--muted);font-weight:800;white-space:nowrap;flex:0 0 auto}.unit-wrap input{border:0;border-radius:0;outline:none;min-width:0;flex:1 1 auto}.result-head{text-align:center;padding:8px 0 22px}.score{font-size:68px;font-weight:950;color:var(--blue);line-height:1}.score small{font-size:20px;color:var(--muted)}.badge{display:inline-block;border-radius:999px;padding:7px 11px;font-weight:850;font-size:12px}.green{background:#e8f7ef;color:var(--green)}.yellow{background:#fff6d8;color:var(--yellow)}.orange{background:#fff0df;color:var(--orange)}.red{background:#fdeaea;color:var(--red)}.grey{background:#eef1f4;color:var(--grey)}.tone-green{color:var(--green)!important}.tone-yellow{color:var(--yellow)!important}.tone-orange{color:var(--orange)!important}.tone-red{color:var(--red)!important}.bar i.tone-green{background:var(--green)}.bar i.tone-yellow{background:#d39a00}.bar i.tone-orange{background:var(--orange)}.bar i.tone-red{background:var(--red)}.result-sub{color:var(--muted);font-size:13px;margin-top:10px}.result-section{padding:22px 0;border-top:1px solid var(--line)}.result-section:first-of-type{border-top:0}.result-section h3{margin:0 0 14px;font-size:17px}.compact-section{padding-top:18px;padding-bottom:18px}.risk-grid{display:grid;grid-template-columns:1fr;gap:12px}.metric{border:1px solid var(--line);border-radius:15px;padding:17px}.metric-top{display:flex;justify-content:space-between;gap:10px;align-items:center}.metric h4{margin:0;font-size:15px}.metric-score{font-size:20px;font-weight:900}.score-line{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;margin:10px 0 8px}.score-line .metric-score{margin:0}.bar{height:8px;background:#edf1f6;border-radius:20px;overflow:hidden}.bar i{display:block;height:100%;background:var(--blue);border-radius:20px}.metric p{font-size:12px;color:var(--muted);line-height:1.55;margin:9px 0 0}.cash{display:flex;align-items:center;gap:14px;flex-wrap:wrap}.cash .big{font-size:28px;font-weight:900}.intent-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.intent{border:1px solid var(--line);background:#fff;border-radius:14px;padding:16px;text-align:left;cursor:pointer}.intent:hover{border-color:var(--blue)}.intent b{display:block;margin-bottom:6px}.intent small{color:var(--muted);line-height:1.4}.qa-list{display:grid;gap:10px}.qa-details,.qa-ai{border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden}.qa-details summary,.qa-ai button{width:100%;border:0;background:#fff;padding:16px;text-align:left;color:var(--ink);font-weight:800;cursor:pointer;display:flex;justify-content:space-between;gap:12px;align-items:center}.qa-details summary{list-style:none}.qa-details summary::-webkit-details-marker{display:none}.qa-details summary::after,.qa-ai button::after{content:"+";font-size:20px;color:var(--blue);font-weight:500}.qa-details[open] summary::after,.qa-ai.open button::after{content:"−"}.qa-details p,.qa-answer{margin:0;padding:0 16px 16px;color:var(--muted);line-height:1.7;font-size:14px}.qa-ai small{display:block;color:var(--blue);font-weight:800;margin-top:4px}.ai-box{background:#f3fbf7;border:1px solid #cfe9da;border-radius:15px;padding:18px;line-height:1.7}.ai-tag{display:inline-block;background:#e8f7ef;color:var(--green);font-size:11px;font-weight:900;padding:4px 7px;border-radius:6px;margin-bottom:10px}.ai-parts{display:grid;gap:12px}.ai-part{background:#fff;border:1px solid #e2ecf8;border-radius:12px;padding:13px}.ai-part b{display:block;font-size:13px;margin-bottom:5px}.ai-part p{margin:0;color:var(--muted);font-size:13px;line-height:1.65}.full-box{background:var(--dark);color:#fff;border-radius:17px;padding:22px}.full-box p{color:#cbd8e7;line-height:1.6}.small{font-size:11px;color:var(--muted);line-height:1.6}.manual{background:#fff4e7;border:1px solid #f3d3a7;border-radius:13px;padding:13px;color:#885000;font-size:13px;line-height:1.55;margin-top:10px}
+@media(max-width:680px){.wrap{padding:17px 13px 45px}.card{padding:20px;border-radius:16px}.start{padding:26px 20px}.start h1,.question{font-size:27px}.options,.risk-grid,.intent-grid{grid-template-columns:1fr}.btnrow{justify-content:flex-start}.score{font-size:58px}}
 @media print{.top,.intent-area,.print-hide{display:none!important}.wrap{padding:0}.card{box-shadow:none;border:0}.result-section,.metric{break-inside:avoid}}
+
+/* V5.1 refinements */
+.topin{position:relative;min-height:58px}
+.back{font-size:22px;line-height:1;color:var(--muted);width:38px}
+.top-logo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center}
+.top-logo img{display:block;height:34px;width:auto;max-width:180px}
+.start .eyebrow{text-transform:uppercase}
+.start-copy{white-space:normal}
+.start-copy .line{display:block}
+.trust.single span{padding:8px 12px}
+.result-title{margin:10px 0 14px;font-size:22px;line-height:1.2}
+.center-title{text-align:center}
+.risk-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.metric{padding:18px}
+.metric-score{font-size:28px;font-weight:950;margin:13px 0 8px}
+.metric p{font-size:13px;line-height:1.6}
+.keys{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.key{text-align:center;background:#f8fafc;border:1px solid #eef2f6;border-radius:14px;padding:18px 12px}
+.key strong{display:block;font-size:24px;line-height:1.15}
+.key span{display:block;font-size:12px;color:var(--muted);margin-top:7px}
+.cash-center{text-align:center}
+.cash{justify-content:center;gap:18px}
+.cash .big{font-size:42px;line-height:1;font-weight:950}
+.qa-head{text-align:center}
+.qa-static-answer{padding:0 16px 16px}
+.qa-static-answer .ai-tag{margin:0 0 9px}
+.qa-static-answer p{padding:0;margin:0;color:var(--muted);line-height:1.7;font-size:14px}
+.next-center{text-align:center}
+.self-box{text-align:center}
+.self-box .btnrow,.full-box .btnrow{justify-content:center}
+.full-box{background:linear-gradient(145deg,#1769e0,#0f55bd);color:#fff;text-align:center}
+.full-box p{color:#eef5ff;margin:0 0 18px}
+.wa-btn{display:inline-flex;align-items:center;gap:8px}
+.wa-btn svg{width:18px;height:18px;flex:0 0 18px}
+.full-box .wa-btn{background:#fff;color:var(--blue)}
+@media(max-width:680px){
+  .top-logo img{height:30px;max-width:150px}
+  .risk-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+  .metric{padding:13px}
+  .metric-top{align-items:flex-start;flex-direction:column;gap:7px}
+  .metric h4{font-size:13px}
+  .metric-score{font-size:22px;margin:8px 0 6px}
+  .metric p{font-size:11px;line-height:1.5}
+  .badge{font-size:10px;padding:6px 8px}
+  .keys{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+  .key{padding:13px 7px}
+  .key strong{font-size:17px}
+  .key span{font-size:10px}
+  .cash .big{font-size:36px}
+}
+
 </style>
 </head>
 <body>
-<header class="top"><div class="topin"><a class="back" href="/">← Insu Lang</a><div class="brand">Quick <span>Check</span></div><div id="stepText" class="stepText"></div></div><div class="progress"><i id="progress"></i></div></header>
+<header class="top"><div class="topin"><a class="back" href="/" aria-label="返回首页">←</a><a class="top-logo" href="/" aria-label="Insu Lang"><img src="/insu-lang-logo-small.png" alt="Insu Lang"></a><div id="stepText" class="stepText"></div></div><div class="progress"><i id="progress"></i></div></header>
 <main class="wrap">
-<section id="start" class="card start"><div class="eyebrow">INSU LANG QUICK CHECK</div><h1>先看清楚你的保障 gap。</h1><p>约 3–5 分钟。系统根据家庭生活费、剩余贷款与现有保障，用固定规则做初步分析。AI 不负责计算，只在你想了解评分时帮你解释。</p><div class="btnrow"><button class="btn primary" onclick="startCheck()">开始自检</button></div><div class="trust"><span>13 个核心问题</span><span>不上传保单</span><span>AI 不接收姓名电话</span></div><div class="brand-block"><div class="brand-mark">IL</div><div><b>Insu Lang</b><br><small>by Dr. Lawrence Liaw</small></div></div></section>
+<section id="start" class="card start">
+  <div class="eyebrow">QUICK CHECK</div>
+  <h1>看清楚你的保障 gap。</h1>
+  <p class="start-copy">
+    <span class="line">约 3–5 分钟。</span>
+    <span class="line">系统会根据家庭生活费，贷款及现有保障，做初步分析。</span>
+    <span class="line">AI 功能不负责计算，只会在你想了解评分时，提供解释。</span>
+  </p>
+  <div class="btnrow"><button class="btn primary" onclick="startCheck()">开始</button></div>
+  <div class="trust"><span>13 个核心问题</span><span>纯属分析Gap</span><span>不构成投保建议</span></div>
+</section>
 
 <section id="quiz" class="card hide"><div id="qLabel" class="eyebrow"></div><h1 id="question" class="question"></h1><div id="hint" class="hint"></div><div id="options" class="options"></div><div id="inputArea"></div><div class="footer-nav"><button class="btn ghost" id="backBtn" onclick="goBack()">上一题</button><button class="btn primary" id="nextBtn" onclick="goNext()">下一题</button></div></section>
 
 <section id="manualFinal" class="card hide">
   <div class="result-head">
     <div class="eyebrow">FULL REVIEW</div>
-    <h1 class="question" style="margin-bottom:10px">这个情况不适合继续用自动评分。</h1>
-    <p class="hint" id="manualFinalText">金额超过 RM5百万，已经属于高额或较复杂的保障情况，建议直接做一对一检视。</p>
+    <h1 class="question" style="margin-bottom:10px">这情况不适合继续使用快速评分。</h1>
+    <p class="hint" id="manualFinalText">已经超出了 Quick Check 的范围。<br>建议直接做 1对1 Full Review。</p>
   </div>
   <div class="btnrow" style="justify-content:center">
-    <button class="btn primary" onclick="fullReview(true)">WhatsApp Dr. Lawrence</button>
+    <button class="btn primary wa-btn" onclick="fullReview(true)"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.009-.371-.011-.57-.011-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479s1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.693.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.981.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.89-9.884a9.82 9.82 0 0 1 7.021 2.91 9.82 9.82 0 0 1 2.9 7.019c-.002 5.45-4.437 9.884-9.884 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.14 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>Dr. Lawrence</button>
     <button class="btn ghost" onclick="restart()">重新自检</button>
   </div>
 </section>
 
 <section id="result" class="card hide">
   <div class="result-head">
-    <div class="eyebrow">PROTECTION CHECK RESULT</div>
+    <div class="eyebrow">QUICK CHECK RESULT</div>
+    <h2 class="result-title">整体评分</h2>
     <div class="score"><span id="overallScore">0</span><small>/100</small></div>
     <span id="overallBadge" class="badge"></span>
-    <div class="result-sub">分数用来找出保障 gap，不代表投保建议。</div>
+    <div class="result-sub">分数只用于算出保障Gap。</div>
   </div>
 
   <div class="result-section">
-    <h3>保障评分</h3>
     <div class="risk-grid" id="metrics"></div>
   </div>
 
   <div class="result-section compact-section">
-    <h3>关键数字</h3>
+    <h3 class="center-title">你的数字</h3>
     <div class="keys" id="keyNumbers"></div>
   </div>
 
-  <div class="result-section compact-section">
-    <h3>流动现金</h3>
-    <div class="cash"><div class="big" id="cashMonths"></div><div><span id="cashBadge" class="badge"></span><div id="cashText" class="hint" style="margin-top:7px"></div></div></div>
+  <div class="result-section compact-section cash-center">
+    <h3 class="center-title">流动现金</h3>
+    <div class="cash"><div class="big" id="cashMonths"></div><span id="cashBadge" class="badge"></span></div>
+    <div id="cashText" class="hint" style="margin-top:12px"></div>
   </div>
 
-  <div class="result-section compact-section">
-    <h3>最需要留意</h3>
-    <ol id="gapList" style="margin:0;padding-left:21px;line-height:1.7"></ol>
-  </div>
+  <div class="result-section">
+    <div class="qa-head">
+      <h3>想进一步了解？</h3>
+      <p class="result-sub" style="margin:0 0 14px">点点看解释。</p>
+    </div>
+    <div class="qa-list">
+      <div class="qa-ai" id="faq-why_score">
+        <button type="button" onclick="toggleAIQuestion('why_score')"><span>想了解为什么会得到这个评分？</span></button>
+        <div class="qa-answer hide">
+          <div class="ai-box"><span class="ai-tag">AI ANALYSIS</span><div class="aiText">准备中…</div></div>
+          <p class="small ai-note">AI 只解释算出的评分，不重新计算，也不接收客户身份讯息。</p>
+        </div>
+      </div>
 
-  <div class="btnrow print-hide"><button class="btn secondary" onclick="window.print()">保存 / 打印</button><button class="btn ghost" onclick="restart()">重新自检</button></div>
+      <div class="qa-ai" id="faq-impact">
+        <button type="button" onclick="toggleAIQuestion('impact')"><span>什么保障影响最大？</span></button>
+        <div class="qa-answer hide">
+          <div class="ai-box"><span class="ai-tag">AI ANALYSIS</span><div class="aiText">准备中…</div></div>
+          <p class="small ai-note">AI 只解释算出的评分，不重新计算，也不接收客户身份讯息。</p>
+        </div>
+      </div>
 
-  <div class="result-section intent-area">
-    <h3>接下来想怎么处理？</h3>
-    <div class="intent-grid">
-      <button class="intent" onclick="chooseIntent('self')"><b>我先自己看看</b><small>先保存结果，之后再决定。</small></button>
-      <button class="intent" onclick="chooseIntent('ai')"><b>想了解为什么会得到这个评分</b><small>让 AI 解释既有评分，不重新计算。</small></button>
-      <button class="intent" onclick="chooseIntent('full')"><b>想做 Full Review</b><small>WhatsApp Dr. Lawrence 做一对一完整检视。</small></button>
+      <div class="qa-ai" id="faq-cash">
+        <button type="button" onclick="toggleAIQuestion('cash')"><span>我有流动现金，为什么还是不够？</span></button>
+        <div class="qa-answer hide">
+          <div class="ai-box"><span class="ai-tag">AI ANALYSIS</span><div class="aiText">准备中…</div></div>
+          <p class="small ai-note">AI 只解释算出的评分，不重新计算，也不接收客户身份讯息。</p>
+        </div>
+      </div>
+
+      <div class="qa-ai" id="faq-priority">
+        <button type="button" onclick="toggleAIQuestion('priority')"><span>我应该先看哪一项？</span></button>
+        <div class="qa-answer hide">
+          <div class="ai-box"><span class="ai-tag">AI ANALYSIS</span><div class="aiText">准备中…</div></div>
+          <p class="small ai-note">AI 只解释算出的评分，不重新计算，也不接收客户身份讯息。</p>
+        </div>
+      </div>
+
+      <div class="qa-ai" id="faq-next">
+        <button type="button" onclick="toggleAIQuestion('next')"><span>下一步我可以怎么做？</span></button>
+        <div class="qa-answer hide">
+          <div class="ai-box"><span class="ai-tag">AI ANALYSIS</span><div class="aiText">准备中…</div></div>
+          <p class="small ai-note">AI 只解释算出的评分，不重新计算，也不接收客户身份讯息。</p>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div id="selfBox" class="result-section hide"><h3>先保存也可以。</h3><p class="hint">之后如果生活开销、贷款或保障有变化，可以再回来重新做一次。</p></div>
-  <div id="aiBox" class="result-section hide"><div class="ai-box"><span class="ai-tag">AI EXPLANATION</span><div id="aiText">准备中…</div></div><p class="small">AI 只接收匿名评分、状态和规则结果，不接收姓名或电话号码。</p></div>
-  <div id="fullBox" class="result-section hide"><div class="full-box"><h3 style="margin-top:0">Full Review</h3><p>如果想进一步看完整保单、实际责任和整体规划，可以直接 WhatsApp Dr. Lawrence。</p><button class="btn primary" onclick="fullReview()">WhatsApp Dr. Lawrence</button></div></div>
+  <div class="result-section intent-area next-center">
+    <h3>接下来</h3>
+    <div class="intent-grid">
+      <button class="intent" onclick="chooseIntent('full')"><b>想做 Full Review</b><small>进一步分析整体规划。</small></button>
+      <button class="intent" onclick="chooseIntent('self')"><b>我想自己先看看</b><small>我先研究看看，之后再决定。</small></button>
+    </div>
+  </div>
 
-  <p class="small" style="margin-top:18px">区间答案会使用中间值估算。实际保障规划仍需结合完整资料及现有保单条款进一步检视。</p>
+  <div id="selfBox" class="result-section hide self-box">
+    <h3>没问题，谢谢你。</h3>
+    <p class="hint">如果之后生活开销，贷款或保障有变化，需要重新算一次。</p>
+    <div class="btnrow">
+      <button class="btn secondary" onclick="window.print()">保存 / 打印</button>
+      <button class="btn primary wa-btn" onclick="contactDr()">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.009-.371-.011-.57-.011-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479s1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.693.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.981.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.89-9.884a9.82 9.82 0 0 1 7.021 2.91 9.82 9.82 0 0 1 2.9 7.019c-.002 5.45-4.437 9.884-9.884 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.14 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+        Dr. Lawrence
+      </button>
+      <button class="btn ghost" onclick="restart()">重新自检</button>
+    </div>
+  </div>
+
+  <div id="fullBox" class="result-section hide">
+    <div class="full-box">
+      <p>进一步分析现有保障，实际责任和整体规划，再决定怎么调整。</p>
+      <div class="btnrow">
+        <button class="btn wa-btn" onclick="fullReview()">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.009-.371-.011-.57-.011-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479s1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.693.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.981.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.89-9.884a9.82 9.82 0 0 1 7.021 2.91 9.82 9.82 0 0 1 2.9 7.019c-.002 5.45-4.437 9.884-9.884 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.14 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+          Dr. Lawrence
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <p class="small" style="margin-top:18px;text-align:center">估算采用中间值，实际保障规划仍进一步检视。</p>
 </section>
 </main>
 <script>
 const CONFIG={whatsappNumber:"601110700969",advisorName:"Dr. Lawrence",aiEndpoint:"/api/analyze"};
 const RM=n=>"RM"+Math.round(n||0).toLocaleString("en-MY");
+const RMshort=n=>{n=Math.round(Number(n)||0);if(n>=1000000){const v=n/1000000;return "RM"+(Number.isInteger(v)?v:v.toFixed(1).replace(/\.0$/,""))+"百万"}if(n>=1000){const v=n/1000;return "RM"+(Number.isInteger(v)?v:v.toFixed(1).replace(/\.0$/,""))+"k"}return "RM"+n.toLocaleString("en-MY")};
 const $=id=>document.getElementById(id);
 let answers={},idx=0,result=null;
 
@@ -88,28 +212,28 @@ const Q=[
  {k:"age",q:"你的年龄？",opts:[["18–25","18-25"],["26–30","26-30"],["31–40","31-40"],["41–50","41-50"],["51–60","51-60"],["60+","60+"]]},
  {k:"marital",q:"你的婚姻状况？",opts:[["单身","single"],["已婚","married"],["单亲","single-parent"]]},
  {k:"work",q:"目前的工作情况？",opts:[["学生","student"],["受雇人士","employed"],["专业人士","professional"],["自雇 / 生意","self"],["企业家","entrepreneur"],["退休","retired"]]},
- {k:"income",q:"个人月收入大约是多少？",hint:"",opts:[["RM0–RM3k",1500],["RM3k–RM5k",4000],["RM5k–RM8k",6500],["RM8k–RM15k",11500],["RM15k–RM30k",22500],["> RM30k",35000]]},
- {k:"expense",q:"每月家庭生活费大约多少？",hint:"不包括房贷、车贷及其他贷款供期。",opts:[["< RM2k",1500],["RM2k–RM4k",3000],["RM4k–RM6k",5000],["RM6k–RM10k",8000],["RM10k–RM15k",12500],["> RM15k","over"]]},
- {k:"expenseExact",q:"如果方便，每月家庭生活费大约多少？",hint:"直接填一个大概数字即可。",type:"money",show:a=>a.expense==="over"},
- {k:"loan",q:"剩余贷款总额大约多少？",hint:"包括房贷、车贷、个人贷款及其他主要贷款。",opts:[["没有贷款",0],["< RM100k",50000],["RM100k–RM300k",200000],["RM300k–RM500k",400000],["RM500k–RM1百万",750000],["> RM1百万","over"]]},
- {k:"loanExact",q:"如果方便，目前剩余贷款大约多少？",hint:"超过 RM5百万会直接进入 Full Review。",type:"money",show:a=>a.loan==="over"},
- {k:"liquidMonths",q:"如果不幸重病，马上能动用的现金，大约可以顶几个月的家庭开销？",hint:"",opts:[["1–3个月",2],["4–6个月",5],["7–12个月",9.5],["> 12个月","over"]]},
- {k:"liquidMonthsExact",q:"如果方便，大约可以顶多少个月？",hint:"",type:"number",unit:"个月",show:a=>a.liquidMonths==="over"},
- {k:"life",q:"目前的人寿保障大约是多少？",opts:[["没有",0],["< RM100k",50000],["RM100k–RM300k",200000],["RM300k–RM500k",400000],["RM500k–RM1百万",750000],["> RM1百万","over"]]},
- {k:"lifeExact",q:"如果方便，人寿保障大约是多少？",hint:"超过 RM5百万会直接进入 Full Review。",type:"money",show:a=>a.life==="over"},
- {k:"ci",q:"目前的重大疾病保障大约是多少？",opts:[["没有",0],["< RM100k",50000],["RM100k–RM300k",200000],["RM300k–RM500k",400000],["RM500k–RM1百万",750000],["> RM1百万","over"]]},
- {k:"ciExact",q:"如果方便，重大疾病保障大约是多少？",hint:"超过 RM5百万会直接进入 Full Review。",type:"money",show:a=>a.ci==="over"},
- {k:"medical",q:"目前有 Medical Card 吗？",opts:[["有","yes"],["没有","no"]]},
- {k:"annual",q:"Medical Card Annual Limit 大约多少？",opts:[["< RM100k",50000],["RM100k–RM300k",200000],["RM300k–RM500k",400000],["RM500k–RM1百万",750000],["RM1百万–RM2百万",1500000],["> RM2百万",2500000]],show:a=>a.medical==="yes"},
- {k:"room",q:"Room & Board 大约多少？",hint:"",opts:[["RM100",100],["RM150",150],["RM200",200],["RM250",250],["RM300",300],["> RM300",350]],show:a=>a.medical==="yes"},
- {k:"accident",q:"目前的个人意外保障大约是多少？",opts:[["没有",0],["< RM100k",50000],["RM100k–RM300k",200000],["RM300k–RM500k",400000],["RM500k–RM1百万",750000],["> RM1百万","over"]]},
- {k:"accidentExact",q:"如果方便，个人意外保障大约是多少？",hint:"超过 RM5百万会直接进入 Full Review。",type:"money",show:a=>a.accident==="over"}
+ {k:"income",q:"个人月收入大约多少？",hint:"",opts:[["RM0–3k",1500],["RM3k–5k",4000],["RM5k–8k",6500],["RM8k–15k",11500],["RM15k–30k",22500],["> RM30k",35000]]},
+ {k:"expense",q:"每月家庭生活费大约多少？",hint:"不包括房贷、车贷及其他贷款供期。",opts:[["< RM2k",1500],["RM2k–4k",3000],["RM4k–6k",5000],["RM6k–10k",8000],["RM10k–15k",12500],["> RM15k","over"]]},
+ {k:"expenseExact",q:"每月家庭生活费大约多少？",hint:"填一个大概的数字即可。",placeholder:"例如：20000",type:"money",show:a=>a.expense==="over"},
+ {k:"loan",q:"剩余贷款总额大约多少？",hint:"包括房贷、车贷、个人贷款及其他主要贷款。",opts:[["没有贷款",0],["< RM100k",50000],["RM100k–300k",200000],["RM300k–500k",400000],["RM500k–1百万",750000],["> RM1百万","over"]]},
+ {k:"loanExact",q:"剩余贷款总额大约多少？",hint:"填一个大概的数字即可。\n超过 RM5百万 会直接进入 Full Review。",placeholder:"例如：1500000",type:"money",show:a=>a.loan==="over"},
+ {k:"liquidMonths",q:"如果不幸重病，能马上动用的现金可以顶几个月？",hint:"",opts:[["1–3个月",2],["4–6个月",5],["7–12个月",9.5],["> 12个月","over"]]},
+ {k:"liquidMonthsExact",q:"大约可以顶多少个月？",hint:"填一个大概的数字即可。",placeholder:"例如：18",type:"number",unit:"个月",show:a=>a.liquidMonths==="over"},
+ {k:"life",q:"目前人寿保障大约多少？",opts:[["没有",0],["< RM100k",50000],["RM100k–300k",200000],["RM300k–500k",400000],["RM500k–1百万",750000],["> RM1百万","over"]]},
+ {k:"lifeExact",q:"人寿保障大约多少？",hint:"填一个大概的数字即可。\n超过 RM5百万 会直接进入 Full Review。",placeholder:"例如：1500000",type:"money",show:a=>a.life==="over"},
+ {k:"ci",q:"目前重疾保障大约多少？",opts:[["没有",0],["< RM100k",50000],["RM100k–300k",200000],["RM300k–500k",400000],["RM500k–1百万",750000],["> RM1百万","over"]]},
+ {k:"ciExact",q:"重疾保障大约多少？",hint:"填一个大概的数字即可。\n超过 RM5百万 会直接进入 Full Review。",placeholder:"例如：1500000",type:"money",show:a=>a.ci==="over"},
+ {k:"medical",q:"你有 Medical Card 吗？",opts:[["有","yes"],["没有","no"]]},
+ {k:"annual",q:"Annual Limit 大约多少？",opts:[["< RM100k",50000],["RM100k–300k",200000],["RM300k–500k",400000],["RM500k–1百万",750000],["RM1百万–2百万",1500000],["> RM2百万",2500000]],show:a=>a.medical==="yes"},
+ {k:"room",q:"Room & Board？",hint:"",opts:[["RM100",100],["RM150",150],["RM200",200],["RM250",250],["RM300",300],["> RM300",350]],show:a=>a.medical==="yes"},
+ {k:"accident",q:"目前个人意外保障大约多少？",opts:[["没有",0],["< RM100k",50000],["RM100k–300k",200000],["RM300k–500k",400000],["RM500k–1百万",750000],["> RM1百万","over"]]},
+ {k:"accidentExact",q:"个人意外保障大约多少？",hint:"填一个大概的数字即可。\n超过 RM5百万 会直接进入 Full Review。",placeholder:"例如：1500000",type:"money",show:a=>a.accident==="over"}
 ];
 function visible(){return Q.filter(q=>!q.show||q.show(answers));}
 function startCheck(){$("start").classList.add("hide");$("quiz").classList.remove("hide");render();}
 function hasAnswer(q){const v=answers[q.k];return v!==undefined&&v!==null&&v!==""&&!(typeof v==="number"&&Number.isNaN(v));}
-function render(){const qs=visible();if(idx>=qs.length)idx=qs.length-1;const q=qs[idx];$("stepText").textContent=`${idx+1} / ${qs.length}`;$("progress").style.width=((idx+1)/qs.length*100)+"%";$("qLabel").textContent=q.type?"填写大概数字":"选择最符合你的答案";$("question").textContent=q.q;$("hint").textContent=q.hint||"";$("options").innerHTML="";$("inputArea").innerHTML="";const next=$("nextBtn");
- if(q.type){const f=document.createElement("div");f.className="field";const wrap=document.createElement("div");wrap.className="unit-wrap";if(q.type==="money"){const s=document.createElement("span");s.textContent="RM";wrap.appendChild(s)}const input=document.createElement("input");input.type="number";input.min="0";input.step=q.type==="money"?"1000":"1";input.placeholder=q.type==="money"?"例如 1800000":"例如 30";input.value=answers[q.k]??"";input.oninput=()=>answers[q.k]=input.value===""?"":Number(input.value);wrap.appendChild(input);if(q.unit){const s=document.createElement("span");s.textContent=q.unit;wrap.appendChild(s)}f.appendChild(wrap);$("inputArea").appendChild(f);next.style.display="";next.textContent=idx===qs.length-1?"查看结果":"下一题";setTimeout(()=>input.focus(),80)}
+function render(){const qs=visible();if(idx>=qs.length)idx=qs.length-1;const q=qs[idx];$("stepText").textContent=`${idx+1} / ${qs.length}`;$("progress").style.width=((idx+1)/qs.length*100)+"%";$("qLabel").textContent=q.type?"如果方便":"选择最符合的答案";$("question").textContent=q.q;$("hint").textContent=q.hint||"";$("options").innerHTML="";$("inputArea").innerHTML="";const next=$("nextBtn");
+ if(q.type){const f=document.createElement("div");f.className="field";const wrap=document.createElement("div");wrap.className="unit-wrap";if(q.type==="money"){const s=document.createElement("span");s.textContent="RM";wrap.appendChild(s)}const input=document.createElement("input");input.type="number";input.min="0";input.step=q.type==="money"?"1000":"1";input.placeholder=q.placeholder||(q.type==="money"?"例如：1500000":"例如：18");input.value=answers[q.k]??"";input.oninput=()=>answers[q.k]=input.value===""?"":Number(input.value);wrap.appendChild(input);if(q.unit){const s=document.createElement("span");s.textContent=q.unit;wrap.appendChild(s)}f.appendChild(wrap);$("inputArea").appendChild(f);next.style.display="";next.textContent=idx===qs.length-1?"查看结果":"下一题";setTimeout(()=>input.focus(),80)}
  else{q.opts.forEach(([label,val])=>{const b=document.createElement("button");b.className="option"+(answers[q.k]===val?" selected":"");b.innerHTML=`<strong>${label}</strong>`;b.onclick=()=>{answers[q.k]=val;render();setTimeout(goNext,130)};$("options").appendChild(b)});next.style.display="none"}
  $("backBtn").disabled=idx===0;$("backBtn").style.opacity=idx===0?.45:1;}
 function goNext(){
@@ -123,65 +247,119 @@ function goNext(){
  if(idx<newQs.length-1){idx++;render()}else finish();
 }
 function finishManual(key){
- const labels={loanExact:"剩余贷款",lifeExact:"人寿保障",ciExact:"重大疾病保障",accidentExact:"个人意外保障"};
+ const labels={loanExact:"剩余贷款",lifeExact:"人寿保障",ciExact:"重疾保障",accidentExact:"意外保障"};
  $("quiz").classList.add("hide");
  $("result").classList.add("hide");
  $("manualFinal").classList.remove("hide");
  $("stepText").textContent="完成";
  $("progress").style.width="100%";
- $("manualFinalText").textContent=`${labels[key]||"金额"}超过 RM5百万，已经超出 Quick Check 适合自动分析的范围。建议直接做一对一 Full Review。`;
+ $("manualFinalText").innerHTML=`${labels[key]||"金额"}已经超出了 Quick Check 的范围。<br>建议直接做 1对1 Full Review。`;
  window.scrollTo({top:0,behavior:"smooth"});
 }
 function goBack(){if(idx>0){idx--;render();}}
-function status(score){if(score===null)return{key:"manual",label:"建议 Full Review",cls:"grey"};if(score>=80)return{key:"good",label:"基础较完整",cls:"green"};if(score>=60)return{key:"review",label:"建议检视",cls:"yellow"};if(score>=40)return{key:"gap",label:"明显保障差距",cls:"orange"};return{key:"priority",label:"优先关注",cls:"red"};}
+function status(score){
+ if(score===null)return{key:"manual",label:"建议 Full Review",cls:"grey",tone:""};
+ if(score===100)return{key:"enough",label:"保障足够",cls:"green",tone:"tone-green"};
+ if(score>=80)return{key:"good",label:"基础较完整",cls:"green",tone:"tone-green"};
+ if(score>=60)return{key:"review",label:"建议检视",cls:"yellow",tone:"tone-yellow"};
+ if(score>=40)return{key:"gap",label:"明显保障差距",cls:"orange",tone:"tone-orange"};
+ return{key:"priority",label:"马上关注",cls:"red",tone:"tone-red"};
+}
 function exactOrRange(k){if(answers[k]==="over")return Number(answers[k+"Exact"]||0);return Number(answers[k]||0)}
 function score(existing,need,manual){if(manual)return null;return Math.max(0,Math.min(100,Math.round(existing/Math.max(1,need)*100)));}
 function calculate(){const expense=answers.expense==="over"?Number(answers.expenseExact):Number(answers.expense);const loan=answers.loan==="over"?Number(answers.loanExact):Number(answers.loan);const liquid=answers.liquidMonths==="over"?Number(answers.liquidMonthsExact):Number(answers.liquidMonths);const life=exactOrRange("life"),ci=exactOrRange("ci"),acc=exactOrRange("accident");const complexLoan=loan>5000000;const lifeManual=complexLoan||life>5000000,ciManual=complexLoan||ci>5000000,accManual=complexLoan||acc>5000000;const lifeNeed=expense*120+loan+50000;const ciNeed=expense*120+loan;const accNeed=lifeNeed;const lifeScore=score(life,lifeNeed,lifeManual),ciScore=score(ci,ciNeed,ciManual),accScore=score(acc,accNeed,accManual);
  let medScore=0;if(answers.medical==="no")medScore=0;else{const al=Number(answers.annual||0),room=Number(answers.room||0);let annualPts=al>=1000000?80:al>=500000?60:al>=300000?40:al>=100000?25:10;let roomPts=room>=300?20:room>=250?17:room>=200?14:room>=150?10:6;medScore=annualPts+roomPts}
- const domains=[{key:"life",name:"人寿保障",score:lifeScore,need:lifeNeed,existing:life,manual:lifeManual},{key:"ci",name:"重大疾病",score:ciScore,need:ciNeed,existing:ci,manual:ciManual},{key:"medical",name:"医疗保障",score:medScore,need:null,existing:null,manual:false},{key:"accident",name:"意外保障",score:accScore,need:accNeed,existing:acc,manual:accManual}].map(d=>({...d,status:status(d.score)}));const sc=domains.filter(d=>d.score!==null).map(d=>d.score);const overall=Math.round(sc.reduce((a,b)=>a+b,0)/Math.max(1,sc.length));const gaps=domains.filter(d=>d.score!==null).sort((a,b)=>a.score-b.score).slice(0,3);const cashStatus=liquid>=7?{label:"较稳定",cls:"green"}:liquid>=4?{label:"基础缓冲",cls:"yellow"}:{label:"缓冲较低",cls:"red"};return{expense,loan,liquid,life,ci,acc,lifeNeed,ciNeed,accNeed,domains,overall,gaps,cashStatus,hasManual:domains.some(d=>d.manual),complexLoan};}
+ const domains=[{key:"life",name:"人寿保障",score:lifeScore,need:lifeNeed,existing:life,manual:lifeManual},{key:"ci",name:"重疾保障",score:ciScore,need:ciNeed,existing:ci,manual:ciManual},{key:"medical",name:"医疗保障",score:medScore,need:null,existing:null,manual:false},{key:"accident",name:"意外保障",score:accScore,need:accNeed,existing:acc,manual:accManual}].map(d=>({...d,status:status(d.score)}));const sc=domains.filter(d=>d.score!==null).map(d=>d.score);const overall=Math.round(sc.reduce((a,b)=>a+b,0)/Math.max(1,sc.length));const gaps=domains.filter(d=>d.score!==null).sort((a,b)=>a.score-b.score).slice(0,3);const cashStatus=liquid>=7?{label:"较稳定",cls:"green"}:liquid>=4?{label:"基础缓冲",cls:"yellow"}:{label:"缓冲较低",cls:"red"};return{expense,loan,liquid,life,ci,acc,lifeNeed,ciNeed,accNeed,domains,overall,gaps,cashStatus,hasManual:domains.some(d=>d.manual),complexLoan};}
 function finish(){result=calculate();$("quiz").classList.add("hide");$("result").classList.remove("hide");$("stepText").textContent="完成";$("progress").style.width="100%";renderResult();window.scrollTo({top:0,behavior:"smooth"});}
 function renderResult(){
  $("overallScore").textContent=result.overall;
  const os=status(result.overall);
  $("overallBadge").className="badge "+os.cls;
  $("overallBadge").textContent=os.label;
+ $("overallScore").className=os.tone||"";
+
  const box=$("metrics");box.innerHTML="";
  for(const d of result.domains){
    let detail="";
    if(d.key==="medical"){
-     detail=answers.medical==="no"?"目前没有 Medical Card。":`Annual Limit ${RM(Number(answers.annual))}；Room & Board RM${answers.room}/day。参考：Annual Limit ≥ RM1百万、Room ≥ RM300/day。`;
+     detail=answers.medical==="no"
+       ? "期望AL ≥ RM1百万 & 病房 ≥ RM300/天；实际：目前没有 Medical Card。"
+       : `期望AL ≥ RM1百万 & 病房 ≥ RM300/天；实际AL = ${RMshort(Number(answers.annual))} & 病房 = RM${answers.room}/天。`;
    }else{
-     detail=`参考需求约 ${RM(d.need)}；现有保障按区间估算约 ${RM(d.existing)}。`;
+     detail=`需求大约 = ${RMshort(d.need)}；现保障大约 = ${RMshort(d.existing)}。`;
    }
-   box.innerHTML+=`<div class="metric"><div class="metric-top"><h4>${d.name}</h4><span class="badge ${d.status.cls}">${d.status.label}</span></div><div class="metric-score">${d.score} / 100</div><div class="bar"><i style="width:${d.score}%"></i></div><p>${detail}</p></div>`;
+   const tone=d.status.tone||"";
+   box.innerHTML+=`<div class="metric"><div class="metric-top"><h4>${d.name}</h4><span class="badge ${d.status.cls}">${d.status.label}</span></div><div class="metric-score ${tone}">${d.score} / 100</div><div class="bar"><i class="${tone}" style="width:${Math.max(0,Math.min(100,d.score||0))}%"></i></div><p>${detail}</p></div>`;
  }
- $("keyNumbers").innerHTML=`<div class="key"><strong>${RM(result.expense)}</strong><span>每月家庭生活费</span></div><div class="key"><strong>${RM(result.loan)}</strong><span>剩余贷款</span></div><div class="key"><strong>${fmtMonths(result.liquid)}</strong><span>马上能动用的现金</span></div>`;
+
+ $("keyNumbers").innerHTML=`
+   <div class="key"><strong>${RM(result.expense)}</strong><span>每月家庭生活费</span></div>
+   <div class="key"><strong>${RM(result.loan)}</strong><span>剩余贷款</span></div>
+   <div class="key"><strong>${fmtMonths(result.liquid)}</strong><span>马上能动用的现金</span></div>`;
+
  $("cashMonths").textContent=fmtMonths(result.liquid);
  $("cashBadge").className="badge "+result.cashStatus.cls;
  $("cashBadge").textContent=result.cashStatus.label;
- $("cashText").textContent="这项只看重病发生时，家庭可以马上撑多久；不会从保障需求中扣掉。";
- $("gapList").innerHTML=result.gaps.map(d=>`<li><strong>${d.name}</strong>：${d.score}/100 · ${d.status.label}</li>`).join("");
+ $("cashText").textContent="只看重病发生时，家庭可以马上撑多久。";
 }
 function fmtMonths(n){if(n<1)return"< 1个月";return Number.isInteger(n)?`${n}个月`:`约 ${n}个月`}
-function chooseIntent(type){$("selfBox").classList.add("hide");$("aiBox").classList.add("hide");$("fullBox").classList.add("hide");if(type==="self")$("selfBox").classList.remove("hide");if(type==="ai"){ $("aiBox").classList.remove("hide");loadAI(); }if(type==="full")$("fullBox").classList.remove("hide");setTimeout(()=>window.scrollBy({top:180,behavior:"smooth"}),50)}
-function localReasons(){
- const out=[];
- for(const d of result.domains){
-   if(d.key==="medical"){
-     if(answers.medical==="no") out.push("目前没有 Medical Card，医疗评分因此较低。");
-     else{
-       if(Number(answers.annual)<1000000) out.push("Medical Annual Limit 低于 RM1百万参考标准。");
-       if(Number(answers.room)<300) out.push("Room & Board 低于 RM300/day 参考标准。");
-     }
-   }else if(d.score<80){
-     out.push(`${d.name}现有保障与理想参考需求之间仍有 gap。`);
-   }
- }
- if(result.liquid<4) out.push("马上能动用的现金缓冲约只有 1–3 个月家庭开销。");
- return out.slice(0,5);
+function chooseIntent(type){
+ $("selfBox").classList.add("hide");
+ $("fullBox").classList.add("hide");
+ if(type==="self") $("selfBox").classList.remove("hide");
+ if(type==="full") $("fullBox").classList.remove("hide");
+ setTimeout(()=>window.scrollBy({top:180,behavior:"smooth"}),50);
 }
-async function loadAI(){const box=$("aiText");box.textContent="正在根据评分解释…";const profile={overall_score:result.overall,domains:result.domains.map(d=>({name:d.name,score:d.score,status:d.status.label,manual:d.manual})),cash_buffer_status:result.cashStatus.label,reasons:localReasons()};try{const r=await fetch(CONFIG.aiEndpoint,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({profile})});const data=await r.json();if(!r.ok)throw new Error(data.error||"AI unavailable");box.innerHTML=`<strong>${esc(data.overview||"")}</strong>${data.explanation?`<p>${esc(data.explanation)}</p>`:""}${data.next_step?`<p style="color:var(--muted)">下一步：${esc(data.next_step)}</p>`:""}`;}catch(e){box.innerHTML=`<strong>AI 解释目前未启用。</strong><p>上面的评分和 gap 分析仍然有效。等你在 Vercel 设置 GEMINI_API_KEY 后，这里才会自动启用。</p>`;}}
+const aiLoaded={};
+const aiLoading={};
+function toggleAIQuestion(questionId){
+ const wrap=$("faq-"+questionId);
+ if(!wrap)return;
+ const answer=wrap.querySelector(".qa-answer");
+ const opening=answer.classList.contains("hide");
+ answer.classList.toggle("hide");
+ wrap.classList.toggle("open",opening);
+ if(opening && !aiLoaded[questionId] && !aiLoading[questionId]) loadAIQuestion(questionId,wrap);
+}
+function aiProfile(){
+ const domains={};
+ result.domains.forEach(d=>domains[d.key]={score:d.score,manual:!!d.manual});
+ return {
+   overall_score:result.overall,
+   domains,
+   cash_buffer_months:Math.max(0,Math.min(120,Number(result.liquid)||0)),
+   medical:{
+     has_card:answers.medical==="yes",
+     annual_below_reference:answers.medical==="yes" && Number(answers.annual)<1000000,
+     room_below_reference:answers.medical==="yes" && Number(answers.room)<300
+   }
+ };
+}
+async function loadAIQuestion(questionId,wrap){
+ const box=wrap.querySelector(".aiText");
+ box.textContent="正在分析…";
+ aiLoading[questionId]=true;
+ try{
+   const r=await fetch(CONFIG.aiEndpoint,{
+     method:"POST",
+     headers:{"Content-Type":"application/json"},
+     body:JSON.stringify({profile:aiProfile(),question:questionId})
+   });
+   const data=await r.json().catch(()=>({}));
+   if(!r.ok) throw new Error(data.error||"AI unavailable");
+   box.innerHTML=`<p style="margin:0">${esc(data.answer||"暂时没有可显示的解释。")}</p>`;
+   aiLoaded[questionId]=true;
+ }catch(e){
+   box.innerHTML=`<strong>AI 分析暂时无法载入。</strong><p style="margin-bottom:0">评分本身仍然有效，可以稍后再试。</p>`;
+ }finally{
+   aiLoading[questionId]=false;
+ }
+}
 function esc(s){return String(s).replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]))}
+function contactDr(){
+ const text="你好 Dr. Lawrence，我刚完成 Quick Check，想了解一下我的结果。";
+ window.open(`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`,"_blank");
+}
 function fullReview(manual=false){
  let text=`你好 ${CONFIG.advisorName}，我想进一步做 Full Review。`;
  if(!manual && result){
@@ -190,7 +368,16 @@ function fullReview(manual=false){
  }
  window.open(`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`,"_blank");
 }
-function restart(){answers={};idx=0;result=null;$("result").classList.add("hide");$("start").classList.remove("hide");$("progress").style.width="0";$("stepText").textContent="";for(const id of["selfBox","aiBox","fullBox","manualOverall"])$(id).classList.add("hide");window.scrollTo({top:0,behavior:"smooth"})}
+function restart(){
+ answers={};idx=0;result=null;
+ Object.keys(aiLoaded).forEach(k=>delete aiLoaded[k]);
+ Object.keys(aiLoading).forEach(k=>delete aiLoading[k]);
+ $("result").classList.add("hide");$("manualFinal").classList.add("hide");$("start").classList.remove("hide");
+ $("progress").style.width="0";$("stepText").textContent="";
+ for(const id of["selfBox","fullBox"])$(id).classList.add("hide");
+ document.querySelectorAll(".qa-ai").forEach(el=>{el.classList.remove("open");const a=el.querySelector(".qa-answer");if(a)a.classList.add("hide");const t=el.querySelector(".aiText");if(t)t.textContent="准备中…";});
+ window.scrollTo({top:0,behavior:"smooth"});
+}
 if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}));}
 </script>
 </body></html>
