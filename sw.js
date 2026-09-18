@@ -1,4 +1,4 @@
-const CACHE_NAME = "insu-lang-v5-5";
+const CACHE_NAME = "insu-lang-v5-6";
 const CORE_ASSETS = [
   "/manifest.json",
   "/icons/icon-192.png",
@@ -24,8 +24,9 @@ self.addEventListener("fetch", (event) => {
 
   const url = new URL(req.url);
   const isPage = req.mode === "navigate" || url.pathname === "/" || url.pathname.endsWith(".html");
+  const isBrandLogo = url.pathname.endsWith("/images/insu-lang-logo-small.png");
 
-  if (isPage) {
+  if (isPage || isBrandLogo) {
     // Network-first so GitHub/Vercel updates appear immediately; cache is only offline fallback.
     event.respondWith(
       fetch(req)
