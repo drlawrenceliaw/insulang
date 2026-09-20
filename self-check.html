@@ -112,6 +112,27 @@
   .full-box{padding:14px 16px !important;max-width:100% !important}
 }
 
+
+.aiText .ai-paragraph{
+  margin:0 0 12px;
+  line-height:1.7;
+}
+.aiText .ai-paragraph:last-child{
+  margin-bottom:0;
+}
+.aiText .ai-points{
+  margin:8px 0 0;
+  padding-left:20px;
+}
+.aiText .ai-points li{
+  margin:6px 0;
+  line-height:1.65;
+}
+.aiText strong{
+  color:var(--ink);
+  font-weight:850;
+}
+
 </style>
 </head>
 <body>
@@ -174,7 +195,7 @@
     </div>
     <div class="qa-list">
       <div class="qa-ai" id="faq-why_score">
-        <button type="button" onclick="toggleAIQuestion('why_score')"><span>想了解为什么会得到这个评分？</span></button>
+        <button type="button" onclick="toggleAIQuestion('why_score')"><span>为什么会得到这个评分？</span></button>
         <div class="qa-answer hide">
           <div class="ai-box"><span class="ai-tag">AI ANALYSIS</span><div class="aiText">准备中…</div></div>
           <p class="small ai-note">AI 只解释算出的评分，不重新计算，也不接收客户身份讯息。</p>
@@ -182,7 +203,7 @@
       </div>
 
       <div class="qa-ai" id="faq-impact">
-        <button type="button" onclick="toggleAIQuestion('impact')"><span>什么保障影响最大？</span></button>
+        <button type="button" onclick="toggleAIQuestion('impact')"><span>我现在应该先看哪一项保障？</span></button>
         <div class="qa-answer hide">
           <div class="ai-box"><span class="ai-tag">AI ANALYSIS</span><div class="aiText">准备中…</div></div>
           <p class="small ai-note">AI 只解释算出的评分，不重新计算，也不接收客户身份讯息。</p>
@@ -190,7 +211,7 @@
       </div>
 
       <div class="qa-ai" id="faq-cash">
-        <button type="button" onclick="toggleAIQuestion('cash')"><span>我有流动现金，为什么还是不够？</span></button>
+        <button type="button" onclick="toggleAIQuestion('cash')"><span>我有流动现金，为什么还是有保障Gap？</span></button>
         <div class="qa-answer hide">
           <div class="ai-box"><span class="ai-tag">AI ANALYSIS</span><div class="aiText">准备中…</div></div>
           <p class="small ai-note">AI 只解释算出的评分，不重新计算，也不接收客户身份讯息。</p>
@@ -198,7 +219,7 @@
       </div>
 
       <div class="qa-ai" id="faq-priority">
-        <button type="button" onclick="toggleAIQuestion('priority')"><span>我应该先看哪一项？</span></button>
+        <button type="button" onclick="toggleAIQuestion('priority')"><span>这个结果代表我一定要加保吗？</span></button>
         <div class="qa-answer hide">
           <div class="ai-box"><span class="ai-tag">AI ANALYSIS</span><div class="aiText">准备中…</div></div>
           <p class="small ai-note">AI 只解释算出的评分，不重新计算，也不接收客户身份讯息。</p>
@@ -206,7 +227,7 @@
       </div>
 
       <div class="qa-ai" id="faq-next">
-        <button type="button" onclick="toggleAIQuestion('next')"><span>下一步我可以怎么做？</span></button>
+        <button type="button" onclick="toggleAIQuestion('next')"><span>接下来我可以怎样做？</span></button>
         <div class="qa-answer hide">
           <div class="ai-box"><span class="ai-tag">AI ANALYSIS</span><div class="aiText">准备中…</div></div>
           <p class="small ai-note">AI 只解释算出的评分，不重新计算，也不接收客户身份讯息。</p>
@@ -399,7 +420,9 @@ async function loadAIQuestion(questionId,wrap){
      err.code=data.code||"AI_UNAVAILABLE";
      throw err;
    }
-   box.innerHTML=`<p style="margin:0">${esc(data.answer||"暂时没有可显示的解释。")}</p>`;
+   box.innerHTML = renderAIAnswer(
+     data.answer || "暂时没有可显示的解释。"
+   );
    aiLoaded[questionId]=true;
  }catch(e){
    console.warn("Insu Lang AI:",e?.code||e?.message||e);
@@ -421,6 +444,29 @@ async function loadAIQuestion(questionId,wrap){
    aiLoading[questionId]=false;
  }
 }
+
+function renderAIInline(text){
+ return esc(text).replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>");
+}
+function renderAIAnswer(text){
+ const clean=String(text||"").replace(/\r\n/g,"\n").trim();
+ if(!clean)return "";
+ const blocks=clean.split(/\n{2,}/);
+ return blocks.map(block=>{
+   const lines=block.split("\n").map(line=>line.trim()).filter(Boolean);
+   if(!lines.length)return "";
+   const listLines=lines.filter(line=>/^-\s+/.test(line));
+   if(listLines.length===lines.length){
+     const items=listLines.slice(0,3).map(line=>{
+       const content=line.replace(/^-\s+/,"");
+       return `<li>${renderAIInline(content)}</li>`;
+     }).join("");
+     return `<ul class="ai-points">${items}</ul>`;
+   }
+   return `<p class="ai-paragraph">${lines.map(renderAIInline).join("<br>")}</p>`;
+ }).join("");
+}
+
 function esc(s){return String(s).replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]))}
 function contactDr(){
  const text="你好 Dr. Lawrence，我刚完成 Quick Check，想了解一下我的结果。";
