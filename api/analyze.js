@@ -133,8 +133,6 @@ function requestTooLarge(req) {
 
 export default async function handler(req, res) {
 
-  // Do not cache responses containing
-  // Quick Check scoring information.
   res.setHeader(
     "Cache-Control",
     "no-store, max-age=0"
@@ -193,7 +191,7 @@ export default async function handler(req, res) {
   } = req.body;
 
   // Only sanitized numbers and booleans
-  // are allowed into the AI prompt.
+  // enter the Gemini prompt.
   const safe = safeProfile(profile);
 
   const prompt = `你是 Insu Lang 的 AI ANALYSIS。
@@ -203,10 +201,12 @@ export default async function handler(req, res) {
 
 必须遵守：
 - 不重新计算或修改任何分数。
-- 不推荐具体保险产品、公司、保费或购买金额。
+- 不推荐具体保险产品、保险公司、保费或购买金额。
 - 不猜测没有提供的客户资料。
 - 不制造恐惧，不使用销售话术。
-- 用简体中文，专业、清楚、简短。
+- 不把任何一种保障说成对所有人都绝对最重要。
+- 流动现金和保险保障属于不同维度。
+- 用简体中文，专业、自然、清楚、简短。
 
 匿名 Quick Check 结果：
 ${JSON.stringify(safe)}
@@ -232,11 +232,8 @@ ${QUESTION_GUIDANCE[question]}
         method: "POST",
 
         headers: {
-          "Content-Type":
-            "application/json",
-
-          "x-goog-api-key":
-            apiKey
+          "Content-Type": "application/json",
+          "x-goog-api-key": apiKey
         },
 
         signal: controller.signal,
@@ -254,7 +251,6 @@ ${QUESTION_GUIDANCE[question]}
           ],
 
           generationConfig: {
-
             maxOutputTokens: 1000,
 
             thinkingConfig: {
