@@ -1,5 +1,5 @@
 // Insu Lang — Gemini API
-// Security V2 + Gemini 3.8 Flash
+// Security V2 + stable Gemini model
 // AI only explains the existing Quick Check result.
 // It never recalculates the score.
 
@@ -31,51 +31,66 @@ function safeNumber(value, min = 0, max = 100) {
     return min;
   }
 
-  return Math.min(max, Math.max(min, number));
+  return Math.min(
+    max,
+    Math.max(min, number)
+  );
 }
 
 function safeProfile(profile) {
-  const domains = profile?.domains || {};
+  const domains =
+    profile?.domains || {};
 
   return {
-    overall_score: safeNumber(
-      profile?.overall_score
-    ),
+    overall_score:
+      safeNumber(
+        profile?.overall_score
+      ),
 
-    life_score: safeNumber(
-      domains?.life?.score
-    ),
+    life_score:
+      safeNumber(
+        domains?.life?.score
+      ),
 
-    ci_score: safeNumber(
-      domains?.ci?.score
-    ),
+    ci_score:
+      safeNumber(
+        domains?.ci?.score
+      ),
 
-    medical_score: safeNumber(
-      domains?.medical?.score
-    ),
+    medical_score:
+      safeNumber(
+        domains?.medical?.score
+      ),
 
-    accident_score: safeNumber(
-      domains?.accident?.score
-    ),
+    accident_score:
+      safeNumber(
+        domains?.accident?.score
+      ),
 
-    cash_buffer_months: safeNumber(
-      profile?.cash_buffer_months,
-      0,
-      600
-    ),
+    cash_buffer_months:
+      safeNumber(
+        profile?.cash_buffer_months,
+        0,
+        600
+      ),
 
     medical: {
-      has_card: Boolean(
-        profile?.medical?.has_card
-      ),
+      has_card:
+        Boolean(
+          profile?.medical?.has_card
+        ),
 
-      annual_below_reference: Boolean(
-        profile?.medical?.annual_below_reference
-      ),
+      annual_below_reference:
+        Boolean(
+          profile?.medical
+            ?.annual_below_reference
+        ),
 
-      room_below_reference: Boolean(
-        profile?.medical?.room_below_reference
-      )
+      room_below_reference:
+        Boolean(
+          profile?.medical
+            ?.room_below_reference
+        )
     }
   };
 }
@@ -97,20 +112,25 @@ function isValidRequest(body) {
     return false;
   }
 
-  if (typeof body.question !== "string") {
+  if (
+    typeof body.question !== "string"
+  ) {
     return false;
   }
 
-  return Object.prototype.hasOwnProperty.call(
-    QUESTION_GUIDANCE,
-    body.question
-  );
+  return Object.prototype
+    .hasOwnProperty.call(
+      QUESTION_GUIDANCE,
+      body.question
+    );
 }
 
 function requestTooLarge(req) {
-  const contentLength = Number(
-    req.headers?.["content-length"] || 0
-  );
+  const contentLength =
+    Number(
+      req.headers?.["content-length"] ||
+      0
+    );
 
   if (
     Number.isFinite(contentLength) &&
@@ -120,19 +140,30 @@ function requestTooLarge(req) {
   }
 
   try {
-    const size = Buffer.byteLength(
-      JSON.stringify(req.body || {}),
-      "utf8"
+    const size =
+      Buffer.byteLength(
+        JSON.stringify(
+          req.body || {}
+        ),
+        "utf8"
+      );
+
+    return (
+      size > MAX_REQUEST_BYTES
     );
 
-    return size > MAX_REQUEST_BYTES;
   } catch {
     return true;
   }
 }
 
-export default async function handler(req, res) {
+export default async function handler(
+  req,
+  res
+) {
 
+  // Never cache AI responses
+  // containing Quick Check data.
   res.setHeader(
     "Cache-Control",
     "no-store, max-age=0"
@@ -143,46 +174,78 @@ export default async function handler(req, res) {
     "nosniff"
   );
 
+  // Only POST is accepted.
   if (req.method !== "POST") {
-    res.setHeader("Allow", "POST");
 
-    return res.status(405).json({
-      error: "METHOD_NOT_ALLOWED"
-    });
+    res.setHeader(
+      "Allow",
+      "POST"
+    );
+
+    return res
+      .status(405)
+      .json({
+        error:
+          "METHOD_NOT_ALLOWED"
+      });
   }
 
+  // Only JSON requests.
   const contentType =
-    req.headers?.["content-type"] || "";
+    req.headers?.["content-type"] ||
+    "";
 
   if (
     !contentType
       .toLowerCase()
-      .includes("application/json")
+      .includes(
+        "application/json"
+      )
   ) {
-    return res.status(415).json({
-      error: "UNSUPPORTED_MEDIA_TYPE"
-    });
+
+    return res
+      .status(415)
+      .json({
+        error:
+          "UNSUPPORTED_MEDIA_TYPE"
+      });
   }
 
+  // Reject unusually large requests.
   if (requestTooLarge(req)) {
-    return res.status(413).json({
-      error: "REQUEST_TOO_LARGE"
-    });
+
+    return res
+      .status(413)
+      .json({
+        error:
+          "REQUEST_TOO_LARGE"
+      });
   }
 
+  // API key stays only on Vercel.
   const apiKey =
     process.env.GEMINI_API_KEY;
 
   if (!apiKey) {
-    return res.status(503).json({
-      error: "AI_NOT_CONFIGURED"
-    });
+
+    return res
+      .status(503)
+      .json({
+        error:
+          "AI_NOT_CONFIGURED"
+      });
   }
 
+  // Validate request structure
+  // and allowed question key.
   if (!isValidRequest(req.body)) {
-    return res.status(400).json({
-      error: "INVALID_REQUEST"
-    });
+
+    return res
+      .status(400)
+      .json({
+        error:
+          "INVALID_REQUEST"
+      });
   }
 
   const {
@@ -190,9 +253,10 @@ export default async function handler(req, res) {
     question
   } = req.body;
 
-  // Only sanitized numbers and booleans
-  // enter the Gemini prompt.
-  const safe = safeProfile(profile);
+  // Only normalized numbers
+  // and booleans go into Gemini.
+  const safe =
+    safeProfile(profile);
 
   const prompt = `你是 Insu Lang 的 AI ANALYSIS。
 
@@ -216,50 +280,62 @@ ${QUESTION_GUIDANCE[question]}
 
 只输出答案正文，不要标题，不要 JSON，不要 Markdown。`;
 
+  // Stable model already verified
+  // to work on this project.
+  const model =
+    "gemini-3.1-flash-lite";
+
   const controller =
     new AbortController();
 
-  const timeout = setTimeout(
-    () => controller.abort(),
-    GEMINI_TIMEOUT_MS
-  );
+  const timeout =
+    setTimeout(
+      () => {
+        controller.abort();
+      },
+      GEMINI_TIMEOUT_MS
+    );
 
   try {
 
-    const response = await fetch(
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent",
-      {
-        method: "POST",
+    const response =
+      await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`,
+        {
+          method: "POST",
 
-        headers: {
-          "Content-Type": "application/json",
-          "x-goog-api-key": apiKey
-        },
+          headers: {
+            "Content-Type":
+              "application/json",
 
-        signal: controller.signal,
+            "x-goog-api-key":
+              apiKey
+          },
 
-        body: JSON.stringify({
-          contents: [
-            {
-              role: "user",
-              parts: [
+          signal:
+            controller.signal,
+
+          body:
+            JSON.stringify({
+              contents: [
                 {
-                  text: prompt
+                  role: "user",
+
+                  parts: [
+                    {
+                      text: prompt
+                    }
+                  ]
                 }
-              ]
-            }
-          ],
+              ],
 
-          generationConfig: {
-            maxOutputTokens: 1000,
-
-            thinkingConfig: {
-              thinkingLevel: "low"
-            }
-          }
-        })
-      }
-    );
+              generationConfig: {
+                temperature: 0.2,
+                maxOutputTokens: 1000
+              }
+            })
+        }
+      );
 
     clearTimeout(timeout);
 
@@ -268,32 +344,47 @@ ${QUESTION_GUIDANCE[question]}
       const detail =
         await response.text();
 
+      // Full Gemini error stays
+      // only inside Vercel logs.
       console.error(
         "Gemini API error:",
         response.status,
-        detail.slice(0, 1200)
+        detail.slice(
+          0,
+          1200
+        )
       );
 
-      return res.status(502).json({
-        error: "AI_PROVIDER_ERROR",
-        status: response.status
-      });
+      return res
+        .status(502)
+        .json({
+          error:
+            "AI_PROVIDER_ERROR",
+
+          status:
+            response.status
+        });
     }
 
     const data =
       await response.json();
 
-    const text = (
-      data?.candidates?.[0]
-        ?.content?.parts || []
-    )
-      .map(part =>
-        typeof part?.text === "string"
-          ? part.text
-          : ""
+    const text =
+      (
+        data
+          ?.candidates?.[0]
+          ?.content?.parts ||
+        []
       )
-      .join("")
-      .trim();
+        .map(
+          part =>
+            typeof part?.text ===
+            "string"
+              ? part.text
+              : ""
+        )
+        .join("")
+        .trim();
 
     if (!text) {
 
@@ -301,36 +392,46 @@ ${QUESTION_GUIDANCE[question]}
         "Gemini returned empty response"
       );
 
-      return res.status(502).json({
-        error: "EMPTY_AI_RESPONSE"
-      });
+      return res
+        .status(502)
+        .json({
+          error:
+            "EMPTY_AI_RESPONSE"
+        });
     }
 
+    // Defensive output limit.
     const answer =
       text.slice(
         0,
         MAX_OUTPUT_CHARS
       );
 
-    return res.status(200).json({
-      answer
-    });
+    return res
+      .status(200)
+      .json({
+        answer
+      });
 
   } catch (error) {
 
     clearTimeout(timeout);
 
     if (
-      error?.name === "AbortError"
+      error?.name ===
+      "AbortError"
     ) {
 
       console.error(
         "Gemini request timeout"
       );
 
-      return res.status(504).json({
-        error: "AI_TIMEOUT"
-      });
+      return res
+        .status(504)
+        .json({
+          error:
+            "AI_TIMEOUT"
+        });
     }
 
     console.error(
@@ -340,8 +441,11 @@ ${QUESTION_GUIDANCE[question]}
         : String(error)
     );
 
-    return res.status(500).json({
-      error: "AI_ANALYSIS_FAILED"
-    });
+    return res
+      .status(500)
+      .json({
+        error:
+          "AI_ANALYSIS_FAILED"
+      });
   }
 }
