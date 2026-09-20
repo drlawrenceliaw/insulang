@@ -211,7 +211,7 @@ a{color:inherit}
 
 /* HOW IT WORKS */
 .how{
-  padding:48px 0 78px;
+  padding:40px 0 78px;
   background:#fff;
 }
 .section-title{text-align:center;margin-bottom:32px}
@@ -274,8 +274,9 @@ a{color:inherit}
 #reviews .review-body{
   flex:1;
   width:100%;
-  min-height:300px;
-  margin-top:-4px;
+  min-height:286px;
+  margin-top:-10px;
+  padding-bottom:24px;
   overflow:visible;
 }
 #reviews .elfsight-app-b89ff392-96ab-432e-a747-9d65b7e0d287{
@@ -287,11 +288,11 @@ a{color:inherit}
   margin-bottom:18px;
 }
 #reviews .panel-head{
-  margin-bottom:2px;
-  padding:0 130px;
+  margin-bottom:-4px;
+  padding:0;
 }
 #faq .panel-head{
-  margin-bottom:42px;
+  margin-bottom:18px;
 }
 .panel-head h2{font-size:27px;color:var(--navy);margin:0}
 .panel-head a{
@@ -300,13 +301,19 @@ a{color:inherit}
   color:var(--blue);
   text-decoration:none;
 }
+#reviews{
+  position:relative;
+  padding-bottom:48px;
+}
 #reviews .panel-head a{
   position:absolute;
-  right:0;
-  top:50%;
-  transform:translateY(-50%);
+  right:32px;
+  bottom:22px;
+  top:auto;
+  transform:none;
   margin-top:0;
   white-space:nowrap;
+  z-index:5;
 }
 .review-body{flex:1}
 .faq-list{
@@ -415,15 +422,18 @@ a{color:inherit}
   .footer-links a{margin:0 8px}
 }
 @media(max-width:620px){
+  #reviews{
+    padding-bottom:26px;
+  }
   #reviews .panel-head{
     padding:0;
-    margin-bottom:8px;
+    margin-bottom:0;
   }
   #reviews .panel-head a{
     position:static;
     display:inline-block;
     transform:none;
-    margin-top:7px;
+    margin-top:6px;
   }
 
   .topin{padding:10px 14px}
