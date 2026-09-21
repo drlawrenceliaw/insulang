@@ -133,6 +133,24 @@
   font-weight:850;
 }
 
+
+.overall-score-row{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.overall-score-row .badge{
+  flex:0 0 auto;
+}
+.key strong{
+  color:var(--blue);
+}
+.intent{
+  text-align:center;
+}
+
 </style>
 </head>
 <body>
@@ -168,8 +186,10 @@
   <div class="result-head">
     <div class="eyebrow">QUICK CHECK RESULT</div>
     <h2 class="result-title">整体评分</h2>
-    <div class="score"><span id="overallScore">0</span><small>/100</small></div>
-    <span id="overallBadge" class="badge"></span>
+    <div class="overall-score-row">
+      <div class="score"><span id="overallScore">0</span><small>/100</small></div>
+      <span id="overallBadge" class="badge"></span>
+    </div>
     <div class="result-sub">分数只用于算出保障Gap。</div>
   </div>
 
@@ -191,14 +211,14 @@
   <div class="result-section">
     <div class="qa-head">
       <h3>想进一步了解？</h3>
-      <p class="result-sub" style="margin:0 0 14px">点点看解释。</p>
+      <p class="result-sub" style="margin:0 0 14px">点看 AI 解释。</p>
     </div>
     <div class="qa-list">
       <div class="qa-ai" id="faq-why_score">
         <button type="button" onclick="toggleAIQuestion('why_score')"><span>为什么会得到这个评分？</span></button>
         <div class="qa-answer hide">
           <div class="ai-box"><span class="ai-tag">AI ANALYSIS</span><div class="aiText">准备中…</div></div>
-          <p class="small ai-note">AI 只解释算出的评分，不重新计算，也不接收客户身份讯息。</p>
+          <p class="small ai-note">AI 只解释算出的评分，不接收客户身份信息。</p>
         </div>
       </div>
 
@@ -206,7 +226,7 @@
         <button type="button" onclick="toggleAIQuestion('impact')"><span>我现在应该先看哪一项保障？</span></button>
         <div class="qa-answer hide">
           <div class="ai-box"><span class="ai-tag">AI ANALYSIS</span><div class="aiText">准备中…</div></div>
-          <p class="small ai-note">AI 只解释算出的评分，不重新计算，也不接收客户身份讯息。</p>
+          <p class="small ai-note">AI 只解释算出的评分，不接收客户身份信息。</p>
         </div>
       </div>
 
@@ -214,7 +234,7 @@
         <button type="button" onclick="toggleAIQuestion('cash')"><span>我有流动现金，为什么还是有保障Gap？</span></button>
         <div class="qa-answer hide">
           <div class="ai-box"><span class="ai-tag">AI ANALYSIS</span><div class="aiText">准备中…</div></div>
-          <p class="small ai-note">AI 只解释算出的评分，不重新计算，也不接收客户身份讯息。</p>
+          <p class="small ai-note">AI 只解释算出的评分，不接收客户身份信息。</p>
         </div>
       </div>
 
@@ -222,7 +242,7 @@
         <button type="button" onclick="toggleAIQuestion('priority')"><span>这个结果代表我一定要加保吗？</span></button>
         <div class="qa-answer hide">
           <div class="ai-box"><span class="ai-tag">AI ANALYSIS</span><div class="aiText">准备中…</div></div>
-          <p class="small ai-note">AI 只解释算出的评分，不重新计算，也不接收客户身份讯息。</p>
+          <p class="small ai-note">AI 只解释算出的评分，不接收客户身份信息。</p>
         </div>
       </div>
 
@@ -230,7 +250,7 @@
         <button type="button" onclick="toggleAIQuestion('next')"><span>接下来我可以怎样做？</span></button>
         <div class="qa-answer hide">
           <div class="ai-box"><span class="ai-tag">AI ANALYSIS</span><div class="aiText">准备中…</div></div>
-          <p class="small ai-note">AI 只解释算出的评分，不重新计算，也不接收客户身份讯息。</p>
+          <p class="small ai-note">AI 只解释算出的评分，不接收客户身份信息。</p>
         </div>
       </div>
     </div>
@@ -353,8 +373,8 @@ function renderResult(){
    let detail="";
    if(d.key==="medical"){
      detail=answers.medical==="no"
-       ? "期望AL ≥ RM1百万 & 病房 ≥ RM300/天；实际：目前没有 Medical Card。"
-       : `期望AL ≥ RM1百万 & 病房 ≥ RM300/天；实际AL = ${RMshort(Number(answers.annual))} & 病房 = RM${answers.room}/天。`;
+       ? "预期AL ≥ RM1百万 & 病房 ≥ RM300/天；实际：目前没有 Medical Card。"
+       : `预期AL ≥ RM1百万 & 病房 ≥ RM300/天；实际AL = ${RMshort(Number(answers.annual))} & 病房 = RM${answers.room}/天。`;
    }else{
      detail=`需求大约 = ${RMshort(d.need)}；现保障大约 = ${RMshort(d.existing)}。`;
    }
@@ -363,7 +383,7 @@ function renderResult(){
 
  $("keyNumbers").innerHTML=`
    <div class="key"><strong>${RM(result.expense)}</strong><span>每月家庭生活费</span></div>
-   <div class="key"><strong>${RM(result.loan)}</strong><span>剩余贷款</span></div>
+   <div class="key"><strong>${RMshort(result.loan)}</strong><span>剩余贷款</span></div>
    <div class="key"><strong>${fmtMonths(result.liquid)}</strong><span>马上能动用的现金</span></div>`;
 
  $("cashMonths").textContent=fmtMonths(result.liquid);
