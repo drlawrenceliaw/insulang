@@ -319,8 +319,8 @@
     font-size:16px;
     display:flex;
     align-items:center;
-    justify-content:center;
-    text-align:center;
+    justify-content:flex-start;
+    text-align:left;
   }
   .option.selected{padding:13px 9px!important}
 
@@ -383,7 +383,7 @@
 <main class="wrap">
 <section id="start" class="card start">
   <div class="eyebrow">QUICK CHECK</div>
-  <h1>看清楚你的保障 gap。</h1>
+  <h1>看清楚你的保障Gap。</h1>
   <p class="start-copy">
     <span class="line">约 3–5 分钟。</span>
     <span class="line">系统会根据家庭生活费，贷款及现有保障，做初步分析。</span>
@@ -581,9 +581,9 @@ function startCheck(){
  render();
 }
 function hasAnswer(q){const v=answers[q.k];return v!==undefined&&v!==null&&v!==""&&!(typeof v==="number"&&Number.isNaN(v));}
-function render(){const qs=visible();if(idx>=qs.length)idx=qs.length-1;const q=qs[idx];$("stepText").textContent=`${idx+1} / ${qs.length}`;$("progress").style.width=((idx+1)/qs.length*100)+"%";$("qLabel").textContent=q.type?"如果方便":"选择最符合的答案";const qEl=$("question");qEl.classList.toggle("tight-question",q.k==="expense"||q.k==="loan");if(q.k==="liquidMonths"&&window.matchMedia("(max-width:680px)").matches){qEl.innerHTML="如果不幸重病，<br>现金可以顶几个月？";}else{qEl.textContent=q.q;}$("hint").textContent=q.hint||"";$("options").innerHTML="";$("inputArea").innerHTML="";const next=$("nextBtn");
+function render(){const qs=visible();if(idx>=qs.length)idx=qs.length-1;const q=qs[idx];$("stepText").textContent=`${idx+1} / ${qs.length}`;$("progress").style.width=((idx+1)/qs.length*100)+"%";$("qLabel").textContent=q.type?"如果方便":"选择最符合的答案";const qEl=$("question");qEl.classList.toggle("tight-question",q.k==="expense"||q.k==="loan");const isMobile=window.matchMedia("(max-width:680px)").matches;if(isMobile){const mobileTitles={expense:"每月家庭生活费大约 (RM)？",expenseExact:"每月家庭生活费大约 (RM)？",loan:"剩余贷款总额大约 (RM)？",loanExact:"剩余贷款总额大约 (RM)？",life:"人寿保障大约 (RM)？",lifeExact:"人寿保障大约 (RM)？",ci:"重疾保障大约 (RM)？",ciExact:"重疾保障大约 (RM)？",accident:"意外保障大约 (RM)？",accidentExact:"意外保障大约 (RM)？",annual:"Annual Limit 大约 (RM)？"};if(q.k==="liquidMonths"){qEl.innerHTML="如果不幸重病，<br>现金可以顶几个月？";}else{qEl.textContent=mobileTitles[q.k]||q.q;}}else{qEl.textContent=q.q;}$("hint").textContent=q.hint||"";$("options").innerHTML="";$("inputArea").innerHTML="";const next=$("nextBtn");
  if(q.type){const f=document.createElement("div");f.className="field";const wrap=document.createElement("div");wrap.className="unit-wrap";if(q.type==="money"){const s=document.createElement("span");s.textContent="RM";wrap.appendChild(s)}const input=document.createElement("input");input.type="number";input.min="0";input.step=q.type==="money"?"1000":"1";input.placeholder=q.placeholder||(q.type==="money"?"例如：1500000":"例如：18");input.value=answers[q.k]??"";input.oninput=()=>answers[q.k]=input.value===""?"":Number(input.value);wrap.appendChild(input);if(q.unit){const s=document.createElement("span");s.textContent=q.unit;wrap.appendChild(s)}f.appendChild(wrap);$("inputArea").appendChild(f);next.style.display="";next.textContent=idx===qs.length-1?"查看结果":"下一题";setTimeout(()=>input.focus(),80)}
- else{q.opts.forEach(([label,val])=>{const b=document.createElement("button");b.className="option"+(answers[q.k]===val?" selected":"");b.innerHTML=`<strong>${label}</strong>`;b.onclick=()=>{answers[q.k]=val;render();setTimeout(goNext,130)};$("options").appendChild(b)});next.style.display="none"}
+ else{q.opts.forEach(([label,val])=>{const b=document.createElement("button");b.className="option"+(answers[q.k]===val?" selected":"");let shownLabel=label;if(window.matchMedia("(max-width:680px)").matches&&["expense","loan","life","ci","accident","annual"].includes(q.k)){shownLabel=String(label).replace(/RM/g,"").replace(/\s{2,}/g," ").trim();}b.innerHTML=`<strong>${shownLabel}</strong>`;b.onclick=()=>{answers[q.k]=val;render();setTimeout(goNext,130)};$("options").appendChild(b)});next.style.display="none"}
  $("backBtn").disabled=idx===0;$("backBtn").style.opacity=idx===0?.45:1;}
 function goNext(){
  const qs=visible(),q=qs[idx];
@@ -633,7 +633,7 @@ function renderResult(){
    if(d.key==="medical"){
      detail=answers.medical==="no"
        ? "AL = RM0<br>病房 = RM0/天"
-       : `AL = ${RMshort(Number(answers.annual))}<br>病房 = RM${answers.room}/天`;
+       : `AL = ${RMshort(Number(answers.annual))}<br>${Number(answers.room)>300?"R&B > RM300":`病房 = RM${answers.room}/天`}`;
    }else{
      detail=`预期值 = ${RMshort(d.need)}；<br class="mobile-detail-break">现保障 = ${RMshort(d.existing)}。`;
    }
