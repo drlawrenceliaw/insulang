@@ -530,6 +530,117 @@ a{color:inherit}
   .copyright{margin-top:22px;padding-top:16px}
 }
 
+
+/* Final homepage refinements */
+
+/* Reviews use the full desktop width again so the widget has room for 3 cards. */
+.info-grid{
+  grid-template-columns:1fr;
+  gap:24px;
+}
+#reviews,#faq{
+  min-height:0;
+  height:auto;
+}
+#reviews{
+  padding-bottom:22px;
+}
+#reviews .review-body{
+  min-height:0;
+  margin-top:4px;
+  padding-bottom:0;
+}
+#reviews .panel-head{
+  position:relative;
+  margin-bottom:12px;
+}
+#reviews .panel-head a{
+  position:static;
+  display:inline-block;
+  margin-top:6px;
+  transform:none;
+}
+
+/* Cleaner contact hierarchy, used on both desktop and mobile. */
+.contact strong{
+  font-size:17px;
+  margin-bottom:4px;
+}
+.contact-role{
+  color:#45566d;
+  font-weight:700;
+  line-height:1.5;
+}
+.contact-address{
+  margin-top:12px;
+  line-height:1.65;
+}
+.contact-meta{
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+  margin-top:9px;
+  line-height:1.55;
+}
+.contact-meta a{
+  color:#45566d;
+}
+.appointment{
+  display:inline-block;
+  margin-top:11px;
+  padding:5px 9px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  color:#45566d;
+  background:#f8fbfd;
+  font-size:11px;
+  font-weight:750;
+}
+
+@media(max-width:620px){
+  /* Mobile top bar: only WhatsApp + menu stay visible. */
+  .topin{padding:10px 12px;gap:10px}
+  .nav{position:relative;gap:10px}
+  .nav > a:not(.wa-top){display:none!important}
+  .mobile-menu{min-width:160px}
+
+  /* Blend the city image through the whole hero instead of starting with a hard band. */
+  .hero{
+    background-position:0 0,50% 100%!important;
+    background-size:100% 100%,168% 100%!important;
+  }
+  .hero::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:1;
+    pointer-events:none;
+    background:linear-gradient(
+      180deg,
+      rgba(234,248,252,.52) 0%,
+      rgba(234,248,252,.36) 38%,
+      rgba(234,248,252,.14) 66%,
+      rgba(234,248,252,0) 100%
+    );
+  }
+  .hero-grid{position:relative;z-index:2}
+
+  /* Remove the oversized reserved review area. */
+  #reviews{
+    min-height:0!important;
+    padding-bottom:20px!important;
+  }
+  #reviews .review-body{
+    min-height:0!important;
+    padding-bottom:0!important;
+  }
+
+  .footer{padding-top:28px}
+  .footer-grid{text-align:center}
+  .contact-meta{align-items:center}
+  .contact-address{line-height:1.6}
+}
+
 </style>
 </head>
 <body>
@@ -554,7 +665,9 @@ a{color:inherit}
         <span></span><span></span><span></span>
       </button>
       <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+        <a href="/self-check.html">Quick Check</a>
         <a href="#reviews">Reviews</a>
+        <a href="#faq">FAQ</a>
         <a href="#contact">Contact</a>
       </div>
     </nav>
@@ -723,12 +836,16 @@ a{color:inherit}
   <div class="wrap footer-grid">
     <div class="contact">
       <strong>Dr. Lawrence Liaw</strong>
-      Prudential Malaysia · Senior Insurance Consultant<br>
-      Level 12, Tower A, Menara Prudential Jaya,<br>
-      99, Jalan Tun Sri Lanang, 75100 Melaka<br>
-      HP：<a href="tel:01110700969">011-1070 0969</a><br>
-      Email：<a href="mailto:chuinming811@pruparter.com.my">chuinming811@pruparter.com.my</a><br>
-      By Appointment Only
+      <div class="contact-role">Prudential Malaysia · Senior Insurance Consultant</div>
+      <div class="contact-address">
+        Level 12, Tower A, Menara Prudential Jaya<br>
+        99, Jalan Tun Sri Lanang, 75100 Melaka
+      </div>
+      <div class="contact-meta">
+        <span>HP：<a href="tel:01110700969">011-1070 0969</a></span>
+        <span>Email：<a href="mailto:chuinming811@pruparter.com.my">chuinming811@pruparter.com.my</a></span>
+      </div>
+      <div class="appointment">By Appointment Only</div>
     </div>
 
     <div>
@@ -744,7 +861,7 @@ a{color:inherit}
 
 <script>
 const W="601110700969";
-const msg=encodeURIComponent("你好 Dr. Lawrence，我想了解保障检视。");
+const msg=encodeURIComponent("你好 Dr. Lawrence，我从 Insu Lang 网站找到你，想了解一下保障规划。");
 
 const wa=document.getElementById("waTop");
 wa.href=`https://wa.me/${W}?text=${msg}`;
