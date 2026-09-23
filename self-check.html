@@ -20,176 +20,46 @@
   #result{display:block!important}
   .result-head{padding:0 0 7px!important}
   .eyebrow{font-size:9px!important}
-  .overall-score-row{margin:5px 0 3px!important}
-  .overall-score-main{font-size:23px!important}
-  .overall-score-main small{font-size:14px!important}
-  .badge{font-size:9px!important;padding:4px 7px!important}
-  .result-sub{font-size:9px!important;margin-top:4px!important}
-  .result-section{padding:7px 0!important;break-inside:avoid}
-  .risk-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:6px!important}
-  .metric{padding:8px!important;border-radius:9px!important;break-inside:avoid}
-  .metric-top{gap:5px!important}
-  .metric h4{font-size:11px!important}
-  .metric-score{font-size:16px!important;margin:5px 0 4px!important}
-  .bar{height:5px!important}
-  .metric p{font-size:8.5px!important;line-height:1.3!important;margin-top:5px!important}
-  .center-title{font-size:12px!important;margin-bottom:6px!important}
-  .keys{gap:6px!important}
-  .key{padding:8px 6px!important;border-radius:8px!important}
-  .key strong{font-size:15px!important}
-  .key span{font-size:8.5px!important;margin-top:3px!important}
-  .cash{gap:8px!important}
-  .cash .big{font-size:20px!important}
-  #cashText{font-size:8.5px!important;line-height:1.3!important;margin-top:5px!important}
-  #result>.small{font-size:8px!important;margin-top:7px!important}
-}
-
-/* V5.1 refinements */
-.topin{position:relative;min-height:58px}
-.back{font-size:22px;line-height:1;color:var(--muted);width:38px}
-.top-logo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center}
-.top-logo img{display:block;height:34px;width:auto;max-width:180px}
-.start .eyebrow{text-transform:uppercase}
-.start-copy{white-space:normal}
-.start-copy .line{display:block}
-.trust.single span{padding:8px 12px}
-.result-title{margin:10px 0 14px;font-size:22px;line-height:1.2}
-.center-title{text-align:center}
-.risk-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-.metric{padding:18px}
-.metric-score{font-size:28px;font-weight:950;margin:13px 0 8px}
-.metric p{font-size:13px;line-height:1.6}
-.keys{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.key{text-align:center;background:#f8fafc;border:1px solid #eef2f6;border-radius:14px;padding:18px 12px}
-.key strong{display:block;font-size:24px;line-height:1.15}
-.key span{display:block;font-size:12px;color:var(--muted);margin-top:7px}
-.cash-center{text-align:center}
-.cash{justify-content:center;gap:18px}
-.cash .big{font-size:42px;line-height:1;font-weight:950}
-.qa-head{text-align:center}
-.qa-static-answer{padding:0 16px 16px}
-.qa-static-answer .ai-tag{margin:0 0 9px}
-.qa-static-answer p{padding:0;margin:0;color:var(--muted);line-height:1.7;font-size:14px}
-.next-center{text-align:center}
-.self-box{text-align:center}
-.self-box .btnrow,.full-box .btnrow{justify-content:center}
-.full-box{background:linear-gradient(145deg,#1769e0,#0f55bd);color:#fff;text-align:center}
-.full-box p{color:#eef5ff;margin:0 0 18px}
-.wa-btn{display:inline-flex;align-items:center;gap:8px}
-.wa-btn svg{width:18px;height:18px;flex:0 0 18px}
-.full-box .wa-btn{background:#fff;color:var(--blue)}
-@media(max-width:680px){
-  .top-logo img{width:138px;max-width:42vw}
-  .risk-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
-  .metric{padding:13px}
-  .metric-top{align-items:flex-start;flex-direction:column;gap:7px}
-  .metric h4{font-size:13px}
-  .metric-score{font-size:22px;margin:8px 0 6px}
-  .metric p{font-size:11px;line-height:1.5}
-  .badge{font-size:10px;padding:6px 8px}
-  .keys{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
-  .key{padding:13px 7px}
-  .key strong{font-size:17px}
-  .key span{font-size:10px}
-  .cash .big{font-size:36px}
-}
-
-/* Header logo: exact center, independent of the left/back and right/step widths */
-.topin{position:relative;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;min-height:58px}
-.back{grid-column:1;justify-self:start;width:auto}
-.top-logo{grid-column:2;justify-self:center;position:static;left:auto;top:auto;transform:none;display:flex;align-items:center;justify-content:center;line-height:0}
-.top-logo img{display:block;width:105px;height:auto;max-width:38vw;object-fit:contain;image-rendering:auto}
-.stepText{grid-column:3;justify-self:end}
-@media(max-width:680px){.top-logo img{width:95px;max-width:42vw}}
-
-
-/* Compact CTA + tighter cash status + slightly larger header logo */
-.top-logo img{
-  width:125px !important;
-  height:auto !important;
-  max-width:42vw !important;
-}
-.cash{
-  gap:9px !important;
-}
-.full-box{
-  background:#f8fbff !important;
-  border:1px solid #d9e7fb !important;
-  color:var(--ink) !important;
-  border-radius:14px !important;
-  padding:16px 18px !important;
-  max-width:520px !important;
-  margin:0 auto !important;
-  text-align:center !important;
-}
-.full-box p{
-  color:var(--ink) !important;
-  margin:0 0 12px !important;
-  line-height:1.5 !important;
-  font-weight:700 !important;
-}
-.full-box .btnrow{
-  margin-top:0 !important;
-  justify-content:center !important;
-}
-.full-box .wa-btn{
-  background:var(--blue) !important;
-  color:#fff !important;
-  padding:11px 16px !important;
-  border-radius:10px !important;
-}
-@media(max-width:680px){
-  .top-logo img{width:110px !important;max-width:45vw !important}
-  .cash{gap:8px !important}
-  .full-box{padding:14px 16px !important;max-width:100% !important}
-}
-
-
-.aiText .ai-paragraph{
-  margin:0 0 12px;
-  line-height:1.7;
-}
-.aiText .ai-paragraph:last-child{
-  margin-bottom:0;
-}
-.aiText .ai-points{
-  margin:8px 0 0;
-  padding-left:20px;
-}
-.aiText .ai-points li{
-  margin:6px 0;
-  line-height:1.65;
-}
-.aiText strong{
+  .overall-title{
+  margin-top:14px;
+  text-align:center;
+  font-size:18px;
+  font-weight:900;
   color:var(--ink);
-  font-weight:850;
 }
-
-
 .overall-score-row{
   display:grid;
   grid-template-columns:1fr auto 1fr;
   align-items:center;
-  gap:14px;
   width:100%;
-  margin:12px 0 6px;
+  margin:8px 0 2px;
 }
 .overall-score-main{
   grid-column:2;
   justify-self:center;
-  font-size:30px;
-  line-height:1.1;
-  font-weight:950;
-  color:var(--blue);
+  display:flex;
+  align-items:flex-end;
+  gap:4px;
+  line-height:1;
   white-space:nowrap;
 }
+.overall-score-main #overallScore{
+  font-size:64px;
+  line-height:.95;
+  font-weight:950;
+  color:var(--blue);
+}
 .overall-score-main small{
-  font-size:18px;
+  font-size:19px;
+  line-height:1.15;
   color:var(--muted);
+  font-weight:800;
+  padding-bottom:5px;
 }
 .overall-score-row .badge{
   grid-column:3;
-  justify-self:end;
+  justify-self:start;
+  margin-left:10px;
 }
 .key strong{
   color:var(--blue);
@@ -203,10 +73,63 @@
 
 
 @media(max-width:480px){
-  .overall-score-row{grid-template-columns:1fr auto 1fr;gap:8px}
-  .overall-score-main{font-size:22px}
-  .overall-score-main small{font-size:14px}
-  .overall-score-row .badge{font-size:9px;padding:5px 7px}
+  .overall-score-row{grid-template-columns:1fr auto 1fr}
+  .overall-score-main #overallScore{font-size:52px}
+  .overall-score-main small{font-size:16px;padding-bottom:4px}
+  .overall-score-row .badge{font-size:9px;padding:5px 7px;margin-left:7px}
+  .lead-form{grid-template-columns:1fr}
+  .lead-consent,.lead-error{grid-column:1}
+}
+
+
+.lead-form{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+  margin-top:24px;
+}
+.lead-field label{
+  display:block;
+  font-size:13px;
+  font-weight:850;
+  margin-bottom:7px;
+}
+.lead-field input{
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:14px;
+  background:#fff;
+  color:var(--ink);
+  outline:none;
+}
+.lead-field input:focus{
+  border-color:#9dbbe8;
+  box-shadow:0 0 0 3px rgba(15,105,224,.08);
+}
+.lead-consent{
+  grid-column:1 / -1;
+  display:flex;
+  align-items:flex-start;
+  gap:9px;
+  font-size:12px;
+  line-height:1.5;
+  color:var(--muted);
+  cursor:pointer;
+}
+.lead-consent input{
+  margin-top:3px;
+  flex:0 0 auto;
+}
+.lead-error{
+  grid-column:1 / -1;
+  min-height:18px;
+  color:var(--red);
+  font-size:12px;
+  font-weight:750;
+}
+.lead-privacy{
+  margin:10px 0 0;
 }
 
 </style>
@@ -222,8 +145,26 @@
     <span class="line">系统会根据家庭生活费，贷款及现有保障，做初步分析。</span>
     <span class="line">AI 功能不负责计算，只会在你想了解评分时，提供解释。</span>
   </p>
-  <div class="btnrow"><button class="btn primary" onclick="startCheck()">开始</button></div>
-  <div class="trust"><span>13 个核心问题</span><span>纯属分析Gap</span><span>不构成投保建议</span></div>
+
+  <div class="lead-form">
+    <div class="lead-field">
+      <label for="leadName">Full Name (English)</label>
+      <input id="leadName" type="text" autocomplete="name" maxlength="80" placeholder="例如：Lawrence Liaw">
+    </div>
+    <div class="lead-field">
+      <label for="leadPhone">Phone Number</label>
+      <input id="leadPhone" type="tel" autocomplete="tel" inputmode="tel" maxlength="24" placeholder="例如：01110700969">
+    </div>
+    <label class="lead-consent">
+      <input id="leadConsent" type="checkbox">
+      <span>我同意 Insu Lang 保存以上资料，用于保留这次 Quick Check 结果及后续联系。</span>
+    </label>
+    <div id="leadError" class="lead-error" aria-live="polite"></div>
+  </div>
+
+  <div class="btnrow"><button class="btn primary" onclick="startCheck()">开始 Quick Check</button></div>
+  <div class="trust"><span>9 个核心问题</span><span>纯属分析Gap</span><span>不构成投保建议</span></div>
+  <p class="small lead-privacy">姓名和手机号不会传给 AI。</p>
 </section>
 
 <section id="quiz" class="card hide"><div id="qLabel" class="eyebrow"></div><h1 id="question" class="question"></h1><div id="hint" class="hint"></div><div id="options" class="options"></div><div id="inputArea"></div><div class="footer-nav"><button class="btn ghost" id="backBtn" onclick="goBack()">上一题</button><button class="btn primary" id="nextBtn" onclick="goNext()">下一题</button></div></section>
@@ -243,12 +184,12 @@
 <section id="result" class="card hide">
   <div class="result-head">
     <div class="eyebrow">QUICK CHECK RESULT</div>
+    <div class="overall-title">整体评分</div>
     <div class="overall-score-row">
       <span class="overall-score-spacer" aria-hidden="true"></span>
-      <div class="overall-score-main">整体评分：<span id="overallScore">0</span><small>/100</small></div>
+      <div class="overall-score-main"><span id="overallScore">0</span><small>/100</small></div>
       <span id="overallBadge" class="badge"></span>
     </div>
-    <div class="result-sub">分数只用于算出保障Gap。</div>
   </div>
 
   <div class="result-section">
@@ -351,17 +292,13 @@
 </section>
 </main>
 <script>
-const CONFIG={whatsappNumber:"601110700969",advisorName:"Dr. Lawrence",aiEndpoint:"/api/analyze"};
+const CONFIG={whatsappNumber:"601110700969",advisorName:"Dr. Lawrence",aiEndpoint:"/api/analyze",leadEndpoint:"/api/lead"};
 const RM=n=>"RM"+Math.round(n||0).toLocaleString("en-MY");
 const RMshort=n=>{n=Math.round(Number(n)||0);if(n>=1000000){const v=n/1000000;return "RM"+(Number.isInteger(v)?v:v.toFixed(1).replace(/\.0$/,""))+"百万"}if(n>=1000){const v=n/1000;return "RM"+(Number.isInteger(v)?v:v.toFixed(1).replace(/\.0$/,""))+"k"}return "RM"+n.toLocaleString("en-MY")};
 const $=id=>document.getElementById(id);
-let answers={},idx=0,result=null;
+let answers={},idx=0,result=null,leadInfo={name:"",phone:""},leadSubmitted=false;
 
 const Q=[
- {k:"age",q:"你的年龄？",opts:[["18–25","18-25"],["26–30","26-30"],["31–40","31-40"],["41–50","41-50"],["51–60","51-60"],["60+","60+"]]},
- {k:"marital",q:"你的婚姻状况？",opts:[["单身","single"],["已婚","married"]]},
- {k:"work",q:"目前的工作情况？",opts:[["学生","student"],["受雇人士","employed"],["专业人士","professional"],["自雇 / 生意","self"],["企业家","entrepreneur"],["退休","retired"]]},
- {k:"income",q:"月收入大约多少？",hint:"",opts:[["RM0–3k",1500],["RM3k–5k",4000],["RM5k–8k",6500],["RM8k–15k",11500],["RM15k–30k",22500],["> RM30k",35000]]},
  {k:"expense",q:"每月家庭生活费大约多少？",hint:"不包括房贷、车贷及其他贷款供期。",opts:[["< RM2k",1500],["RM2k–4k",3000],["RM4k–6k",5000],["RM6k–10k",8000],["RM10k–15k",12500],["> RM15k","over"]]},
  {k:"expenseExact",q:"每月家庭生活费大约多少？",hint:"填一个大概的数字即可。",placeholder:"例如：20000",type:"money",show:a=>a.expense==="over"},
  {k:"loan",q:"剩余贷款总额大约多少？",hint:"包括房贷、车贷、个人贷款及其他主要贷款。",opts:[["没有贷款",0],["< RM100k",50000],["RM100k–300k",200000],["RM300k–500k",400000],["RM500k–1百万",750000],["> RM1百万","over"]]},
@@ -379,7 +316,36 @@ const Q=[
  {k:"room",q:"Room & Board？",hint:"",opts:[["RM100",100],["RM150",150],["RM200",200],["RM250",250],["RM300",300],["> RM300",350]],show:a=>a.medical==="yes"}
 ];
 function visible(){return Q.filter(q=>!q.show||q.show(answers));}
-function startCheck(){$("start").classList.add("hide");$("quiz").classList.remove("hide");render();}
+function startCheck(){
+ const name=String($("leadName")?.value||"").trim().replace(/\s+/g," ");
+ const rawPhone=String($("leadPhone")?.value||"").trim();
+ const phone=rawPhone.replace(/[^\d+]/g,"");
+ const consent=!!$("leadConsent")?.checked;
+ const error=$("leadError");
+
+ if(name.length<2){
+   if(error)error.textContent="请填写 Full Name (English)。";
+   $("leadName")?.focus();
+   return;
+ }
+ if(!/^\+?\d{8,15}$/.test(phone)){
+   if(error)error.textContent="请填写正确的手机号。";
+   $("leadPhone")?.focus();
+   return;
+ }
+ if(!consent){
+   if(error)error.textContent="请先同意保存资料后继续。";
+   $("leadConsent")?.focus();
+   return;
+ }
+
+ if(error)error.textContent="";
+ leadInfo={name,phone};
+ leadSubmitted=false;
+ $("start").classList.add("hide");
+ $("quiz").classList.remove("hide");
+ render();
+}
 function hasAnswer(q){const v=answers[q.k];return v!==undefined&&v!==null&&v!==""&&!(typeof v==="number"&&Number.isNaN(v));}
 function render(){const qs=visible();if(idx>=qs.length)idx=qs.length-1;const q=qs[idx];$("stepText").textContent=`${idx+1} / ${qs.length}`;$("progress").style.width=((idx+1)/qs.length*100)+"%";$("qLabel").textContent=q.type?"如果方便":"选择最符合的答案";$("question").textContent=q.q;$("hint").textContent=q.hint||"";$("options").innerHTML="";$("inputArea").innerHTML="";const next=$("nextBtn");
  if(q.type){const f=document.createElement("div");f.className="field";const wrap=document.createElement("div");wrap.className="unit-wrap";if(q.type==="money"){const s=document.createElement("span");s.textContent="RM";wrap.appendChild(s)}const input=document.createElement("input");input.type="number";input.min="0";input.step=q.type==="money"?"1000":"1";input.placeholder=q.placeholder||(q.type==="money"?"例如：1500000":"例如：18");input.value=answers[q.k]??"";input.oninput=()=>answers[q.k]=input.value===""?"":Number(input.value);wrap.appendChild(input);if(q.unit){const s=document.createElement("span");s.textContent=q.unit;wrap.appendChild(s)}f.appendChild(wrap);$("inputArea").appendChild(f);next.style.display="";next.textContent=idx===qs.length-1?"查看结果":"下一题";setTimeout(()=>input.focus(),80)}
@@ -403,6 +369,7 @@ function finishManual(key){
  $("stepText").textContent="完成";
  $("progress").style.width="100%";
  $("manualFinalText").innerHTML=`${labels[key]||"金额"}已经超出了 Quick Check 的范围。<br>建议直接做 1对1 Full Review。`;
+ submitLead({remarks:`超出 Quick Check 范围：${labels[key]||"金额"}`});
  window.scrollTo({top:0,behavior:"smooth"});
 }
 function goBack(){if(idx>0){idx--;render();}}
@@ -419,7 +386,7 @@ function score(existing,need,manual){if(manual)return null;return Math.max(0,Mat
 function calculate(){const expense=answers.expense==="over"?Number(answers.expenseExact):Number(answers.expense);const loan=answers.loan==="over"?Number(answers.loanExact):Number(answers.loan);const liquid=answers.liquidMonths==="over"?Number(answers.liquidMonthsExact):Number(answers.liquidMonths);const life=exactOrRange("life"),ci=exactOrRange("ci"),acc=exactOrRange("accident");const complexLoan=loan>5000000;const lifeManual=complexLoan||life>5000000,ciManual=complexLoan||ci>5000000,accManual=complexLoan||acc>5000000;const lifeNeed=expense*120+loan+50000;const ciNeed=expense*120+loan;const accNeed=lifeNeed;const lifeScore=score(life,lifeNeed,lifeManual),ciScore=score(ci,ciNeed,ciManual),accScore=score(acc,accNeed,accManual);
  let medScore=0,annualPts=0,roomPts=0;const medicalAnnual=answers.medical==="yes"?Number(answers.annual||0):0;const medicalRoom=answers.medical==="yes"?Number(answers.room||0):0;if(answers.medical==="no")medScore=0;else{annualPts=medicalAnnual>=1000000?80:medicalAnnual>=500000?60:medicalAnnual>=300000?40:medicalAnnual>=100000?25:10;roomPts=medicalRoom>=300?20:medicalRoom>=250?17:medicalRoom>=200?14:medicalRoom>=150?10:6;medScore=annualPts+roomPts}
  const domains=[{key:"life",name:"人寿保障",score:lifeScore,need:lifeNeed,existing:life,manual:lifeManual},{key:"ci",name:"重疾保障",score:ciScore,need:ciNeed,existing:ci,manual:ciManual},{key:"medical",name:"医疗保障",score:medScore,need:null,existing:null,manual:false},{key:"accident",name:"意外保障",score:accScore,need:accNeed,existing:acc,manual:accManual}].map(d=>({...d,status:status(d.score)}));const sc=domains.filter(d=>d.score!==null).map(d=>d.score);const overall=Math.round(sc.reduce((a,b)=>a+b,0)/Math.max(1,sc.length));const gaps=domains.filter(d=>d.score!==null).sort((a,b)=>a.score-b.score).slice(0,3);const cashStatus=liquid>=7?{label:"较稳定",cls:"green"}:liquid>=4?{label:"基础缓冲",cls:"yellow"}:{label:"缓冲较低",cls:"red"};return{expense,loan,liquid,life,ci,acc,lifeNeed,ciNeed,accNeed,domains,overall,gaps,cashStatus,hasManual:domains.some(d=>d.manual),complexLoan,medicalAnnual,medicalRoom,medicalAnnualPoints:annualPts,medicalRoomPoints:roomPts};}
-function finish(){result=calculate();$("quiz").classList.add("hide");$("result").classList.remove("hide");$("stepText").textContent="完成";$("progress").style.width="100%";renderResult();window.scrollTo({top:0,behavior:"smooth"});}
+function finish(){result=calculate();$("quiz").classList.add("hide");$("result").classList.remove("hide");$("stepText").textContent="完成";$("progress").style.width="100%";renderResult();submitLead();window.scrollTo({top:0,behavior:"smooth"});}
 function renderResult(){
  $("overallScore").textContent=result.overall;
  const os=status(result.overall);
@@ -431,10 +398,10 @@ function renderResult(){
    let detail="";
    if(d.key==="medical"){
      detail=answers.medical==="no"
-       ? "预期AL ≥ RM1百万 & 病房 ≥ RM300/天；实际：目前没有 Medical Card。"
-       : `预期AL ≥ RM1百万 & 病房 ≥ RM300/天；实际AL = ${RMshort(Number(answers.annual))} & 病房 = RM${answers.room}/天。`;
+       ? "预期AL ≥ RM1百万 & 病房 ≥ RM300/天；<br>实际：目前没有 Medical Card。"
+       : `预期AL ≥ RM1百万 & 病房 ≥ RM300/天；<br>实际AL = ${RMshort(Number(answers.annual))} & 病房 = RM${answers.room}/天。`;
    }else{
-     detail=`需求大约 = ${RMshort(d.need)}；现保障大约 = ${RMshort(d.existing)}。`;
+     detail=`预期值 = ${RMshort(d.need)}；现保障 = ${RMshort(d.existing)}。`;
    }
    box.innerHTML+=`<div class="metric"><div class="metric-top"><h4>${d.name}</h4><span class="badge ${d.status.cls}">${d.status.label}</span></div><div class="metric-score">${d.score} / 100</div><div class="bar"><i style="width:${Math.max(0,Math.min(100,d.score||0))}%"></i></div><p>${detail}</p></div>`;
  }
@@ -457,6 +424,68 @@ function chooseIntent(type){
  if(type==="full") $("fullBox").classList.remove("hide");
  setTimeout(()=>window.scrollBy({top:180,behavior:"smooth"}),50);
 }
+
+function leadPayload(extra={}){
+ const byKey={};
+ if(result?.domains){
+   result.domains.forEach(d=>{byKey[d.key]=d;});
+ }
+ return {
+   full_name:leadInfo.name,
+   phone:leadInfo.phone,
+   overall_score:result?.overall ?? null,
+   life:{
+     score:byKey.life?.score ?? null,
+     existing:byKey.life?.existing ?? null,
+     expected:byKey.life?.need ?? null
+   },
+   ci:{
+     score:byKey.ci?.score ?? null,
+     existing:byKey.ci?.existing ?? null,
+     expected:byKey.ci?.need ?? null
+   },
+   accident:{
+     score:byKey.accident?.score ?? null,
+     existing:byKey.accident?.existing ?? null,
+     expected:byKey.accident?.need ?? null
+   },
+   medical:{
+     score:byKey.medical?.score ?? null,
+     annual_limit:answers.medical==="yes" ? Number(answers.annual||0) : 0,
+     room_and_board:answers.medical==="yes" ? Number(answers.room||0) : 0
+   },
+   cash_buffer_months:result?.liquid ?? (
+     answers.liquidMonths==="over"
+       ? Number(answers.liquidMonthsExact||0)
+       : Number(answers.liquidMonths||0)
+   ),
+   source:"Quick Check",
+   remarks:String(extra.remarks||"").slice(0,300)
+ };
+}
+
+async function submitLead(extra={}){
+ if(leadSubmitted || !leadInfo.name || !leadInfo.phone)return;
+ leadSubmitted=true;
+
+ try{
+   const r=await fetch(CONFIG.leadEndpoint,{
+     method:"POST",
+     headers:{"Content-Type":"application/json"},
+     body:JSON.stringify(leadPayload(extra)),
+     keepalive:true
+   });
+
+   if(!r.ok){
+     leadSubmitted=false;
+     console.warn("Insu Lang lead save failed:",r.status);
+   }
+ }catch(e){
+   leadSubmitted=false;
+   console.warn("Insu Lang lead save failed:",e?.message||e);
+ }
+}
+
 const aiLoaded={};
 const aiLoading={};
 function toggleAIQuestion(questionId){
@@ -575,7 +604,11 @@ function fullReview(manual=false){
  window.open(`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`,"_blank");
 }
 function restart(){
- answers={};idx=0;result=null;
+ answers={};idx=0;result=null;leadInfo={name:"",phone:""};leadSubmitted=false;
+ if($("leadName"))$("leadName").value="";
+ if($("leadPhone"))$("leadPhone").value="";
+ if($("leadConsent"))$("leadConsent").checked=false;
+ if($("leadError"))$("leadError").textContent="";
  Object.keys(aiLoaded).forEach(k=>delete aiLoaded[k]);
  Object.keys(aiLoading).forEach(k=>delete aiLoading[k]);
  $("result").classList.add("hide");$("manualFinal").classList.add("hide");$("start").classList.remove("hide");
