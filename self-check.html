@@ -267,6 +267,14 @@
 
 
 
+
+/* Start form spacing */
+.lead-error:empty{display:none}
+.start .lead-form + .btnrow{margin-top:15px}
+
+/* Desktop keeps answer text alignment as before. */
+.mobile-detail-break{display:none}
+
 /* Final requested refinements */
 .site-copyright{
   max-width:900px;
@@ -308,18 +316,19 @@
   .option{
     min-height:72px;
     padding:14px 10px!important;
-    font-size:14px;
+    font-size:16px;
     display:flex;
     align-items:center;
+    justify-content:center;
+    text-align:center;
   }
   .option.selected{padding:13px 9px!important}
 
-  /* Mobile only: tighten this one question + hint. */
-  .question.loan-question{margin-bottom:4px!important}
+  /* Mobile: expense and loan title-to-hint spacing stays consistent. */
+  .question.tight-question{margin-bottom:4px!important}
 
-  /* Mobile only: bring Start Quick Check closer to the phone box. */
-  .lead-error:empty{display:none}
-  .start .lead-form + .btnrow{margin-top:10px!important}
+  /* Mobile: keep a comfortable gap between Phone Number and Start Quick Check. */
+  .start .lead-form + .btnrow{margin-top:18px!important}
 
   /* Mobile Result stays 2x2, but uses the card space more efficiently. */
   .risk-grid{
@@ -351,6 +360,9 @@
     margin:10px 0 7px!important;
     white-space:nowrap;
   }
+
+  .mobile-detail-break{display:block}
+
   .metric p{
     font-size:11.5px!important;
     line-height:1.5!important;
@@ -495,11 +507,11 @@
     <p class="hint">如果之后生活开销，贷款或保障有变化，需要重新算一次。</p>
     <div class="btnrow">
       <button class="btn secondary" onclick="window.print()">保存 / 打印</button>
+      <button class="btn ghost" onclick="restart()">重新自检</button>
       <button class="btn primary wa-btn" onclick="contactDr()">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.009-.371-.011-.57-.011-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479s1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.693.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.981.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.89-9.884a9.82 9.82 0 0 1 7.021 2.91 9.82 9.82 0 0 1 2.9 7.019c-.002 5.45-4.437 9.884-9.884 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.14 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
         Dr. Lawrence
       </button>
-      <button class="btn ghost" onclick="restart()">重新自检</button>
     </div>
   </div>
 
@@ -569,7 +581,7 @@ function startCheck(){
  render();
 }
 function hasAnswer(q){const v=answers[q.k];return v!==undefined&&v!==null&&v!==""&&!(typeof v==="number"&&Number.isNaN(v));}
-function render(){const qs=visible();if(idx>=qs.length)idx=qs.length-1;const q=qs[idx];$("stepText").textContent=`${idx+1} / ${qs.length}`;$("progress").style.width=((idx+1)/qs.length*100)+"%";$("qLabel").textContent=q.type?"如果方便":"选择最符合的答案";$("question").textContent=q.q;$("question").classList.toggle("loan-question",q.k==="loan");$("hint").textContent=q.hint||"";$("options").innerHTML="";$("inputArea").innerHTML="";const next=$("nextBtn");
+function render(){const qs=visible();if(idx>=qs.length)idx=qs.length-1;const q=qs[idx];$("stepText").textContent=`${idx+1} / ${qs.length}`;$("progress").style.width=((idx+1)/qs.length*100)+"%";$("qLabel").textContent=q.type?"如果方便":"选择最符合的答案";const qEl=$("question");qEl.classList.toggle("tight-question",q.k==="expense"||q.k==="loan");if(q.k==="liquidMonths"&&window.matchMedia("(max-width:680px)").matches){qEl.innerHTML="如果不幸重病，<br>现金可以顶几个月？";}else{qEl.textContent=q.q;}$("hint").textContent=q.hint||"";$("options").innerHTML="";$("inputArea").innerHTML="";const next=$("nextBtn");
  if(q.type){const f=document.createElement("div");f.className="field";const wrap=document.createElement("div");wrap.className="unit-wrap";if(q.type==="money"){const s=document.createElement("span");s.textContent="RM";wrap.appendChild(s)}const input=document.createElement("input");input.type="number";input.min="0";input.step=q.type==="money"?"1000":"1";input.placeholder=q.placeholder||(q.type==="money"?"例如：1500000":"例如：18");input.value=answers[q.k]??"";input.oninput=()=>answers[q.k]=input.value===""?"":Number(input.value);wrap.appendChild(input);if(q.unit){const s=document.createElement("span");s.textContent=q.unit;wrap.appendChild(s)}f.appendChild(wrap);$("inputArea").appendChild(f);next.style.display="";next.textContent=idx===qs.length-1?"查看结果":"下一题";setTimeout(()=>input.focus(),80)}
  else{q.opts.forEach(([label,val])=>{const b=document.createElement("button");b.className="option"+(answers[q.k]===val?" selected":"");b.innerHTML=`<strong>${label}</strong>`;b.onclick=()=>{answers[q.k]=val;render();setTimeout(goNext,130)};$("options").appendChild(b)});next.style.display="none"}
  $("backBtn").disabled=idx===0;$("backBtn").style.opacity=idx===0?.45:1;}
@@ -620,10 +632,10 @@ function renderResult(){
    let detail="";
    if(d.key==="medical"){
      detail=answers.medical==="no"
-       ? "预期AL ≥ RM1百万 & 病房 ≥ RM300/天；<br>实际：目前没有 Medical Card。"
-       : `预期AL ≥ RM1百万 & 病房 ≥ RM300/天；<br>实际AL = ${RMshort(Number(answers.annual))} & 病房 = RM${answers.room}/天。`;
+       ? "AL = RM0<br>病房 = RM0/天"
+       : `AL = ${RMshort(Number(answers.annual))}<br>病房 = RM${answers.room}/天`;
    }else{
-     detail=`预期值 = ${RMshort(d.need)}；现保障 = ${RMshort(d.existing)}。`;
+     detail=`预期值 = ${RMshort(d.need)}；<br class="mobile-detail-break">现保障 = ${RMshort(d.existing)}。`;
    }
    box.innerHTML+=`<div class="metric"><div class="metric-top"><h4>${d.name}</h4><span class="badge ${d.status.cls}">${d.status.label}</span></div><div class="metric-score">${d.score} / 100</div><div class="bar"><i style="width:${Math.max(0,Math.min(100,d.score||0))}%"></i></div><p>${detail}</p></div>`;
  }
@@ -813,16 +825,26 @@ function renderAIAnswer(text){
 }
 
 function esc(s){return String(s).replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]))}
+function quickCheckWhatsAppText(intent="result"){
+ if(!result){
+   return intent==="full"
+     ? `你好 ${CONFIG.advisorName}，我想进一步做 Full Review。`
+     : `你好 ${CONFIG.advisorName}，我刚完成 Quick Check，想了解一下我的结果。`;
+ }
+ const summary=result.domains.map(d=>`${d.name}：${d.score}/100`).join("；");
+ const ending=intent==="full"
+   ? "我想进一步做 Full Review。"
+   : "我想了解一下我的结果。";
+ return `你好 ${CONFIG.advisorName}，我刚完成 Quick Check。整体评分：${result.overall}/100。${summary}。${ending}`;
+}
 function contactDr(){
- const text="你好 Dr. Lawrence，我刚完成 Quick Check，想了解一下我的结果。";
+ const text=quickCheckWhatsAppText("result");
  window.open(`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`,"_blank");
 }
 function fullReview(manual=false){
- let text=`你好 ${CONFIG.advisorName}，我想进一步做 Full Review。`;
- if(!manual && result){
-   const summary=result.domains.map(d=>`${d.name}:${d.score}/100`).join("；");
-   text=`你好 ${CONFIG.advisorName}，我刚完成保障自检。整体评分 ${result.overall}/100。${summary}。我想进一步做 Full Review。`;
- }
+ const text=manual
+   ? `你好 ${CONFIG.advisorName}，我想进一步做 Full Review。`
+   : quickCheckWhatsAppText("full");
  window.open(`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`,"_blank");
 }
 function restart(){
