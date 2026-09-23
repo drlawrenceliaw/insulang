@@ -641,6 +641,21 @@ a{color:inherit}
   .contact-address{line-height:1.6}
 }
 
+
+/* Desktop: Reviews + FAQ stay on the same row.
+   Reviews get the wider side so the embedded widget can show 3 cards. */
+@media(min-width:761px){
+  .info .wrap{max-width:1480px}
+  .info-grid{
+    grid-template-columns:minmax(0,3fr) minmax(300px,.9fr);
+    gap:24px;
+    align-items:stretch;
+  }
+  #reviews,#faq{
+    height:100%;
+  }
+}
+
 </style>
 </head>
 <body>
