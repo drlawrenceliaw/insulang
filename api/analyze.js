@@ -1,153 +1,84 @@
-// Insu Lang — Gemini API
-// Security V2 + Prompt V5
-// Model: Gemini 3.1 Flash Lite
-// AI only explains results already calculated by Quick Check.
-
 const QUESTION_GUIDANCE = Object.freeze({
   why_score: `
 回答：为什么会得到这个评分？
 
-这题只解释“评分怎样得出”，不是评价哪里好或哪里不好。
+这题只解释评分怎样得出，不评价哪里好或不好。
 
 第一句可以类似：
 “你的整体评分（57分）是人寿，重疾，医疗和意外评分的平均值。”
 
-必须使用中文逗号“，”。
-
 接着解释：
 - 人寿，重疾和意外，是按照现有保障/预期值来计算的，最高100分。
-- 可以带出实际评分，例如：
-“人寿（54分），重疾（56分）和意外（14分），是按照现有保障/预期值来计算的，最高100分。”
-- 医疗保障不要说出 Annual Limit 和 Room & Board 的评分占比，也不要告诉客户80/20的内部评分权重。
-- 医疗保障只需要简单说：
-“医疗保障（70分）是根据目前的 Annual Limit 和 Room & Board 评估出来的。”
-- 不要把医疗保障说成用“现有保障/预期值”计算，因为医疗的计算方式不同。
-- 不要使用“参考需求”，统一使用“预期值”。
-
-这题不要讲：
-- 哪项保障不足。
-- 哪项应该优先看。
-- 哪项有提升空间。
-- Full Review。
+- 可以写成：“人寿（54分），重疾（56分）和意外（14分），是按照现有保障/预期值来计算的，最高100分。”
+- 医疗保障只需要说：“医疗保障（70分）是根据目前的 Annual Limit 和 Room & Board 评估出来的。”
+- 不要透露 Annual Limit 和 Room & Board 的内部评分占比或各自得分。
+- 不要使用“参考需求”或“参考值”，统一使用“预期值”。
+- 不要讲哪项保障不足，不要讲 Full Review。
 `,
 
   impact: `
 回答：我现在应该先看哪一项保障？
 
-这题只回答目前最应该先看的保障，不要提 Full Review。
-
-- 根据最低评分或最明显的保障Gap回答。
-- 如果两项同分最低，可以一起讲。
-- 可以引用评分，例如“医疗保障（24分）”。
-
-如果医疗保障是重点：
-- 有 Medical Card，就不要说没有医疗保障。
-- 必须把“预期值”和“实际值”直接告诉用户。
-
-格式可以类似：
-
-“**你现在应该先看医疗保障（24分）。**
-
-这次 Quick Check 的预期是 Annual Limit ≥ RM1百万，Room & Board ≥ RM300/天；你目前是 Annual Limit RM50k，Room & Board RM200/天。
-
-**目前比较明显的保障Gap，就在这两个部分。**”
-
-如果是人寿，重疾或意外：
-- 比较 existing 和 expected_value。
-- 统一使用“预期值”，不要使用“参考需求”或“参考值”。
-
-不要主动提 Dr. Lawrence。
-不要主动提 Full Review。
+这题必须只回答一项保障。
+- 直接使用 priority_domain 指定的那一项。
+- 即使两项同分，也只回答 priority_domain，不要一次列两项或三项。
+- 可以引用评分，例如“你现在应该先看人寿保障（14分）。”
+- 如果是人寿，重疾或意外，比较现有保障和预期值。
+- 如果是医疗保障，比较实际 Annual Limit / Room & Board 和预期值。
+- 不要提第二项保障。
+- 不要提 Full Review。
 `,
 
   cash: `
 回答：我有流动现金，为什么还是有保障Gap？
 
-重点是解释“自己的现金”和“保险保障”作用不同。
-
 回答方向：
+“流动现金和保险保障，作用不一样。”
 
-“**流动现金和保险保障，作用不一样。**
+接着说明：
+“现金是自己的钱，风险发生时用多少就少多少，而保险是用保障杠杆，把风险转给保险公司来承担。”
 
-现金是自己的钱，风险发生时用多少就少多少。
+如果需要解释保障Gap，只要简单说：保障Gap是在比较现有保障和预期值之间还有多少距离。
 
-保险则是用保障杠杆，把风险转给保险公司来承担。”
-
-可以自然使用“保障杠杆”这个词。
-
-如果需要解释保障Gap，可以简单说明：
-保障Gap是在比较现有保障和预期值之间还有多少距离。
-
-不要使用：
-- “符合保单条款的风险”。
-- RM1赔RM100。
-- 固定赔付倍数。
-- “现金够也不代表保障够”。
-- “即使你有很多现金还是需要保险”。
-- 任何像在反驳或教育客户的句子。
-
+不要说“符合保单条款”。
+不要使用固定赔付倍数。
+不要说“RM1赔RM100”。
 不要提 Full Review。
 `,
 
   priority: `
 回答：这个结果代表我一定要加保吗？
 
-回答要非常简单。
-
 第一句必须是：
 “**不一定。**”
 
-接下来表达：
+接着只需要表达：
 “Quick Check 只是帮你找出目前的保障Gap。”
-
 “让你马上知道哪里不足，更容易看懂自己的保障状况。”
 
-就这样。
-
-不要写：
-- “不需要为了分数而买。”
-- “为了分数而买保险。”
-- “还要结合现有保单。”
-- “还要结合家庭责任。”
-- “根据自己的想法决定。”
-- “建议购买。”
-- Full Review。
-
-不要推荐任何产品，公司，保费或保障金额。
+不要写“不需要为了分数而买”。
+不要重新讲家庭责任或现有保单。
+不要提 Full Review。
 `,
 
   next: `
 回答：接下来我可以怎样做？
 
-这题可以完整整理四项评分。
+这题可以整理四项评分。
 
-格式建议：
-
+格式：
 “**这次 Quick Check 已经把你的四项保障评分整理出来。**”
 
-下一行：
-“人寿 xx分｜重疾 xx分｜医疗 xx分｜意外 xx分。”
+下一行可以写：
+“人寿 xx分｜重疾 xx分｜意外 xx分｜医疗 xx分。”
 
-下一行：
-“目前比较明显的保障Gap在于意外保障，人寿和重疾保障也还需提升。”
+再指出目前比较明显的保障Gap。
+如果其他保障也较低，使用“还需提升”，不要使用“提升空间”。
 
-下一行：
+如果句子太长就换行。
+
+最后可以写：
 “如果想进一步了解这些Gap该怎样调整，可以由 Dr. Lawrence 亲自为你做 Full Review。”
-
-必须根据实际评分决定哪些保障Gap比较明显，不要照抄例子。
-如果只有一项明显较低，就只讲那一项。
-如果多项评分较低，可以按低分到高分自然整理。
-不要使用“提升空间”，统一改成“还需提升”。
-
-句子太长就换行。
-例如：
-
-“目前比较明显的保障Gap在于意外保障和人寿保障，
-
-如果想进一步了解这些Gap该怎样调整，可以由 Dr. Lawrence 亲自为你做 Full Review。”
-
-这一题可以提 Full Review。
-其他问题不要主动提 Full Review。
 `
 });
 
@@ -156,11 +87,7 @@ const MAX_OUTPUT_CHARS = 1600;
 const GEMINI_TIMEOUT_MS = 20000;
 const MAX_AMOUNT = 10000000;
 
-function safeNumber(
-  value,
-  min = 0,
-  max = 100
-) {
+function safeNumber(value, min = 0, max = 100) {
   const n = Number(value);
 
   if (!Number.isFinite(n)) {
@@ -218,6 +145,58 @@ function safeDomain(domain) {
   };
 }
 
+function getPriorityDomain(domains) {
+  const order = [
+    "life",
+    "ci",
+    "accident",
+    "medical"
+  ];
+
+  const labels = {
+    life:
+      "人寿保障",
+
+    ci:
+      "重疾保障",
+
+    accident:
+      "意外保障",
+
+    medical:
+      "医疗保障"
+  };
+
+  let chosen =
+    order[0];
+
+  let lowest =
+    Number.POSITIVE_INFINITY;
+
+  for (const key of order) {
+    const score =
+      safeNumber(
+        domains?.[key]?.score
+      );
+
+    if (score < lowest) {
+      lowest = score;
+      chosen = key;
+    }
+  }
+
+  return {
+    key:
+      chosen,
+
+    label:
+      labels[chosen],
+
+    score:
+      lowest
+  };
+}
+
 function safeProfile(profile) {
   const domains =
     profile?.domains || {};
@@ -225,33 +204,41 @@ function safeProfile(profile) {
   const medical =
     profile?.medical || {};
 
+  const safeDomains = {
+    life:
+      safeDomain(
+        domains?.life
+      ),
+
+    ci:
+      safeDomain(
+        domains?.ci
+      ),
+
+    accident:
+      safeDomain(
+        domains?.accident
+      ),
+
+    medical:
+      safeDomain(
+        domains?.medical
+      )
+  };
+
   return {
     overall_score:
       safeNumber(
         profile?.overall_score
       ),
 
-    domains: {
-      life:
-        safeDomain(
-          domains?.life
-        ),
+    domains:
+      safeDomains,
 
-      ci:
-        safeDomain(
-          domains?.ci
-        ),
-
-      medical:
-        safeDomain(
-          domains?.medical
-        ),
-
-      accident:
-        safeDomain(
-          domains?.accident
-        )
-    },
+    priority_domain:
+      getPriorityDomain(
+        safeDomains
+      ),
 
     cash_buffer_months:
       safeNumber(
@@ -274,16 +261,6 @@ function safeProfile(profile) {
       annual_expected:
         1000000,
 
-      annual_points:
-        safeNumber(
-          medical?.annual_points,
-          0,
-          80
-        ),
-
-      annual_points_max:
-        80,
-
       room_and_board:
         safeNumber(
           medical?.room_and_board,
@@ -293,16 +270,6 @@ function safeProfile(profile) {
 
       room_expected:
         300,
-
-      room_points:
-        safeNumber(
-          medical?.room_points,
-          0,
-          20
-        ),
-
-      room_points_max:
-        20,
 
       score:
         safeNumber(
@@ -320,6 +287,30 @@ function safeProfile(profile) {
         )
     }
   };
+}
+
+function parseBody(req) {
+  if (
+    req.body &&
+    typeof req.body === "object" &&
+    !Array.isArray(req.body)
+  ) {
+    return req.body;
+  }
+
+  if (
+    typeof req.body === "string"
+  ) {
+    try {
+      return JSON.parse(
+        req.body
+      );
+    } catch {
+      return null;
+    }
+  }
+
+  return null;
 }
 
 function isValidRequest(body) {
@@ -345,8 +336,10 @@ function isValidRequest(body) {
     return false;
   }
 
-  return Object.prototype
-    .hasOwnProperty.call(
+  return Object
+    .prototype
+    .hasOwnProperty
+    .call(
       QUESTION_GUIDANCE,
       body.question
     );
@@ -361,7 +354,9 @@ function requestTooLarge(req) {
     );
 
   if (
-    Number.isFinite(contentLength) &&
+    Number.isFinite(
+      contentLength
+    ) &&
     contentLength >
       MAX_REQUEST_BYTES
   ) {
@@ -388,7 +383,6 @@ export default async function handler(
   req,
   res
 ) {
-
   res.setHeader(
     "Cache-Control",
     "no-store, max-age=0"
@@ -399,8 +393,9 @@ export default async function handler(
     "nosniff"
   );
 
-  if (req.method !== "POST") {
-
+  if (
+    req.method !== "POST"
+  ) {
     res.setHeader(
       "Allow",
       "POST"
@@ -415,18 +410,18 @@ export default async function handler(
   }
 
   const contentType =
-    req.headers?.[
-      "content-type"
-    ] || "";
+    String(
+      req.headers?.[
+        "content-type"
+      ] || ""
+    )
+      .toLowerCase();
 
   if (
-    !contentType
-      .toLowerCase()
-      .includes(
-        "application/json"
-      )
+    !contentType.includes(
+      "application/json"
+    )
   ) {
-
     return res
       .status(415)
       .json({
@@ -435,8 +430,9 @@ export default async function handler(
       });
   }
 
-  if (requestTooLarge(req)) {
-
+  if (
+    requestTooLarge(req)
+  ) {
     return res
       .status(413)
       .json({
@@ -449,7 +445,6 @@ export default async function handler(
     process.env.GEMINI_API_KEY;
 
   if (!apiKey) {
-
     return res
       .status(503)
       .json({
@@ -458,8 +453,12 @@ export default async function handler(
       });
   }
 
-  if (!isValidRequest(req.body)) {
+  const body =
+    parseBody(req);
 
+  if (
+    !isValidRequest(body)
+  ) {
     return res
       .status(400)
       .json({
@@ -468,259 +467,79 @@ export default async function handler(
       });
   }
 
-  const {
-    profile,
-    question
-  } = req.body;
-
   const safe =
-    safeProfile(profile);
+    safeProfile(
+      body.profile
+    );
+
+  const question =
+    body.question;
 
   const prompt = `你是 Insu Lang 的 AI ANALYSIS。
 
 你的工作，是把已经由 Quick Check 算好的结果，用自然的马来西亚华人中文解释清楚。
 
-你只负责解释。
-不要重新计算。
-不要卖保险。
-不要自己做 Full Review。
+你只负责解释，不重新计算，不卖保险，也不自己做 Full Review。
 
 【语言】
-
 - 用自然的马来西亚华人中文。
 - 用“你”，不要用“您”。
-- 直接，简单，有礼貌。
-- 不要写成报告。
-- 不要写成论文。
-- 不要有很重的AI语气。
-- 不要啰嗦。
+- 直接，简单，有礼貌，不啰嗦。
 - 中文逗号只能使用“，”。
 - 中文句号使用“。”。
 - 不要使用英文逗号“,”。
 - 统一写“保障Gap”，中间不要空格。
-
-可以保留这些英文：
-Medical Card
-Annual Limit
-Room & Board
-Full Review
+- 可以保留 Medical Card，Annual Limit，Room & Board，Full Review。
 
 【用词】
+- 所有“参考需求”“参考值”统一写成“预期值”。
+- 不要使用“提升空间”，改成“还需提升”。
+- 不要使用“建议优先检视”“风险暴露”“优化方案”“整体规划”“现阶段”“项目”。
 
-所有原本可能写成：
-“参考需求”
-“参考值”
-
-统一改成：
-“预期值”
-
-医疗可以写：
-“预期AL ≥ RM1百万”
-“预期Room & Board ≥ RM300/天”
-
-不要使用：
-“提升空间”
-“建议优先检视”
-“风险暴露”
-“优化方案”
-“财务支持”
-“参考标准”
-“整体规划”
-“现阶段”
-“项目”
-
-优先使用：
-“现在”
-“保障”
-“应该先看”
-“比较明显”
-“预期值”
-“保障Gap”
-“还需提升”
-“该怎样调整”
-
-【Quick Check 已经算好的规则】
-
-整体评分：
-人寿，重疾，医疗和意外四项评分的平均值。
-
-人寿：
-现有保障/预期值，
-再换算成评分，
-最高100分。
-
-重疾：
-现有保障/预期值，
-再换算成评分，
-最高100分。
-
-意外：
-现有保障/预期值，
-再换算成评分，
-最高100分。
-
-医疗：
-根据 Annual Limit 和 Room & Board 评估。
-不要向客户透露 Annual Limit 和 Room & Board 在医疗评分中的内部占比或评分权重。
-
-这些数字都已经由 Quick Check 算好。
-
-你只能解释提供给你的：
-score
-existing
-expected_value
-overall_score
-annual_limit
-room_and_board
-
-虽然系统数据中可能包含 annual_points，room_points 或内部上限，
-这些只是系统内部资料，不要在客户答案中显示或解释评分占比。
-
-绝对不要重新计算或修改。
-
-【金额写法】
-
-使用马来西亚容易看的格式。
-
-例如：
-5000 → RM5k
-50000 → RM50k
-200000 → RM200k
-750000 → RM750k
-1000000 → RM1百万
-
-不要输出：
-RM200,000.00
+【评分逻辑】
+- 整体评分是人寿，重疾，医疗和意外四项评分的平均值。
+- 人寿，重疾和意外按照现有保障/预期值计算，最高100分。
+- 医疗根据 Annual Limit 和 Room & Board 评估。
+- 不要透露医疗内部评分权重，也不要透露 Annual Limit 或 Room & Board 各自得几分。
+- 所有分数已经由 Quick Check 算好，绝对不要重新计算或修改。
 
 【回答格式】
+- 第一行一定直接回答问题，并使用 Markdown Bold。
+- 第一行后空一行。
+- 默认2至3个短段落，每段尽量只讲一个重点。
+- 句子太长就换行。
+- 如果两句话已经讲清楚就结束。
+- 每个回答最多1至2个 Bold。
 
-第一行一定直接回答问题，
-并使用 Markdown Bold。
-
-例如：
-
-**不一定。**
-
-第一行后面空一行。
-
-默认使用2至3个短段落。
-
-每段尽量只讲一个重点。
-
-如果一句太长，
-主动换到下一行。
-
-不要为了凑3段而重复。
-
-如果内容真的有3个不同重点以上，
-才使用 point form。
-
-Point form 最多3点。
-
-每个回答最多使用1至2个 Bold。
-
-【评分】
-
-有需要时可以直接写：
-
-人寿（47分）
-重疾（94分）
-医疗（80分）
-意外（6分）
-
-不要写：
-“当前评分为47分”
-
-不要每一题都重复四项评分。
-
-只有“接下来我可以怎样做？”
-可以主动把四项评分全部列出来。
-
-如果某项是100分，
-只能说“目前相对完整”。
-
-不要说：
-“完全没有风险”
-“完全足够”
-“以后不用管”
+【金额写法】
+例如：RM50k，RM200k，RM750k，RM1百万，RM1.35百万。
 
 【Medical Card】
-
-has_card = false：
-才可以说目前没有 Medical Card。
-
-has_card = true：
-绝对不要说没有医疗保障。
-
-如果医疗是重点，
-可以直接告诉客户：
-
-预期AL ≥ RM1百万
-实际AL = RMxxx
-
-预期Room & Board ≥ RM300/天
-实际Room & Board = RMxxx/天
-
-不要向客户说明 Annual Limit 和 Room & Board 的评分占比。
-不要输出“Annual Limit 得60分，Room & Board 得10分”这类内容。
+- has_card = false 才可以说目前没有 Medical Card。
+- has_card = true 绝对不要说没有医疗保障。
+- 如果医疗是重点，可以比较：预期AL ≥ RM1百万，实际AL = RMxxx；预期Room & Board ≥ RM300/天，实际Room & Board = RMxxx/天。
+- 不要说内部评分占比。
 
 【流动现金】
-
-现金是自己的钱，
-风险发生时用多少就少多少。
-
-保险可以用“保障杠杆”来解释：
-把风险转给保险公司来承担。
-
-不要加“符合保单条款的风险”这句话。
-不要使用固定比例。
-
-不要说：
-“RM1赔RM100”
-“现金够也不代表保障够”
-“即使有钱还是需要保险”
-
-不要用反驳客户的语气。
+- 现金是自己的钱，风险发生时用多少就少多少。
+- 保险可以说“用保障杠杆，把风险转给保险公司来承担”。
+- 不要加“符合保单条款的风险”。
+- 不要使用固定赔付比例。
 
 【Full Review】
+- 第1题到第4题不要主动提 Full Review。
+- 只有第5题可以提 Dr. Lawrence 亲自做 Full Review。
 
-第1题到第4题，
-绝对不要主动提 Full Review。
-
-只有第5题，
-可以提：
-
-“如果想进一步了解这些Gap该怎样调整，可以由 Dr. Lawrence 亲自为你做 Full Review。”
-
-Full Review 是 Dr. Lawrence 亲自做，
-不是 AI 做。
-
-【安全规则】
-
-- 不重新计算评分。
-- 不修改评分。
-- 不自行推算新的保障金额。
-- 不自行推算新的保障Gap金额。
-- 不推算保费。
-- 不推荐具体保险产品。
-- 不推荐保险公司。
-- 不猜测没有提供的客户资料。
-- 不制造焦虑。
-- 不使用恐吓语气。
-- 不接收或要求客户姓名，电话，Email或其他身份资料。
+【隐私】
+- 不接收也不要求客户姓名，手机号或其他身份资料。
 
 【匿名 Quick Check 结果】
-
 ${JSON.stringify(safe)}
 
 【本次问题】
-
 ${QUESTION_GUIDANCE[question]}
 
-只输出最后给客户看的答案。
-不要输出分析过程。
-不要输出标题。
-不要输出 JSON。`;
+只输出最后给客户看的答案，不要输出分析过程，不要输出标题，不要输出 JSON。`;
 
   const model =
     "gemini-3.1-flash-lite";
@@ -730,19 +549,18 @@ ${QUESTION_GUIDANCE[question]}
 
   const timeout =
     setTimeout(
-      () => {
-        controller.abort();
-      },
+      () =>
+        controller.abort(),
       GEMINI_TIMEOUT_MS
     );
 
   try {
-
     const response =
       await fetch(
         `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`,
         {
-          method: "POST",
+          method:
+            "POST",
 
           headers: {
             "Content-Type":
@@ -759,19 +577,24 @@ ${QUESTION_GUIDANCE[question]}
             JSON.stringify({
               contents: [
                 {
-                  role: "user",
+                  role:
+                    "user",
 
                   parts: [
                     {
-                      text: prompt
+                      text:
+                        prompt
                     }
                   ]
                 }
               ],
 
               generationConfig: {
-                temperature: 0.1,
-                maxOutputTokens: 500
+                temperature:
+                  0.1,
+
+                maxOutputTokens:
+                  500
               }
             })
         }
@@ -779,8 +602,9 @@ ${QUESTION_GUIDANCE[question]}
 
     clearTimeout(timeout);
 
-    if (!response.ok) {
-
+    if (
+      !response.ok
+    ) {
       const detail =
         await response.text();
 
@@ -825,11 +649,6 @@ ${QUESTION_GUIDANCE[question]}
         .trim();
 
     if (!text) {
-
-      console.error(
-        "Gemini returned empty response"
-      );
-
       return res
         .status(502)
         .json({
@@ -838,31 +657,23 @@ ${QUESTION_GUIDANCE[question]}
         });
     }
 
-    const answer =
-      text.slice(
-        0,
-        MAX_OUTPUT_CHARS
-      );
-
     return res
       .status(200)
       .json({
-        answer
+        answer:
+          text.slice(
+            0,
+            MAX_OUTPUT_CHARS
+          )
       });
 
   } catch (error) {
-
     clearTimeout(timeout);
 
     if (
       error?.name ===
       "AbortError"
     ) {
-
-      console.error(
-        "Gemini request timeout"
-      );
-
       return res
         .status(504)
         .json({
