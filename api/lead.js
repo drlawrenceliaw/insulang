@@ -1,85 +1,19 @@
-import crypto from "node:crypto";
-
-const HEADERS = [
-  "No.",
-  "Date",
-  "Full Name",
-  "Phone",
-  "Overall Score",
-  "Life Score",
-  "Life Coverage",
-  "CI Score",
-  "CI Coverage",
-  "Accident Score",
-  "Accident Coverage",
-  "Medical Score",
-  "Medical Annual Limit",
-  "Room & Board",
-  "Cash Buffer Months",
-  "Source",
-  "Lead Status",
-  "Remarks"
-];
-
-const MAX_REQUEST_BYTES =
-  16 * 1024;
-
-const MAX_AMOUNT =
-  10000000;
-
-const GOOGLE_TOKEN_URL =
-  "https://oauth2.googleapis.com/token";
-
-const SHEETS_SCOPE =
-  "https://www.googleapis.com/auth/spreadsheets";
-
-let cachedAccessToken =
-  null;
-
-let cachedAccessTokenExpiresAt =
-  0;
-
-let cachedTabId =
-  null;
-
-let sheetReady =
-  false;
-
-function base64Url(input) {
-  const buffer =
-    Buffer.isBuffer(input)
-      ? input
-      : Buffer.from(
-          String(input)
-        );
-
-  return buffer
-    .toString("base64")
-    .replace(/=/g, "")
-    .replace(/\+/g, "-")
-    .replace(/\//g, "_");
-}
+const MAX_REQUEST_BYTES = 16 * 1024;
+const WEBHOOK_TIMEOUT_MS = 12000;
+const MAX_AMOUNT = 10000000;
 
 function parseBody(req) {
   if (
     req.body &&
-    typeof req.body ===
-      "object" &&
-    !Array.isArray(
-      req.body
-    )
+    typeof req.body === "object" &&
+    !Array.isArray(req.body)
   ) {
     return req.body;
   }
 
-  if (
-    typeof req.body ===
-      "string"
-  ) {
+  if (typeof req.body === "string") {
     try {
-      return JSON.parse(
-        req.body
-      );
+      return JSON.parse(req.body);
     } catch {
       return null;
     }
@@ -89,19 +23,13 @@ function parseBody(req) {
 }
 
 function requestTooLarge(req) {
-  const contentLength =
-    Number(
-      req.headers?.[
-        "content-length"
-      ] || 0
-    );
+  const contentLength = Number(
+    req.headers?.["content-length"] || 0
+  );
 
   if (
-    Number.isFinite(
-      contentLength
-    ) &&
-    contentLength >
-      MAX_REQUEST_BYTES
+    Number.isFinite(contentLength) &&
+    contentLength > MAX_REQUEST_BYTES
   ) {
     return true;
   }
@@ -109,47 +37,27 @@ function requestTooLarge(req) {
   try {
     return (
       Buffer.byteLength(
-        JSON.stringify(
-          req.body || {}
-        ),
+        JSON.stringify(req.body || {}),
         "utf8"
-      ) >
-      MAX_REQUEST_BYTES
+      ) > MAX_REQUEST_BYTES
     );
-
   } catch {
     return true;
   }
 }
 
 function cleanName(value) {
-  return String(
-    value || ""
-  )
+  return String(value || "")
     .trim()
-    .replace(
-      /\s+/g,
-      " "
-    )
-    .slice(
-      0,
-      80
-    );
+    .replace(/\s+/g, " ")
+    .slice(0, 80);
 }
 
 function cleanPhone(value) {
-  return String(
-    value || ""
-  )
+  return String(value || "")
     .trim()
-    .replace(
-      /[^\d+]/g,
-      ""
-    )
-    .slice(
-      0,
-      16
-    );
+    .replace(/[^\d+]/g, "")
+    .slice(0, 16);
 }
 
 function cleanScore(value) {
@@ -161,21 +69,15 @@ function cleanScore(value) {
     return null;
   }
 
-  const n =
-    Number(value);
+  const n = Number(value);
 
-  if (
-    !Number.isFinite(n)
-  ) {
+  if (!Number.isFinite(n)) {
     return null;
   }
 
   return Math.max(
     0,
-    Math.min(
-      100,
-      Math.round(n)
-    )
+    Math.min(100, Math.round(n))
   );
 }
 
@@ -188,12 +90,9 @@ function cleanAmount(value) {
     return null;
   }
 
-  const n =
-    Number(value);
+  const n = Number(value);
 
-  if (
-    !Number.isFinite(n)
-  ) {
+  if (!Number.isFinite(n)) {
     return null;
   }
 
@@ -215,12 +114,9 @@ function cleanMonths(value) {
     return null;
   }
 
-  const n =
-    Number(value);
+  const n = Number(value);
 
-  if (
-    !Number.isFinite(n)
-  ) {
+  if (!Number.isFinite(n)) {
     return null;
   }
 
@@ -228,74 +124,39 @@ function cleanMonths(value) {
     0,
     Math.min(
       120,
-      Math.round(
-        n * 10
-      ) / 10
+      Math.round(n * 10) / 10
     )
   );
 }
 
-function safeText(
-  value,
-  maxLength = 100
-) {
-  return String(
-    value ?? ""
-  )
-    .trim()
-    .slice(
-      0,
-      maxLength
-    );
-}
-
 function shortRM(value) {
-  const n =
-    cleanAmount(value);
+  const n = cleanAmount(value);
 
-  if (
-    n === null
-  ) {
+  if (n === null) {
     return "";
   }
 
-  if (
-    n >= 1000000
-  ) {
+  if (n >= 1000000) {
     const v =
       Math.round(
-        (
-          n /
-          1000000
-        ) * 100
+        (n / 1000000) * 100
       ) / 100;
 
     return (
       `RM${String(v)
-        .replace(
-          /\.0+$/,
-          ""
-        )}百万`
+        .replace(/\.0+$/, "")}百万`
     );
   }
 
-  if (
-    n >= 1000
-  ) {
+  if (n >= 1000) {
     const v =
       Math.round(
-        (
-          n /
-          1000
-        ) * 10
+        (n / 1000) * 10
       ) / 10;
 
     return (
       `RM${String(v)
-        .replace(
-          /\.0$/,
-          ""
-        )}k`
+        .replace(/\.0$/, "")}k`
     );
   }
 
@@ -307,14 +168,10 @@ function coverage(
   expected
 ) {
   const a =
-    cleanAmount(
-      existing
-    );
+    cleanAmount(existing);
 
   const b =
-    cleanAmount(
-      expected
-    );
+    cleanAmount(expected);
 
   if (
     a === null ||
@@ -347,753 +204,6 @@ function safeDomain(domain) {
   };
 }
 
-function malaysiaDate() {
-  const parts =
-    new Intl
-      .DateTimeFormat(
-        "en-GB",
-        {
-          timeZone:
-            "Asia/Kuala_Lumpur",
-
-          day:
-            "2-digit",
-
-          month:
-            "2-digit",
-
-          year:
-            "numeric"
-        }
-      )
-      .formatToParts(
-        new Date()
-      );
-
-  const map =
-    Object.fromEntries(
-      parts.map(
-        part => [
-          part.type,
-          part.value
-        ]
-      )
-    );
-
-  return (
-    `${map.day}/${map.month}/${map.year}`
-  );
-}
-
-function quoteSheetTitle(
-  title
-) {
-  return (
-    `'${String(title)
-      .replace(
-        /'/g,
-        "''"
-      )}'`
-  );
-}
-
-async function getGoogleAccessToken() {
-  const now =
-    Math.floor(
-      Date.now() /
-      1000
-    );
-
-  if (
-    cachedAccessToken &&
-    cachedAccessTokenExpiresAt -
-      60 >
-      now
-  ) {
-    return cachedAccessToken;
-  }
-
-  const clientEmail =
-    process.env
-      .GOOGLE_SERVICE_ACCOUNT_EMAIL;
-
-  const rawPrivateKey =
-    process.env
-      .GOOGLE_PRIVATE_KEY;
-
-  if (
-    !clientEmail ||
-    !rawPrivateKey
-  ) {
-    throw new Error(
-      "GOOGLE_SERVICE_ACCOUNT_NOT_CONFIGURED"
-    );
-  }
-
-  const privateKey =
-    rawPrivateKey
-      .replace(
-        /\\n/g,
-        "\n"
-      );
-
-  const header =
-    base64Url(
-      JSON.stringify({
-        alg:
-          "RS256",
-
-        typ:
-          "JWT"
-      })
-    );
-
-  const payload =
-    base64Url(
-      JSON.stringify({
-        iss:
-          clientEmail,
-
-        scope:
-          SHEETS_SCOPE,
-
-        aud:
-          GOOGLE_TOKEN_URL,
-
-        iat:
-          now,
-
-        exp:
-          now + 3600
-      })
-    );
-
-  const unsignedToken =
-    `${header}.${payload}`;
-
-  const signer =
-    crypto.createSign(
-      "RSA-SHA256"
-    );
-
-  signer.update(
-    unsignedToken
-  );
-
-  signer.end();
-
-  const signature =
-    base64Url(
-      signer.sign(
-        privateKey
-      )
-    );
-
-  const assertion =
-    `${unsignedToken}.${signature}`;
-
-  const response =
-    await fetch(
-      GOOGLE_TOKEN_URL,
-      {
-        method:
-          "POST",
-
-        headers: {
-          "Content-Type":
-            "application/x-www-form-urlencoded"
-        },
-
-        body:
-          new URLSearchParams({
-            grant_type:
-              "urn:ietf:params:oauth:grant-type:jwt-bearer",
-
-            assertion
-          })
-      }
-    );
-
-  const data =
-    await response
-      .json()
-      .catch(
-        () => ({})
-      );
-
-  if (
-    !response.ok ||
-    !data.access_token
-  ) {
-    console.error(
-      "Google token error:",
-      response.status,
-      data?.error ||
-        "UNKNOWN"
-    );
-
-    throw new Error(
-      "GOOGLE_TOKEN_FAILED"
-    );
-  }
-
-  cachedAccessToken =
-    data.access_token;
-
-  cachedAccessTokenExpiresAt =
-    now +
-    Number(
-      data.expires_in ||
-      3600
-    );
-
-  return cachedAccessToken;
-}
-
-async function googleRequest(
-  url,
-  options = {}
-) {
-  const token =
-    await getGoogleAccessToken();
-
-  const response =
-    await fetch(
-      url,
-      {
-        ...options,
-
-        headers: {
-          Authorization:
-            `Bearer ${token}`,
-
-          ...(
-            options.body
-              ? {
-                  "Content-Type":
-                    "application/json"
-                }
-              : {}
-          ),
-
-          ...(
-            options.headers ||
-            {}
-          )
-        }
-      }
-    );
-
-  const data =
-    await response
-      .json()
-      .catch(
-        () => ({})
-      );
-
-  if (
-    !response.ok
-  ) {
-    console.error(
-      "Google Sheets API error:",
-      response.status,
-      data?.error
-        ?.message ||
-        "UNKNOWN"
-    );
-
-    throw new Error(
-      "GOOGLE_SHEETS_API_FAILED"
-    );
-  }
-
-  return data;
-}
-
-async function getOrCreateTab(
-  spreadsheetId,
-  tabName
-) {
-  const metadata =
-    await googleRequest(
-      `https://sheets.googleapis.com/v4/spreadsheets/${encodeURIComponent(spreadsheetId)}?fields=sheets.properties(sheetId,title)`
-    );
-
-  let sheet =
-    metadata
-      .sheets
-      ?.find(
-        item =>
-          item
-            ?.properties
-            ?.title ===
-          tabName
-      );
-
-  if (sheet) {
-    return (
-      sheet
-        .properties
-        .sheetId
-    );
-  }
-
-  const created =
-    await googleRequest(
-      `https://sheets.googleapis.com/v4/spreadsheets/${encodeURIComponent(spreadsheetId)}:batchUpdate`,
-      {
-        method:
-          "POST",
-
-        body:
-          JSON.stringify({
-            requests: [
-              {
-                addSheet: {
-                  properties: {
-                    title:
-                      tabName
-                  }
-                }
-              }
-            ]
-          })
-      }
-    );
-
-  const newSheetId =
-    created
-      .replies?.[0]
-      ?.addSheet
-      ?.properties
-      ?.sheetId;
-
-  if (
-    newSheetId ===
-    undefined
-  ) {
-    throw new Error(
-      "GOOGLE_SHEET_TAB_CREATE_FAILED"
-    );
-  }
-
-  return newSheetId;
-}
-
-async function readHeader(
-  spreadsheetId,
-  tabName
-) {
-  const range =
-    `${quoteSheetTitle(tabName)}!A1:R1`;
-
-  return googleRequest(
-    `https://sheets.googleapis.com/v4/spreadsheets/${encodeURIComponent(spreadsheetId)}/values/${encodeURIComponent(range)}`
-  );
-}
-
-async function writeHeader(
-  spreadsheetId,
-  tabName
-) {
-  const range =
-    `${quoteSheetTitle(tabName)}!A1:R1`;
-
-  await googleRequest(
-    `https://sheets.googleapis.com/v4/spreadsheets/${encodeURIComponent(spreadsheetId)}/values/${encodeURIComponent(range)}?valueInputOption=RAW`,
-    {
-      method:
-        "PUT",
-
-      body:
-        JSON.stringify({
-          range,
-
-          majorDimension:
-            "ROWS",
-
-          values: [
-            HEADERS
-          ]
-        })
-    }
-  );
-}
-
-async function formatSheet(
-  spreadsheetId,
-  tabId
-) {
-  await googleRequest(
-    `https://sheets.googleapis.com/v4/spreadsheets/${encodeURIComponent(spreadsheetId)}:batchUpdate`,
-    {
-      method:
-        "POST",
-
-      body:
-        JSON.stringify({
-          requests: [
-            {
-              updateSheetProperties: {
-                properties: {
-                  sheetId:
-                    tabId,
-
-                  gridProperties: {
-                    frozenRowCount:
-                      1
-                  }
-                },
-
-                fields:
-                  "gridProperties.frozenRowCount"
-              }
-            },
-
-            {
-              repeatCell: {
-                range: {
-                  sheetId:
-                    tabId,
-
-                  startColumnIndex:
-                    0,
-
-                  endColumnIndex:
-                    HEADERS.length
-                },
-
-                cell: {
-                  userEnteredFormat: {
-                    horizontalAlignment:
-                      "CENTER",
-
-                    verticalAlignment:
-                      "MIDDLE",
-
-                    wrapStrategy:
-                      "WRAP"
-                  }
-                },
-
-                fields:
-                  "userEnteredFormat(horizontalAlignment,verticalAlignment,wrapStrategy)"
-              }
-            },
-
-            {
-              repeatCell: {
-                range: {
-                  sheetId:
-                    tabId,
-
-                  startRowIndex:
-                    0,
-
-                  endRowIndex:
-                    1,
-
-                  startColumnIndex:
-                    0,
-
-                  endColumnIndex:
-                    HEADERS.length
-                },
-
-                cell: {
-                  userEnteredFormat: {
-                    textFormat: {
-                      bold:
-                        true
-                    }
-                  }
-                },
-
-                fields:
-                  "userEnteredFormat.textFormat.bold"
-              }
-            },
-
-            {
-              repeatCell: {
-                range: {
-                  sheetId:
-                    tabId,
-
-                  startColumnIndex:
-                    3,
-
-                  endColumnIndex:
-                    4
-                },
-
-                cell: {
-                  userEnteredFormat: {
-                    numberFormat: {
-                      type:
-                        "TEXT",
-
-                      pattern:
-                        "@"
-                    }
-                  }
-                },
-
-                fields:
-                  "userEnteredFormat.numberFormat"
-              }
-            },
-
-            {
-              setDataValidation: {
-                range: {
-                  sheetId:
-                    tabId,
-
-                  startRowIndex:
-                    1,
-
-                  startColumnIndex:
-                    16,
-
-                  endColumnIndex:
-                    17
-                },
-
-                rule: {
-                  condition: {
-                    type:
-                      "ONE_OF_LIST",
-
-                    values: [
-                      {
-                        userEnteredValue:
-                          "New"
-                      },
-                      {
-                        userEnteredValue:
-                          "Contacted"
-                      },
-                      {
-                        userEnteredValue:
-                          "Follow Up"
-                      },
-                      {
-                        userEnteredValue:
-                          "Appointment"
-                      },
-                      {
-                        userEnteredValue:
-                          "Closed"
-                      }
-                    ]
-                  },
-
-                  strict:
-                    true,
-
-                  showCustomUi:
-                    true
-                }
-              }
-            },
-
-            {
-              autoResizeDimensions: {
-                dimensions: {
-                  sheetId:
-                    tabId,
-
-                  dimension:
-                    "COLUMNS",
-
-                  startIndex:
-                    0,
-
-                  endIndex:
-                    HEADERS.length
-                }
-              }
-            }
-          ]
-        })
-    }
-  );
-}
-
-async function ensureSheetReady() {
-  if (
-    sheetReady &&
-    cachedTabId !== null
-  ) {
-    return cachedTabId;
-  }
-
-  const spreadsheetId =
-    process.env
-      .GOOGLE_SHEET_ID;
-
-  const tabName =
-    process.env
-      .GOOGLE_SHEET_TAB ||
-    "Quick Check Leads";
-
-  if (
-    !spreadsheetId
-  ) {
-    throw new Error(
-      "GOOGLE_SHEET_ID_NOT_CONFIGURED"
-    );
-  }
-
-  const tabId =
-    await getOrCreateTab(
-      spreadsheetId,
-      tabName
-    );
-
-  const headerData =
-    await readHeader(
-      spreadsheetId,
-      tabName
-    );
-
-  const currentHeader =
-    headerData
-      .values?.[0] ||
-    [];
-
-  const headerMatches =
-    currentHeader.length ===
-      HEADERS.length &&
-    HEADERS.every(
-      (
-        value,
-        index
-      ) =>
-        currentHeader[
-          index
-        ] ===
-        value
-    );
-
-  if (
-    !headerMatches
-  ) {
-    await writeHeader(
-      spreadsheetId,
-      tabName
-    );
-  }
-
-  await formatSheet(
-    spreadsheetId,
-    tabId
-  );
-
-  cachedTabId =
-    tabId;
-
-  sheetReady =
-    true;
-
-  return tabId;
-}
-
-async function appendLeadRow(
-  values
-) {
-  const spreadsheetId =
-    process.env
-      .GOOGLE_SHEET_ID;
-
-  const tabName =
-    process.env
-      .GOOGLE_SHEET_TAB ||
-    "Quick Check Leads";
-
-  await ensureSheetReady();
-
-  const range =
-    `${quoteSheetTitle(tabName)}!A:R`;
-
-  const result =
-    await googleRequest(
-      `https://sheets.googleapis.com/v4/spreadsheets/${encodeURIComponent(spreadsheetId)}/values/${encodeURIComponent(range)}:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS&includeValuesInResponse=false`,
-      {
-        method:
-          "POST",
-
-        body:
-          JSON.stringify({
-            majorDimension:
-              "ROWS",
-
-            values: [
-              values
-            ]
-          })
-      }
-    );
-
-  const updatedRange =
-    result
-      .updates
-      ?.updatedRange ||
-    "";
-
-  const rowMatch =
-    updatedRange
-      .match(
-        /!A(\d+):R\d+$/
-      );
-
-  if (
-    !rowMatch
-  ) {
-    throw new Error(
-      "GOOGLE_SHEET_ROW_UNKNOWN"
-    );
-  }
-
-  const rowNumber =
-    Number(
-      rowMatch[1]
-    );
-
-  const no =
-    Math.max(
-      1,
-      rowNumber - 1
-    );
-
-  const noRange =
-    `${quoteSheetTitle(tabName)}!A${rowNumber}`;
-
-  await googleRequest(
-    `https://sheets.googleapis.com/v4/spreadsheets/${encodeURIComponent(spreadsheetId)}/values/${encodeURIComponent(noRange)}?valueInputOption=RAW`,
-    {
-      method:
-        "PUT",
-
-      body:
-        JSON.stringify({
-          range:
-            noRange,
-
-          majorDimension:
-            "ROWS",
-
-          values: [
-            [no]
-          ]
-        })
-    }
-  );
-
-  return no;
-}
-
 export default async function handler(
   req,
   res
@@ -1108,9 +218,7 @@ export default async function handler(
     "nosniff"
   );
 
-  if (
-    req.method !== "POST"
-  ) {
+  if (req.method !== "POST") {
     res.setHeader(
       "Allow",
       "POST"
@@ -1126,11 +234,8 @@ export default async function handler(
 
   const contentType =
     String(
-      req.headers?.[
-        "content-type"
-      ] || ""
-    )
-      .toLowerCase();
+      req.headers?.["content-type"] || ""
+    ).toLowerCase();
 
   if (
     !contentType.includes(
@@ -1145,14 +250,34 @@ export default async function handler(
       });
   }
 
-  if (
-    requestTooLarge(req)
-  ) {
+  if (requestTooLarge(req)) {
     return res
       .status(413)
       .json({
         error:
           "REQUEST_TOO_LARGE"
+      });
+  }
+
+  const webhookUrl =
+    process.env.LEAD_WEBHOOK_URL;
+
+  const webhookSecret =
+    process.env.LEAD_WEBHOOK_SECRET;
+
+  if (
+    !webhookUrl ||
+    !webhookSecret
+  ) {
+    console.error(
+      "Missing LEAD_WEBHOOK_URL or LEAD_WEBHOOK_SECRET"
+    );
+
+    return res
+      .status(503)
+      .json({
+        error:
+          "LEAD_STORAGE_NOT_CONFIGURED"
       });
   }
 
@@ -1180,13 +305,12 @@ export default async function handler(
 
   if (
     fullName.length < 2 ||
-    !/[A-Za-z]/.test(
-      fullName
-    ) ||
-    !/^\+?\d{8,15}$/.test(
-      phone
-    )
+    !/^\+?\d{8,15}$/.test(phone)
   ) {
+    console.error(
+      "Invalid lead contact data"
+    );
+
     return res
       .status(400)
       .json({
@@ -1196,129 +320,197 @@ export default async function handler(
   }
 
   const life =
-    safeDomain(
-      body.life
-    );
+    safeDomain(body.life);
 
   const ci =
-    safeDomain(
-      body.ci
-    );
+    safeDomain(body.ci);
 
   const accident =
     safeDomain(
       body.accident
     );
 
-  const overallScore =
-    cleanScore(
-      body.overall_score
-    );
-
   const medicalScore =
     cleanScore(
-      body.medical
-        ?.score
+      body.medical?.score
     );
 
   const medicalAnnual =
     cleanAmount(
-      body.medical
-        ?.annual_limit
+      body.medical?.annual_limit
     );
 
   const roomAndBoard =
     cleanAmount(
-      body.medical
-        ?.room_and_board
+      body.medical?.room_and_board
     );
 
-  const cashBufferMonths =
-    cleanMonths(
-      body
-        .cash_buffer_months
-    );
+  const payload = {
+    secret:
+      webhookSecret,
 
-  const row = [
-    "",
-
-    malaysiaDate(),
-
-    fullName,
+    full_name:
+      fullName,
 
     phone,
 
-    overallScore ??
-      "",
+    overall_score:
+      cleanScore(
+        body.overall_score
+      ),
 
-    life.score ??
-      "",
+    life_score:
+      life.score,
 
-    coverage(
-      life.existing,
-      life.expected
-    ),
+    life_coverage:
+      coverage(
+        life.existing,
+        life.expected
+      ),
 
-    ci.score ??
-      "",
+    ci_score:
+      ci.score,
 
-    coverage(
-      ci.existing,
-      ci.expected
-    ),
+    ci_coverage:
+      coverage(
+        ci.existing,
+        ci.expected
+      ),
 
-    accident.score ??
-      "",
+    accident_score:
+      accident.score,
 
-    coverage(
-      accident.existing,
-      accident.expected
-    ),
+    accident_coverage:
+      coverage(
+        accident.existing,
+        accident.expected
+      ),
 
-    medicalScore ??
-      "",
+    medical_score:
+      medicalScore,
 
-    medicalAnnual ===
-      null
-      ? ""
-      : shortRM(
-          medicalAnnual
-        ),
+    medical_annual_limit:
+      medicalAnnual === null
+        ? ""
+        : shortRM(
+            medicalAnnual
+          ),
 
-    roomAndBoard ===
-      null
-      ? ""
-      : `RM${roomAndBoard}`,
+    room_and_board:
+      roomAndBoard === null
+        ? ""
+        : `RM${roomAndBoard}`,
 
-    cashBufferMonths ??
-      "",
+    cash_buffer_months:
+      cleanMonths(
+        body.cash_buffer_months
+      ),
 
-    "Quick Check",
+    source:
+      "Quick Check",
 
-    "New",
+    lead_status:
+      "New",
 
-    safeText(
-      body.remarks,
-      300
-    )
-  ];
+    remarks:
+      String(
+        body.remarks || ""
+      )
+        .trim()
+        .slice(0, 300)
+  };
+
+  const controller =
+    new AbortController();
+
+  const timeout =
+    setTimeout(
+      () =>
+        controller.abort(),
+      WEBHOOK_TIMEOUT_MS
+    );
 
   try {
-    const no =
-      await appendLeadRow(
-        row
+    const response =
+      await fetch(
+        webhookUrl,
+        {
+          method:
+            "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body:
+            JSON.stringify(
+              payload
+            ),
+
+          signal:
+            controller.signal
+        }
       );
+
+    clearTimeout(timeout);
+
+    const raw =
+      await response.text();
+
+    let data = {};
+
+    try {
+      data =
+        JSON.parse(raw);
+    } catch {
+      data = {};
+    }
+
+    if (
+      !response.ok ||
+      data?.ok !== true
+    ) {
+      console.error(
+        "Apps Script webhook failed:",
+        response.status,
+        raw.slice(0, 500)
+      );
+
+      return res
+        .status(502)
+        .json({
+          error:
+            "LEAD_SAVE_FAILED"
+        });
+    }
 
     return res
       .status(200)
       .json({
-        ok:
-          true,
-
-        no
+        ok: true,
+        no: data?.no ?? null
       });
 
   } catch (error) {
+    clearTimeout(timeout);
+
+    if (
+      error?.name ===
+      "AbortError"
+    ) {
+      console.error(
+        "Apps Script webhook timeout"
+      );
+
+      return res
+        .status(504)
+        .json({
+          error:
+            "LEAD_SAVE_TIMEOUT"
+        });
+    }
+
     console.error(
       "Lead save error:",
       error instanceof Error
