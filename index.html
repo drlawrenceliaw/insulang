@@ -818,69 +818,50 @@ a{color:inherit}
 }
 
 
-/* 2026-09-24 v4 refinements */
+/* 2026-09-24 v5 refinements */
 
-/* Desktop: widen FAQ as much as practical while keeping 3 review cards. */
+/* Desktop:
+   FAQ stays exactly the same width.
+   Only the review widget is reduced so 3 cards can fit. */
 @media(min-width:761px){
-  .info .wrap{
-    max-width:1600px;
-  }
   .info-grid{
-    grid-template-columns:minmax(0,1fr) 460px;
-    gap:24px;
-    align-items:stretch;
+    grid-template-columns:minmax(0,1fr) 460px!important;
   }
 
-  /* Keep attribution inside, but reduce excess space under it. */
   #reviews{
-    min-height:500px!important;
+    min-height:484px!important;
     padding-bottom:52px!important;
   }
+
+  #reviews .panel-head{
+    margin-bottom:-10px!important;
+  }
+
   #reviews .review-body{
-    min-height:350px!important;
+    min-height:334px!important;
+    margin-top:-20px!important;
     padding-bottom:24px!important;
   }
-}
 
-/* Mobile: keep attribution inside without too much empty space. */
-@media(max-width:760px){
-  #reviews{
-    padding-bottom:50px!important;
-  }
-  #reviews .review-body{
-    padding-bottom:26px!important;
+  #reviews .elfsight-app-b89ff392-96ab-432e-a747-9d65b7e0d287{
+    width:113.64%!important;
+    zoom:.88;
   }
 }
 
-/* Homepage copyright: a little lower on both desktop and mobile. */
+/* Homepage copyright slightly lower again. */
 .copyright{
-  margin-top:50px!important;
-  padding-top:18px!important;
+  margin-top:58px!important;
 }
 @media(max-width:620px){
   .copyright{
-    margin-top:46px!important;
-    padding-top:16px!important;
+    margin-top:54px!important;
   }
 
-  /* Mobile hero only:
-     slightly larger, a touch left, and overall slightly higher. */
+  /* Keep the mobile city image proportional instead of stretching buildings. */
   .hero{
     background-position:0 0,46% 104%!important;
-    background-size:100% 100%,180% 105%!important;
-  }
-  .hero-art{
-    margin-top:10px!important;
-    min-height:350px;
-  }
-  .hero-art img{
-    bottom:0!important;
-  }
-
-  /* Place Brighter Tomorrow between Merdeka 118 and KL Tower. */
-  .brighter{
-    right:10%!important;
-    top:42px!important;
+    background-size:100% 100%,180% auto!important;
   }
 }
 
@@ -954,7 +935,7 @@ a{color:inherit}
           </svg>
         </div>
         <h3>Structured Analysis</h3>
-        <p>规则性计算找出保障Gap。</p>
+        <p>通过结构性计算找出保障Gap。</p>
       </div>
 
       <div class="principle">
