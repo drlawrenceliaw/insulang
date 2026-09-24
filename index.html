@@ -762,6 +762,61 @@ a{color:inherit}
   }
 }
 
+
+/* 2026-09-24 v3 refinements */
+
+/* Desktop: keep Reviews + FAQ on one row.
+   Give Reviews enough width for 3 cards while keeping FAQ comfortable. */
+@media(min-width:761px){
+  .info .wrap{
+    max-width:1600px;
+  }
+  .info-grid{
+    grid-template-columns:minmax(0,1fr) 390px;
+    gap:24px;
+    align-items:stretch;
+  }
+
+  /* Keep the Elfsight attribution comfortably inside the Reviews border. */
+  #reviews{
+    min-height:540px!important;
+    padding-bottom:82px!important;
+  }
+  #reviews .review-body{
+    min-height:380px!important;
+    padding-bottom:34px!important;
+  }
+}
+
+/* Mobile: keep attribution inside with visible bottom breathing room. */
+@media(max-width:760px){
+  #reviews{
+    padding-bottom:62px!important;
+  }
+  #reviews .review-body{
+    padding-bottom:32px!important;
+  }
+}
+
+/* Homepage copyright lower: leave more breathing room above it. */
+.copyright{
+  margin-top:42px!important;
+  padding-top:18px!important;
+}
+@media(max-width:620px){
+  .copyright{
+    margin-top:38px!important;
+    padding-top:16px!important;
+  }
+
+  /* Mobile hero background only:
+     slightly larger and shifted right, while keeping 118 + KL Tower visible. */
+  .hero{
+    background-position:0 0,43% 108%!important;
+    background-size:100% 100%,176% 104%!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -832,7 +887,7 @@ a{color:inherit}
           </svg>
         </div>
         <h3>Structured Analysis</h3>
-        <p>以家庭生活费，剩余贷款与现有保障为基础，通过专业计算找出保障Gap。</p>
+        <p>通过结构性计算找出保障Gap。</p>
       </div>
 
       <div class="principle">
@@ -854,7 +909,7 @@ a{color:inherit}
           </svg>
         </div>
         <h3>Privacy First</h3>
-        <p>个人联系方式不会交由 AI 处理。</p>
+        <p>AI 不会涉及个人联系方式</p>
       </div>
     </div>
   </div>
@@ -977,7 +1032,7 @@ a{color:inherit}
       </div>
     </div>
   </div>
-  <div class="wrap copyright">© 2026 Insu Lang. All rights reserved.</div>
+  <div class="wrap copyright">© 2026 Insu Lang. All rights reserved</div>
 </footer>
 
 <script>
