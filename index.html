@@ -1230,6 +1230,85 @@ a{color:inherit}
 </footer>
 
 <script>
+
+/* Attribution only: stored locally until the user starts Quick Check. */
+const ATTR_KEY="insu_lang_attribution_v1";
+
+function inferTrafficSource(referrer=""){
+  const r=String(referrer||"").toLowerCase();
+  if(!r)return "Direct";
+  if(r.includes("instagram"))return "Instagram";
+  if(r.includes("tiktok"))return "TikTok";
+  if(r.includes("facebook")||r.includes("fb.com"))return "Facebook";
+  if(r.includes("xiaohongshu")||r.includes("xhslink"))return "小红书";
+  if(r.includes("douyin"))return "抖音";
+  if(r.includes("google"))return "Google";
+  try{
+    const u=new URL(referrer);
+    if(u.hostname===location.hostname)return "Direct";
+  }catch(_){}
+  return "Referral";
+}
+
+function normalizeSource(value){
+  const s=String(value||"").trim();
+  if(!s)return "";
+  const x=s.toLowerCase();
+  if(["ig","instagram"].includes(x))return "Instagram";
+  if(["tiktok","tt"].includes(x))return "TikTok";
+  if(["facebook","fb","meta"].includes(x))return "Facebook";
+  if(["xiaohongshu","xhs","rednote"].includes(x))return "小红书";
+  if(["douyin"].includes(x))return "抖音";
+  if(["google","google-search"].includes(x))return "Google";
+  if(["ref","referral"].includes(x))return "Referral";
+  if(["direct"].includes(x))return "Direct";
+  return s.slice(0,80);
+}
+
+function captureAttribution(){
+  const qs=new URLSearchParams(location.search);
+  let previous={};
+  try{previous=JSON.parse(sessionStorage.getItem(ATTR_KEY)||"{}")||{};}catch(_){}
+
+  const explicitSource=
+    qs.get("utm_source") ||
+    (qs.get("ref") ? "Referral" : "") ||
+    previous.source ||
+    inferTrafficSource(document.referrer);
+
+  const data={
+    source:normalizeSource(explicitSource)||"Direct",
+    medium:(qs.get("utm_medium")||previous.medium||"").slice(0,80),
+    campaign:(qs.get("utm_campaign")||previous.campaign||"").slice(0,120),
+    content:(qs.get("utm_content")||previous.content||"").slice(0,120),
+    term:(qs.get("utm_term")||previous.term||"").slice(0,120),
+    ref:(qs.get("ref")||previous.ref||"").slice(0,120),
+    referrer:(previous.referrer||document.referrer||"").slice(0,300),
+    first_landing:previous.first_landing||`${location.pathname}${location.search}`,
+    captured_at:previous.captured_at||new Date().toISOString()
+  };
+
+  try{sessionStorage.setItem(ATTR_KEY,JSON.stringify(data));}catch(_){}
+  return data;
+}
+
+const ATTRIBUTION=captureAttribution();
+
+/* Carry source/campaign into Quick Check URLs too, without sending anything
+   to a third party before the user starts the Quick Check. */
+document.querySelectorAll('a[href^="/self-check.html"]').forEach(a=>{
+  try{
+    const u=new URL(a.getAttribute("href"),location.origin);
+    if(ATTRIBUTION.source && ATTRIBUTION.source!=="Direct")u.searchParams.set("utm_source",ATTRIBUTION.source);
+    if(ATTRIBUTION.medium)u.searchParams.set("utm_medium",ATTRIBUTION.medium);
+    if(ATTRIBUTION.campaign)u.searchParams.set("utm_campaign",ATTRIBUTION.campaign);
+    if(ATTRIBUTION.content)u.searchParams.set("utm_content",ATTRIBUTION.content);
+    if(ATTRIBUTION.term)u.searchParams.set("utm_term",ATTRIBUTION.term);
+    if(ATTRIBUTION.ref)u.searchParams.set("ref",ATTRIBUTION.ref);
+    a.setAttribute("href",u.pathname+u.search);
+  }catch(_){}
+});
+
 const W="601110700969";
 const msg=encodeURIComponent(`你好 Dr. Lawrence，
 我从 Insu Lang 找到你，
