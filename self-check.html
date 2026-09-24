@@ -270,7 +270,7 @@
 
 /* Start form spacing */
 .lead-error:empty{display:none}
-.start .lead-form + .btnrow{margin-top:15px}
+.start .lead-form + .btnrow{margin-top:18px}
 
 /* Desktop keeps answer text alignment as before. */
 .mobile-detail-break{display:none}
@@ -374,6 +374,22 @@
   .cash-score-row .big{font-size:36px!important}
   .cash-score-row .badge{margin-left:7px;font-size:10px;padding:5px 8px}
   .site-copyright{padding:0 13px 24px}
+}
+
+
+/* 2026-09-24 requested refinements */
+
+/* Copyright slightly higher on both desktop and mobile. */
+.site-copyright{
+  transform:translateY(-10px);
+}
+
+@media(max-width:680px){
+  /* Only mobile changes the order:
+     Save / Print -> Dr. Lawrence -> Restart */
+  #selfBox .btnrow .secondary{order:1}
+  #selfBox .btnrow .primary{order:2}
+  #selfBox .btnrow .ghost{order:3}
 }
 
 </style>
