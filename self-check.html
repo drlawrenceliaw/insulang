@@ -392,6 +392,12 @@
   #selfBox .btnrow .ghost{order:3}
 }
 
+
+/* 2026-09-24 footer position refinement */
+.site-copyright{
+  transform:translateY(-24px);
+}
+
 </style>
 </head>
 <body>
@@ -648,8 +654,8 @@ function renderResult(){
    let detail="";
    if(d.key==="medical"){
      detail=answers.medical==="no"
-       ? "AL = RM0<br>病房 = RM0/天"
-       : `AL = ${RMshort(Number(answers.annual))}<br>${Number(answers.room)>300?"R&B > RM300":`病房 = RM${answers.room}/天`}`;
+       ? "AL = RM0；病房 = RM0/天"
+       : `AL = ${RMshort(Number(answers.annual))}；${Number(answers.room)>300?"R&B > RM300":`病房 = RM${answers.room}/天`}`;
    }else{
      detail=`预期值 = ${RMshort(d.need)}；<br class="mobile-detail-break">现保障 = ${RMshort(d.existing)}。`;
    }
