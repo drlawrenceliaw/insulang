@@ -398,6 +398,216 @@
   transform:translateY(-24px);
 }
 
+
+/* Legal consent */
+.legal-consent{
+  grid-column:1 / -1;
+  display:flex;
+  align-items:flex-start;
+  gap:9px;
+  margin-top:2px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.55;
+}
+.legal-consent input{
+  width:16px;
+  height:16px;
+  margin:2px 0 0;
+  flex:0 0 auto;
+  accent-color:var(--blue);
+}
+.legal-consent a{
+  color:var(--blue);
+  font-weight:800;
+  text-decoration:none;
+}
+.legal-consent a:hover{
+  text-decoration:underline;
+}
+@media(max-width:680px){
+  .legal-consent{
+    grid-column:1;
+    font-size:11.5px;
+  }
+}
+
+
+/* ===== Combined final result / print refinements ===== */
+.print-only{display:none}
+.medical-mobile-break{display:none}
+.medical-desktop-sep{display:inline}
+
+@media(max-width:680px){
+  .medical-mobile-break{display:block}
+  .medical-desktop-sep{display:none}
+}
+
+@media print{
+  @page{size:A4 portrait;margin:9mm}
+
+  .site-copyright{display:none!important}
+  .print-only{display:flex!important}
+
+  .print-report-header{
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    padding:0 0 8px;
+    margin:0 0 8px;
+    border-bottom:1px solid var(--line);
+  }
+  .print-report-header img{
+    width:auto;
+    height:30px;
+    display:block;
+  }
+  .print-report-header div{
+    text-align:right;
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+  }
+  .print-report-header strong{
+    font-size:12px;
+    color:var(--ink);
+  }
+  .print-report-header span{
+    font-size:8.5px;
+    color:var(--muted);
+  }
+
+  .result-head{
+    padding:2px 0 11px!important;
+  }
+  .result-head>.eyebrow{
+    display:none!important;
+  }
+  .overall-title{
+    font-size:14px!important;
+    margin:2px 0 5px!important;
+  }
+  .overall-score-row{
+    margin:3px 0 2px!important;
+  }
+  .overall-score-main #overallScore{
+    font-size:38px!important;
+    line-height:.95!important;
+  }
+  .overall-score-main small{
+    font-size:14px!important;
+    padding-bottom:3px!important;
+  }
+  .overall-score-row .badge{
+    font-size:9px!important;
+    padding:4px 7px!important;
+  }
+
+  .result-section{
+    padding:10px 0!important;
+  }
+  .risk-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:7px!important;
+  }
+  .metric{
+    padding:9px!important;
+    border-radius:9px!important;
+  }
+  .metric h4{
+    font-size:11px!important;
+  }
+  .metric-score{
+    font-size:18px!important;
+  }
+  .metric p{
+    font-size:8.5px!important;
+    line-height:1.35!important;
+    margin-top:6px!important;
+  }
+  .bar{
+    height:5px!important;
+  }
+
+  .compact-section{
+    padding-top:12px!important;
+    padding-bottom:12px!important;
+  }
+  .center-title{
+    font-size:14px!important;
+    margin:0 0 9px!important;
+  }
+  .keys{
+    gap:8px!important;
+  }
+  .key{
+    padding:10px 7px!important;
+    border-radius:9px!important;
+  }
+  .key strong{
+    font-size:18px!important;
+  }
+  .key span{
+    font-size:9px!important;
+    margin-top:4px!important;
+  }
+  .cash .big{
+    font-size:22px!important;
+  }
+  #cashText{
+    font-size:9px!important;
+    margin-top:7px!important;
+  }
+
+  .print-report-footer{
+    position:relative;
+    display:grid!important;
+    grid-template-columns:1fr auto;
+    align-items:center;
+    gap:8px 14px;
+    margin-top:12px;
+    padding-top:10px;
+    border-top:1px solid var(--line);
+    break-inside:avoid;
+  }
+  .print-contact{
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+    min-width:0;
+  }
+  .print-contact strong{
+    font-size:10.5px;
+    color:var(--ink);
+  }
+  .print-contact span{
+    font-size:8px;
+    color:var(--muted);
+    line-height:1.35;
+  }
+  .print-review-cta{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:28px;
+    padding:6px 10px;
+    border-radius:7px;
+    background:var(--blue);
+    color:#fff!important;
+    text-decoration:none;
+    font-size:8.5px;
+    font-weight:850;
+    white-space:nowrap;
+  }
+  .print-copyright{
+    grid-column:1 / -1;
+    text-align:center;
+    font-size:7.5px;
+    color:var(--muted);
+    padding-top:3px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -421,6 +631,12 @@
       <label for="leadPhone">Phone Number</label>
       <input id="leadPhone" type="tel" autocomplete="tel" inputmode="tel" maxlength="24">
     </div>
+
+    <label class="legal-consent" for="legalConsent">
+      <input id="legalConsent" type="checkbox">
+      <span>我已阅读 <a href="/legal.html#privacy-zh" target="_blank" rel="noopener">Privacy Notice</a> 和 <a href="/legal.html#terms-zh" target="_blank" rel="noopener">Terms of Use</a>，并同意提供资讯以完成 Quick Check。</span>
+    </label>
+
     <div id="leadError" class="lead-error" aria-live="polite"></div>
   </div>
 
@@ -443,6 +659,13 @@
 </section>
 
 <section id="result" class="card hide">
+  <div class="print-report-header print-only">
+    <img src="/images/insu-lang-logo-small.png" alt="Insu Lang">
+    <div>
+      <strong>Quick Check Result</strong>
+      <span>Protection, made clearer.</span>
+    </div>
+  </div>
   <div class="result-head">
     <div class="eyebrow">QUICK CHECK RESULT</div>
     <div class="overall-title">整体评分</div>
@@ -466,6 +689,16 @@
     <h3 class="center-title">流动现金</h3>
     <div class="cash cash-score-row"><span class="cash-score-spacer" aria-hidden="true"></span><div class="big" id="cashMonths"></div><span id="cashBadge" class="badge"></span></div>
     <div id="cashText" class="hint" style="margin-top:12px"></div>
+  </div>
+
+  <div class="print-report-footer print-only">
+    <div class="print-contact">
+      <strong>Dr. Lawrence Liaw</strong>
+      <span>Prudential Malaysia · Senior Insurance Consultant</span>
+      <span>HP: 011-1070 0969 · Email: chuinming811@pruparter.com.my</span>
+    </div>
+    <a id="printFullReviewLink" class="print-review-cta" href="https://wa.me/601110700969">Full Review / WhatsApp</a>
+    <div class="print-copyright">© 2026 Insu Lang. All rights reserved</div>
   </div>
 
   <div class="result-section print-hide">
@@ -528,7 +761,7 @@
     <h3>没问题，谢谢你。</h3>
     <p class="hint">如果之后生活开销，贷款或保障有变化，需要重新算一次。</p>
     <div class="btnrow">
-      <button class="btn secondary" onclick="window.print()">保存 / 打印</button>
+      <button class="btn secondary" onclick="preparePrint()">保存 / 打印</button>
       <button class="btn ghost" onclick="restart()">重新自检</button>
       <button class="btn primary wa-btn" onclick="contactDr()">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.009-.371-.011-.57-.011-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479s1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.693.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.981.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.89-9.884a9.82 9.82 0 0 1 7.021 2.91 9.82 9.82 0 0 1 2.9 7.019c-.002 5.45-4.437 9.884-9.884 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.14 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
@@ -594,6 +827,11 @@ function startCheck(){
    $("leadPhone")?.focus();
    return;
  }
+ if(!$("legalConsent")?.checked){
+   if(error)error.textContent="请先阅读并同意 Privacy Notice 和 Terms of Use。";
+   $("legalConsent")?.focus();
+   return;
+ }
 
  if(error)error.textContent="";
  leadInfo={name,phone};
@@ -654,7 +892,7 @@ function renderResult(){
    let detail="";
    if(d.key==="medical"){
      detail=answers.medical==="no"
-       ? "AL = RM0；病房 = RM0/天"
+       ? `AL = RM0<span class="medical-desktop-sep">；</span><br class="medical-mobile-break">病房 = RM0/天`
        : `AL = ${RMshort(Number(answers.annual))}；${Number(answers.room)>300?"R&B > RM300":`病房 = RM${answers.room}/天`}`;
    }else{
      detail=`预期值 = ${RMshort(d.need)}；<br class="mobile-detail-break">现保障 = ${RMshort(d.existing)}。`;
@@ -850,14 +1088,29 @@ function esc(s){return String(s).replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",
 function quickCheckWhatsAppText(intent="result"){
  if(!result){
    return intent==="full"
-     ? `你好 ${CONFIG.advisorName}，我想进一步做 Full Review。`
-     : `你好 ${CONFIG.advisorName}，我刚完成 Quick Check，想了解一下我的结果。`;
+     ? `你好 ${CONFIG.advisorName}，
+我想进一步做 Full Review 😄`
+     : `你好 ${CONFIG.advisorName}，
+我想先了解一下 Quick Check。`;
  }
- const summary=result.domains.map(d=>`${d.name}：${d.score}/100`).join("；");
+
+ const scoreLines=result.domains.map((d,i)=>{
+   const end=i===result.domains.length-1?"。":"；";
+   return `${d.name}：${d.score}/100${end}`;
+ }).join("\n");
+
  const ending=intent==="full"
-   ? "我想进一步做 Full Review。"
-   : "我想了解一下我的结果。";
- return `你好 ${CONFIG.advisorName}，我刚完成 Quick Check。整体评分：${result.overall}/100。${summary}。${ending}`;
+   ? "我想进一步做 Full Review 😄"
+   : "我想先了解一下我的结果 😄";
+
+ return `你好 ${CONFIG.advisorName}，
+我刚完成 Quick Check。
+
+整体评分：${result.overall}/100
+
+${scoreLines}
+
+${ending}`;
 }
 function contactDr(){
  const text=quickCheckWhatsAppText("result");
@@ -865,14 +1118,24 @@ function contactDr(){
 }
 function fullReview(manual=false){
  const text=manual
-   ? `你好 ${CONFIG.advisorName}，我想进一步做 Full Review。`
+   ? `你好 ${CONFIG.advisorName}，
+我想进一步做 Full Review 😄`
    : quickCheckWhatsAppText("full");
  window.open(`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`,"_blank");
+}
+function preparePrint(){
+ const link=$("printFullReviewLink");
+ if(link){
+   const text=quickCheckWhatsAppText("full");
+   link.href=`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`;
+ }
+ window.print();
 }
 function restart(){
  answers={};idx=0;result=null;leadInfo={name:"",phone:""};leadSubmitted=false;
  if($("leadName"))$("leadName").value="";
  if($("leadPhone"))$("leadPhone").value="";
+ if($("legalConsent"))$("legalConsent").checked=false;
  if($("leadError"))$("leadError").textContent="";
  Object.keys(aiLoaded).forEach(k=>delete aiLoaded[k]);
  Object.keys(aiLoading).forEach(k=>delete aiLoading[k]);
