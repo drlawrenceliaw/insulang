@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<title>Insu Lang | 隐私通知</title>
+<meta name="description" content="Insu Lang 隐私通知。可选择中文、English 或 Bahasa Melayu。">
+<style>
+:root{
+  --navy:#102a4c;--blue:#1769e0;--ink:#142033;--muted:#6c7889;
+  --line:#e4ebf2;--soft:#f7fafc;--white:#fff;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;
+  color:var(--ink);background:#f7fafc;-webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
+.top{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.topin{max-width:920px;margin:auto;padding:11px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand img{width:108px;height:auto;display:block}
+.nav{display:flex;gap:14px;font-size:13px;font-weight:760;color:#46566b}
+.nav a{text-decoration:none}
+.wrap{max-width:920px;margin:auto;padding:30px 20px 56px}
+.hero,.legal-card{
+  background:#fff;border:1px solid var(--line);border-radius:20px;
+  box-shadow:0 8px 28px rgba(23,32,51,.04)
+}
+.hero{padding:28px 30px;margin-bottom:16px}
+h1{font-size:32px;line-height:1.15;color:var(--navy);margin:9px 0 17px}
+.lang-select{display:flex;gap:8px;flex-wrap:wrap}
+.lang-btn{
+  appearance:none;border:1px solid var(--line);background:#fff;color:#43546a;
+  border-radius:999px;padding:8px 13px;font-size:12px;font-weight:820;cursor:pointer
+}
+.lang-btn.active{border-color:#9fc1ef;background:#eef5ff;color:var(--blue)}
+.legal-card{padding:30px}
+.legal-content h4{font-size:15px;color:var(--navy);margin:23px 0 7px}
+.legal-content h4:first-child{margin-top:0}
+.legal-content p,.legal-content li{color:#4e5f72;font-size:14px;line-height:1.78}
+.legal-content ul{padding-left:20px}
+.contact{
+  margin-top:13px;
+  color:var(--muted);
+  font-size:12px;
+}
+.contact strong{
+  display:block;
+  color:var(--navy);
+  font-size:17px;
+  margin-bottom:4px;
+}
+.contact-role{
+  color:#45566d;
+  font-weight:700;
+  line-height:1.5;
+}
+.contact-address{
+  margin-top:12px;
+  line-height:1.65;
+}
+.contact-meta{
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+  margin-top:9px;
+  line-height:1.55;
+}
+.contact-meta a{
+  color:#45566d;
+  text-decoration:none;
+}
+.appointment{
+  display:inline-block;
+  margin-top:11px;
+  padding:5px 9px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  color:#45566d;
+  background:#f8fbfd;
+  font-size:11px;
+  font-weight:750;
+}
+.legal-bottom{
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  margin-top:28px;padding-top:18px;border-top:1px solid var(--line)
+}
+.version{font-size:11px;color:var(--muted)}
+.other-page{
+  text-decoration:none;color:var(--blue);font-size:12px;font-weight:820;
+  border:1px solid #d7e6fb;border-radius:999px;padding:8px 12px;background:#f7fbff
+}
+.footer{max-width:920px;margin:auto;padding:0 20px 32px;text-align:center;color:var(--muted);font-size:12px}
+[hidden]{display:none!important}
+@media(max-width:680px){
+  .topin{padding:10px 14px}.brand img{width:98px}.nav{font-size:12px;gap:10px}
+  .wrap{padding:20px 14px 42px}.hero{padding:22px 19px;border-radius:17px}
+  h1{font-size:27px;margin-bottom:14px}
+  .legal-card{padding:23px 19px;border-radius:17px}
+  .legal-content p,.legal-content li{font-size:13px}
+  .legal-bottom{align-items:flex-start;flex-direction:column}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="topin">
+    <a class="brand" href="/" aria-label="Insu Lang home"><img src="/images/insu-lang-logo-small.png" alt="Insu Lang"></a>
+    <nav class="nav"><a href="/">Home</a><a href="/self-check.html">Quick Check</a></nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <h1 id="pageTitle">隐私通知</h1>
+    <div class="lang-select" aria-label="Language">
+      <button class="lang-btn active" type="button" data-set-lang="zh">中文</button>
+      <button class="lang-btn" type="button" data-set-lang="en">English</button>
+      <button class="lang-btn" type="button" data-set-lang="bm">Bahasa Melayu</button>
+    </div>
+  </section>
+
+  
+<section class="legal-card legal-lang" data-lang="zh">
+  <div class="legal-content"><h4>1. 我们收集的资料</h4>
+<p>当你使用 Quick Check 时，我们可能收集你主动提供的 Full Name、Phone Number，以及与 Quick Check 有关的资料，例如家庭生活费、剩余贷款、现金缓冲、现有人寿、重疾、意外及医疗保障资料，以及系统根据这些资料计算出的评分和结果。在你同意并开始 Quick Check 后，我们也可能记录不含 Full Name 和 Phone Number 的来源及使用事件资料，例如来源渠道、UTM campaign、开始或完成 Quick Check、打开 AI 分析、点击 WhatsApp、下载或打印结果，用于了解及改善 Quick Check 的使用流程。</p>
+<h4>2. 收集和使用目的</h4>
+<p>这些资料用于完成 Quick Check、生成及保存本次结果、提供 AI 解释功能、回应你的咨询，以及在你主动要求时协助安排进一步的 Full Review。</p>
+<h4>3. AI 如何使用资料</h4>
+<p>AI 不会涉及个人联系方式。Full Name 和 Phone Number 不会发送给用于解释评分的 AI 服务。AI 只会收到完成解释所需的 Quick Check 评分及相关非身份资料。</p>
+<h4>4. 资料保存与服务供应商</h4>
+<p>Insu Lang 可能使用第三方技术服务来运行网站、托管网页、处理服务器请求、保存 Quick Check lead 资料及提供 AI 功能，包括 Vercel、Google 服务和 Google Gemini。部分服务供应商可能在马来西亚以外处理资料。</p>
+<h4>5. 资料披露</h4>
+<p>我们不会为了与上述目的无关的用途而任意披露你的个人资料。若法律要求、为保护合法权益，或为了由受委托的技术服务供应商完成上述服务，资料可能在必要范围内被处理或披露。</p>
+<h4>6. 保存期限</h4>
+<p>个人资料只会在完成上述用途、回应咨询、维护必要记录及符合法律或合规要求所需的合理期间内保存。资料不再需要时，我们会采取合理步骤删除、销毁或匿名化。</p>
+<h4>7. 安全措施</h4>
+<p>我们会采取合理的技术和组织措施保护资料，包括限制后台访问、使用服务器端 API、访问控制及其他合理措施。不过，任何互联网传输或电子储存方式都无法保证绝对安全。</p>
+<h4>8. Cookies 与类似技术</h4>
+<p>网站可能使用为网站运作所需的 cookies、本地储存或类似技术。第三方嵌入服务，例如 Google Reviews widget，也可能按照其自身政策使用 cookies 或类似技术。</p>
+<h4>9. 你的权利</h4>
+<p>在适用法律允许的范围内，你可以联系我们查询我们是否持有你的个人资料，并要求访问、更正或在适当情况下停止处理、撤回同意或删除不再需要的资料。</p>
+<h4>10. 联系我们</h4>
+<div class="contact">
+<strong>Dr. Lawrence Liaw</strong>
+<div class="contact-role">Prudential Malaysia · Senior Insurance Consultant</div>
+<div class="contact-address">
+Level 12, Tower A, Menara Prudential Jaya<br>
+99, Jalan Tun Sri Lanang, 75100 Melaka
+</div>
+<div class="contact-meta">
+<span>HP：<a href="tel:01110700969">011-1070 0969</a></span>
+<span>Email：<a href="mailto:chuinming811@pruparter.com.my">chuinming811@pruparter.com.my</a></span>
+</div>
+<div class="appointment">By Appointment Only</div>
+</div></div>
+  <div class="legal-bottom">
+    <span class="version">Legal Version: 2026-09-25-v1</span>
+    <a class="other-page" data-base-href="/terms.html" href="/terms.html">查看使用条款</a>
+  </div>
+</section>
+<section class="legal-card legal-lang" data-lang="en" hidden>
+  <div class="legal-content"><h4>1. Information we collect</h4>
+<p>When you use Quick Check, we may collect information you provide voluntarily, including your Full Name, Phone Number and Quick Check information such as household living expenses, outstanding loans, cash buffer, existing life, critical illness, accident and medical protection, together with scores and results generated from that information. After you consent and start Quick Check, we may also record source and usage-event information that does not include your Full Name or Phone Number, such as traffic source, UTM campaign, starting or completing Quick Check, opening AI analysis, clicking WhatsApp, downloading or printing a result, to understand and improve the Quick Check journey.</p>
+<h4>2. Purposes of collection and use</h4>
+<p>We use this information to complete the Quick Check, generate and retain the result, provide AI explanations, respond to your enquiry, and assist with a Full Review when you request one.</p>
+<h4>3. How AI uses information</h4>
+<p>AI does not handle your personal contact details. Your Full Name and Phone Number are not sent to the AI service used to explain your scores. The AI receives only Quick Check scores and related non-identifying information needed for the explanation.</p>
+<h4>4. Storage and service providers</h4>
+<p>Insu Lang may use third-party technology providers to operate and host the website, process server requests, store Quick Check lead information and provide AI functionality, including Vercel, Google services and Google Gemini. Some service providers may process information outside Malaysia.</p>
+<h4>5. Disclosure</h4>
+<p>We do not arbitrarily disclose your personal data for purposes unrelated to those described above. Information may be processed or disclosed where required by law, to protect legitimate rights, or where necessary for appointed technology providers to deliver the services described above.</p>
+<h4>6. Retention</h4>
+<p>Personal data is retained only for a reasonable period necessary to fulfil the purposes above, respond to enquiries, maintain necessary records and meet applicable legal or compliance requirements. When information is no longer required, reasonable steps will be taken to delete, destroy or anonymise it.</p>
+<h4>7. Security</h4>
+<p>We take reasonable technical and organisational measures to protect personal data, including restricted backend access, server-side APIs, access controls and other appropriate safeguards. However, no internet transmission or electronic storage method can be guaranteed to be completely secure.</p>
+<h4>8. Cookies and similar technologies</h4>
+<p>The website may use cookies, local storage or similar technologies required for website operation. Third-party embedded services, such as a Google Reviews widget, may also use cookies or similar technologies under their own policies.</p>
+<h4>9. Your rights</h4>
+<p>Subject to applicable law, you may contact us to ask whether we hold your personal data and request access, correction or, where appropriate, cessation of processing, withdrawal of consent or deletion of information that is no longer required.</p>
+<h4>10. Contact</h4>
+<div class="contact">
+<strong>Dr. Lawrence Liaw</strong>
+<div class="contact-role">Prudential Malaysia · Senior Insurance Consultant</div>
+<div class="contact-address">
+Level 12, Tower A, Menara Prudential Jaya<br>
+99, Jalan Tun Sri Lanang, 75100 Melaka
+</div>
+<div class="contact-meta">
+<span>HP: <a href="tel:01110700969">011-1070 0969</a></span>
+<span>Email: <a href="mailto:chuinming811@pruparter.com.my">chuinming811@pruparter.com.my</a></span>
+</div>
+<div class="appointment">By Appointment Only</div>
+</div></div>
+  <div class="legal-bottom">
+    <span class="version">Legal Version: 2026-09-25-v1</span>
+    <a class="other-page" data-base-href="/terms.html" href="/terms.html">View Terms of Use</a>
+  </div>
+</section>
+<section class="legal-card legal-lang" data-lang="bm" hidden>
+  <div class="legal-content"><h4>1. Maklumat yang kami kumpulkan</h4>
+<p>Apabila anda menggunakan Quick Check, kami mungkin mengumpulkan maklumat yang anda berikan secara sukarela, termasuk Full Name, Phone Number dan maklumat Quick Check seperti perbelanjaan sara hidup keluarga, baki pinjaman, simpanan tunai yang boleh digunakan, perlindungan hayat, penyakit kritikal, kemalangan dan perubatan sedia ada, serta skor dan keputusan yang dijana daripada maklumat tersebut. Selepas anda memberikan persetujuan dan memulakan Quick Check, kami juga mungkin merekodkan maklumat sumber dan peristiwa penggunaan yang tidak mengandungi Full Name atau Phone Number anda, seperti sumber trafik, UTM campaign, memulakan atau melengkapkan Quick Check, membuka analisis AI, mengklik WhatsApp, memuat turun atau mencetak keputusan, bagi memahami dan menambah baik perjalanan Quick Check.</p>
+<h4>2. Tujuan pengumpulan dan penggunaan</h4>
+<p>Maklumat ini digunakan untuk melengkapkan Quick Check, menjana dan menyimpan keputusan, menyediakan penjelasan AI, menjawab pertanyaan anda, dan membantu mengatur Full Review apabila anda memintanya.</p>
+<h4>3. Cara AI menggunakan maklumat</h4>
+<p>AI tidak mengendalikan maklumat hubungan peribadi anda. Full Name dan Phone Number anda tidak dihantar kepada perkhidmatan AI yang digunakan untuk menerangkan skor. AI hanya menerima skor Quick Check dan maklumat berkaitan yang tidak mengenal pasti identiti yang diperlukan untuk penjelasan.</p>
+<h4>4. Penyimpanan dan penyedia perkhidmatan</h4>
+<p>Insu Lang mungkin menggunakan penyedia teknologi pihak ketiga untuk mengendalikan dan mengehos laman web, memproses permintaan pelayan, menyimpan maklumat lead Quick Check dan menyediakan fungsi AI, termasuk Vercel, perkhidmatan Google dan Google Gemini. Sesetengah penyedia perkhidmatan mungkin memproses maklumat di luar Malaysia.</p>
+<h4>5. Penzahiran</h4>
+<p>Kami tidak akan mendedahkan data peribadi anda secara sewenang-wenangnya untuk tujuan yang tidak berkaitan dengan tujuan yang dinyatakan di atas. Maklumat mungkin diproses atau didedahkan apabila dikehendaki oleh undang-undang, untuk melindungi hak yang sah, atau apabila perlu bagi penyedia teknologi yang dilantik untuk menyediakan perkhidmatan yang dinyatakan di atas.</p>
+<h4>6. Tempoh penyimpanan</h4>
+<p>Data peribadi hanya disimpan untuk tempoh munasabah yang diperlukan bagi memenuhi tujuan di atas, menjawab pertanyaan, mengekalkan rekod yang perlu dan memenuhi keperluan undang-undang atau pematuhan yang terpakai. Apabila maklumat tidak lagi diperlukan, langkah munasabah akan diambil untuk memadam, memusnahkan atau menjadikannya tanpa nama.</p>
+<h4>7. Keselamatan</h4>
+<p>Kami mengambil langkah teknikal dan organisasi yang munasabah untuk melindungi data peribadi, termasuk mengehadkan akses bahagian belakang, penggunaan API sebelah pelayan, kawalan akses dan perlindungan lain yang sesuai. Walau bagaimanapun, tiada kaedah penghantaran internet atau penyimpanan elektronik yang boleh dijamin selamat sepenuhnya.</p>
+<h4>8. Cookies dan teknologi serupa</h4>
+<p>Laman web mungkin menggunakan cookies, local storage atau teknologi serupa yang diperlukan untuk operasi laman web. Perkhidmatan pihak ketiga yang dibenamkan, seperti widget Google Reviews, juga mungkin menggunakan cookies atau teknologi serupa tertakluk kepada polisi mereka sendiri.</p>
+<h4>9. Hak anda</h4>
+<p>Tertakluk kepada undang-undang yang terpakai, anda boleh menghubungi kami untuk bertanya sama ada kami menyimpan data peribadi anda dan meminta akses, pembetulan atau, jika sesuai, penghentian pemprosesan, penarikan balik persetujuan atau pemadaman maklumat yang tidak lagi diperlukan.</p>
+<h4>10. Hubungi kami</h4>
+<div class="contact">
+<strong>Dr. Lawrence Liaw</strong>
+<div class="contact-role">Prudential Malaysia · Senior Insurance Consultant</div>
+<div class="contact-address">
+Level 12, Tower A, Menara Prudential Jaya<br>
+99, Jalan Tun Sri Lanang, 75100 Melaka
+</div>
+<div class="contact-meta">
+<span>HP: <a href="tel:01110700969">011-1070 0969</a></span>
+<span>Email: <a href="mailto:chuinming811@pruparter.com.my">chuinming811@pruparter.com.my</a></span>
+</div>
+<div class="appointment">By Appointment Only</div>
+</div></div>
+  <div class="legal-bottom">
+    <span class="version">Legal Version: 2026-09-25-v1</span>
+    <a class="other-page" data-base-href="/terms.html" href="/terms.html">Lihat Terma Penggunaan</a>
+  </div>
+</section>
+</main>
+
+<footer class="footer">© 2026 Insu Lang. All rights reserved</footer>
+
+<script>
+const PAGE_KIND='privacy';
+const TITLES={
+  privacy:{zh:"隐私通知",en:"Privacy Notice",bm:"Notis Privasi"},
+  terms:{zh:"使用条款",en:"Terms of Use",bm:"Terma Penggunaan"}
+};
+function setLanguage(lang){
+  if(!["zh","en","bm"].includes(lang))lang="zh";
+  document.documentElement.lang=lang==="zh"?"zh-CN":lang==="bm"?"ms-MY":"en";
+  document.getElementById("pageTitle").textContent=TITLES[PAGE_KIND][lang];
+  document.title=`Insu Lang | ${TITLES[PAGE_KIND][lang]}`;
+  document.querySelectorAll(".legal-lang").forEach(el=>el.hidden=el.dataset.lang!==lang);
+  document.querySelectorAll("[data-set-lang]").forEach(btn=>btn.classList.toggle("active",btn.dataset.setLang===lang));
+  document.querySelectorAll(".other-page").forEach(a=>{
+    const base=a.dataset.baseHref;
+    a.href=`${base}?lang=${encodeURIComponent(lang)}`;
+  });
+  const u=new URL(location.href);
+  if(lang==="zh")u.searchParams.delete("lang"); else u.searchParams.set("lang",lang);
+  history.replaceState(null,"",u.pathname+u.search);
+}
+const initial=new URLSearchParams(location.search).get("lang")||"zh";
+setLanguage(initial);
+document.querySelectorAll("[data-set-lang]").forEach(btn=>btn.addEventListener("click",()=>setLanguage(btn.dataset.setLang)));
+</script>
+</body>
+</html>
