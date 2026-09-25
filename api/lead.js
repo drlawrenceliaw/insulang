@@ -7,157 +7,327 @@ function cleanText(value, max = 120) {
     .slice(0, max);
 }
 
-function safeNumber(value, min = 0, max = 100000000) {
+function safeNumber(
+  value,
+  min = 0,
+  max = 100000000
+) {
   const n = Number(value);
-  if (!Number.isFinite(n)) return 0;
-  return Math.min(max, Math.max(min, n));
+
+  if (!Number.isFinite(n)) {
+    return 0;
+  }
+
+  return Math.min(
+    max,
+    Math.max(min, n)
+  );
 }
 
 function safeScore(value) {
-  if (value === null || value === undefined || value === "") return "";
-  return Math.round(safeNumber(value, 0, 100));
+
+  if (
+    value === null ||
+    value === undefined ||
+    value === ""
+  ) {
+    return "";
+  }
+
+  return Math.round(
+    safeNumber(
+      value,
+      0,
+      100
+    )
+  );
+}
+
+function normalizeMalaysiaPhone(
+  value
+) {
+  let phone =
+    String(value ?? "")
+      .replace(/\D/g, "");
+
+  if (
+    phone.startsWith("60")
+  ) {
+    phone =
+      "0" +
+      phone.slice(2);
+  }
+
+  else if (
+    phone.startsWith("1")
+  ) {
+    phone =
+      "0" +
+      phone;
+  }
+
+  return phone.slice(
+    0,
+    20
+  );
 }
 
 function formatMoney(value) {
-  const n = Math.round(safeNumber(value, 0, 100000000));
+
+  const n =
+    Math.round(
+      safeNumber(
+        value,
+        0,
+        100000000
+      )
+    );
 
   if (n >= 1000000) {
-    const v = n / 1000000;
-    return `RM${Number.isInteger(v) ? v : v.toFixed(1).replace(/\.0$/, "")}百万`;
+
+    const v =
+      n / 1000000;
+
+    return (
+      "RM" +
+      (
+        Number.isInteger(v)
+          ? v
+          : v
+              .toFixed(2)
+              .replace(/0+$/, "")
+              .replace(/\.$/, "")
+      ) +
+      "百万"
+    );
   }
 
   if (n >= 1000) {
-    const v = n / 1000;
-    return `RM${Number.isInteger(v) ? v : v.toFixed(1).replace(/\.0$/, "")}k`;
+
+    const v =
+      n / 1000;
+
+    return (
+      "RM" +
+      (
+        Number.isInteger(v)
+          ? v
+          : v
+              .toFixed(1)
+              .replace(/\.0$/, "")
+      ) +
+      "k"
+    );
   }
 
-  return `RM${n.toLocaleString("en-MY")}`;
+  return `RM${n}`;
 }
 
 function coverageText(domain) {
-  if (!domain || typeof domain !== "object") return "";
 
-  const existing = safeNumber(domain.existing, 0, 100000000);
-  const expected = safeNumber(domain.expected, 0, 100000000);
+  if (
+    !domain ||
+    typeof domain !== "object"
+  ) {
+    return "";
+  }
 
-  return `${formatMoney(existing)} / ${formatMoney(expected)}`;
+  return (
+    `${formatMoney(domain.existing)}` +
+    ` / ${formatMoney(domain.expected)}`
+  );
 }
 
 function roomText(value) {
-  const n = safeNumber(value, 0, 100000);
 
-  if (!n) return "RM0/天";
-  if (n > 300) return "> RM300";
+  const n =
+    safeNumber(
+      value,
+      0,
+      100000
+    );
+
+  if (!n) {
+    return "RM0/天";
+  }
+
+  if (n > 300) {
+    return "> RM300";
+  }
 
   return `RM${Math.round(n)}/天`;
 }
 
-function validBody(body) {
-  return body && typeof body === "object" && !Array.isArray(body);
-}
+export default async function handler(
+  req,
+  res
+) {
 
-export default async function handler(req, res) {
-  res.setHeader("Cache-Control", "no-store, max-age=0");
-  res.setHeader("X-Content-Type-Options", "nosniff");
+  res.setHeader(
+    "Cache-Control",
+    "no-store, max-age=0"
+  );
 
-  if (req.method !== "POST") {
-    res.setHeader("Allow", "POST");
+  res.setHeader(
+    "X-Content-Type-Options",
+    "nosniff"
+  );
 
-    return res.status(405).json({
-      ok: false,
-      code: "METHOD_NOT_ALLOWED"
-    });
+  if (
+    req.method !== "POST"
+  ) {
+
+    res.setHeader(
+      "Allow",
+      "POST"
+    );
+
+    return res
+      .status(405)
+      .json({
+        ok: false,
+        code:
+          "METHOD_NOT_ALLOWED"
+      });
   }
 
-  const webhookUrl = process.env.LEAD_WEBHOOK_URL;
-  const webhookSecret = process.env.LEAD_WEBHOOK_SECRET;
+  const webhookUrl =
+    process.env
+      .LEAD_WEBHOOK_URL;
 
-  if (!webhookUrl || !webhookSecret) {
-    return res.status(503).json({
-      ok: false,
-      code: "LEAD_NOT_CONFIGURED"
-    });
+  const webhookSecret =
+    process.env
+      .LEAD_WEBHOOK_SECRET;
+
+  if (
+    !webhookUrl ||
+    !webhookSecret
+  ) {
+
+    return res
+      .status(503)
+      .json({
+        ok: false,
+        code:
+          "LEAD_NOT_CONFIGURED"
+      });
   }
 
   try {
-    if (!validBody(req.body)) {
-      return res.status(400).json({
-        ok: false,
-        code: "INVALID_REQUEST"
-      });
-    }
 
-    const rawSize =
+    const body =
+      req.body || {};
+
+    const bodySize =
       Buffer.byteLength(
-        JSON.stringify(req.body),
+        JSON.stringify(body),
         "utf8"
       );
 
-    if (rawSize > MAX_BODY_BYTES) {
-      return res.status(413).json({
-        ok: false,
-        code: "PAYLOAD_TOO_LARGE"
-      });
+    if (
+      bodySize >
+      MAX_BODY_BYTES
+    ) {
+
+      return res
+        .status(413)
+        .json({
+          ok: false,
+          code:
+            "PAYLOAD_TOO_LARGE"
+        });
     }
 
-    const body = req.body;
-
     const fullName =
-      cleanText(body.full_name, 80);
+      cleanText(
+        body.full_name,
+        80
+      );
 
     const phone =
-      cleanText(body.phone, 20)
-        .replace(/[^\d+]/g, "");
+      normalizeMalaysiaPhone(
+        body.phone
+      );
 
     if (
       fullName.length < 2 ||
-      !/^\+?\d{8,15}$/.test(phone)
+      !/^01\d{8,9}$/.test(
+        phone
+      )
     ) {
-      return res.status(400).json({
-        ok: false,
-        code: "INVALID_LEAD"
-      });
+
+      return res
+        .status(400)
+        .json({
+          ok: false,
+          code:
+            "INVALID_LEAD"
+        });
     }
 
     const payload = {
-      secret: webhookSecret,
-      kind: "lead",
 
-      full_name: fullName,
+      secret:
+        webhookSecret,
+
+      kind:
+        "lead",
+
+      full_name:
+        fullName,
+
       phone,
 
       overall_score:
-        safeScore(body.overall_score),
+        safeScore(
+          body.overall_score
+        ),
 
       life_score:
-        safeScore(body.life?.score),
+        safeScore(
+          body.life?.score
+        ),
 
       life_coverage:
-        coverageText(body.life),
+        coverageText(
+          body.life
+        ),
 
       ci_score:
-        safeScore(body.ci?.score),
+        safeScore(
+          body.ci?.score
+        ),
 
       ci_coverage:
-        coverageText(body.ci),
+        coverageText(
+          body.ci
+        ),
 
       accident_score:
-        safeScore(body.accident?.score),
+        safeScore(
+          body.accident?.score
+        ),
 
       accident_coverage:
-        coverageText(body.accident),
+        coverageText(
+          body.accident
+        ),
 
       medical_score:
-        safeScore(body.medical?.score),
+        safeScore(
+          body.medical?.score
+        ),
 
       medical_annual_limit:
         formatMoney(
-          body.medical?.annual_limit
+          body.medical
+            ?.annual_limit
         ),
 
       room_and_board:
         roomText(
-          body.medical?.room_and_board
+          body.medical
+            ?.room_and_board
         ),
 
       cash_buffer_months:
@@ -168,8 +338,10 @@ export default async function handler(req, res) {
         ),
 
       source:
-        cleanText(body.source, 80) ||
-        "Direct",
+        cleanText(
+          body.source,
+          80
+        ) || "Direct",
 
       campaign:
         cleanText(
@@ -177,12 +349,7 @@ export default async function handler(req, res) {
           120
         ),
 
-      priority_area:
-        cleanText(
-          body.priority_area,
-          40
-        ),
-
+      // 这两个是之前 Sheet 空白的重点
       consent_at:
         cleanText(
           body.consent_at,
@@ -192,7 +359,15 @@ export default async function handler(req, res) {
       legal_version:
         cleanText(
           body.legal_version,
-          30
+          40
+        ),
+
+      // Priority 先保留后台，
+      // 但网页 / PDF / WhatsApp 已经不显示
+      priority_area:
+        cleanText(
+          body.priority_area,
+          40
         ),
 
       utm_medium:
@@ -232,6 +407,7 @@ export default async function handler(req, res) {
         )
     };
 
+
     const response =
       await fetch(
         webhookUrl,
@@ -250,8 +426,10 @@ export default async function handler(req, res) {
         }
       );
 
+
     const text =
       await response.text();
+
 
     let data = {};
 
@@ -260,35 +438,50 @@ export default async function handler(req, res) {
         JSON.parse(text);
     } catch (_) {}
 
+
     if (
       !response.ok ||
       data?.ok === false
     ) {
+
       console.error(
         "Lead webhook failed:",
         response.status,
-        data?.error || "UNKNOWN"
+        data?.error ||
+          "UNKNOWN"
       );
 
-      return res.status(502).json({
-        ok: false,
-        code: "LEAD_SAVE_FAILED"
-      });
+      return res
+        .status(502)
+        .json({
+          ok: false,
+          code:
+            "LEAD_SAVE_FAILED"
+        });
     }
 
-    return res.status(200).json({
-      ok: true
-    });
+
+    return res
+      .status(200)
+      .json({
+        ok: true
+      });
+
 
   } catch (error) {
+
     console.error(
       "Lead endpoint error:",
-      error?.message || error
+      error?.message ||
+        error
     );
 
-    return res.status(500).json({
-      ok: false,
-      code: "LEAD_SAVE_FAILED"
-    });
+    return res
+      .status(500)
+      .json({
+        ok: false,
+        code:
+          "LEAD_SAVE_FAILED"
+      });
   }
 }
