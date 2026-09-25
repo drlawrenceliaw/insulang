@@ -1,11 +1,12 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#ffffff">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
+<meta content="#ffffff" name="theme-color"/>
 <title>Insu Lang | 隐私通知</title>
-<meta name="description" content="Insu Lang 隐私通知。可选择中文、English 或 Bahasa Melayu。">
+<meta content="Insu Lang 隐私通知。可选择中文、English 或 Bahasa Melayu。" name="description"/>
 <style>
 :root{
   --navy:#102a4c;--blue:#1769e0;--ink:#142033;--muted:#6c7889;
@@ -38,7 +39,7 @@ h1{font-size:32px;line-height:1.15;color:var(--navy);margin:9px 0 17px}
 .legal-card{padding:30px}
 .legal-content h4{font-size:15px;color:var(--navy);margin:23px 0 7px}
 .legal-content h4:first-child{margin-top:0}
-.legal-content p,.legal-content li{color:#4e5f72;font-size:14px;line-height:1.78}
+.legal-content p,.legal-content li{color:#4e5f72;font-size:14px;line-height:1.78;text-align:justify;text-justify:inter-ideograph}
 .legal-content ul{padding-left:20px}
 .contact{
   margin-top:13px;
@@ -105,25 +106,22 @@ h1{font-size:32px;line-height:1.15;color:var(--navy);margin:9px 0 17px}
 </head>
 <body>
 <header class="top">
-  <div class="topin">
-    <a class="brand" href="/" aria-label="Insu Lang home"><img src="/images/insu-lang-logo-small.png" alt="Insu Lang"></a>
-    <nav class="nav"><a href="/">Home</a><a href="/self-check.html">Quick Check</a></nav>
-  </div>
+<div class="topin">
+<a aria-label="Insu Lang home" class="brand" href="/"><img alt="Insu Lang" src="/images/insu-lang-logo-small.png"/></a>
+<nav class="nav"><a href="/">Home</a><a href="/self-check.html">Quick Check</a></nav>
+</div>
 </header>
-
 <main class="wrap">
-  <section class="hero">
-    <h1 id="pageTitle">隐私通知</h1>
-    <div class="lang-select" aria-label="Language">
-      <button class="lang-btn active" type="button" data-set-lang="zh">中文</button>
-      <button class="lang-btn" type="button" data-set-lang="en">English</button>
-      <button class="lang-btn" type="button" data-set-lang="bm">Bahasa Melayu</button>
-    </div>
-  </section>
-
-  
+<section class="hero">
+<h1 id="pageTitle">隐私通知</h1>
+<div aria-label="Language" class="lang-select">
+<button class="lang-btn active" data-set-lang="zh" type="button">中文</button>
+<button class="lang-btn" data-set-lang="en" type="button">English</button>
+<button class="lang-btn" data-set-lang="bm" type="button">Bahasa Melayu</button>
+</div>
+</section>
 <section class="legal-card legal-lang" data-lang="zh">
-  <div class="legal-content"><h4>1. 我们收集的资料</h4>
+<div class="legal-content"><h4>1. 我们收集的资料</h4>
 <p>当你使用 Quick Check 时，我们可能收集你主动提供的 Full Name、Phone Number，以及与 Quick Check 有关的资料，例如家庭生活费、剩余贷款、现金缓冲、现有人寿、重疾、意外及医疗保障资料，以及系统根据这些资料计算出的评分和结果。在你同意并开始 Quick Check 后，我们也可能记录不含 Full Name 和 Phone Number 的来源及使用事件资料，例如来源渠道、UTM campaign、开始或完成 Quick Check、打开 AI 分析、点击 WhatsApp、下载或打印结果，用于了解及改善 Quick Check 的使用流程。</p>
 <h4>2. 收集和使用目的</h4>
 <p>这些资料用于完成 Quick Check、生成及保存本次结果、提供 AI 解释功能、回应你的咨询，以及在你主动要求时协助安排进一步的 Full Review。</p>
@@ -146,7 +144,7 @@ h1{font-size:32px;line-height:1.15;color:var(--navy);margin:9px 0 17px}
 <strong>Dr. Lawrence Liaw</strong>
 <div class="contact-role">Prudential Malaysia · Senior Insurance Consultant</div>
 <div class="contact-address">
-Level 12, Tower A, Menara Prudential Jaya<br>
+Level 12, Tower A, Menara Prudential Jaya<br/>
 99, Jalan Tun Sri Lanang, 75100 Melaka
 </div>
 <div class="contact-meta">
@@ -155,13 +153,13 @@ Level 12, Tower A, Menara Prudential Jaya<br>
 </div>
 <div class="appointment">By Appointment Only</div>
 </div></div>
-  <div class="legal-bottom">
-    <span class="version">Legal Version: 2026-09-25-v1</span>
-    <a class="other-page" data-base-href="/terms.html" href="/terms.html">查看使用条款</a>
-  </div>
+<div class="legal-bottom">
+<span class="version">Legal Version: 2026-09-25-v1</span>
+<a class="other-page" data-base-href="/terms.html" href="/terms.html">查看使用条款</a>
+</div>
 </section>
-<section class="legal-card legal-lang" data-lang="en" hidden>
-  <div class="legal-content"><h4>1. Information we collect</h4>
+<section class="legal-card legal-lang" data-lang="en" hidden="">
+<div class="legal-content"><h4>1. Information we collect</h4>
 <p>When you use Quick Check, we may collect information you provide voluntarily, including your Full Name, Phone Number and Quick Check information such as household living expenses, outstanding loans, cash buffer, existing life, critical illness, accident and medical protection, together with scores and results generated from that information. After you consent and start Quick Check, we may also record source and usage-event information that does not include your Full Name or Phone Number, such as traffic source, UTM campaign, starting or completing Quick Check, opening AI analysis, clicking WhatsApp, downloading or printing a result, to understand and improve the Quick Check journey.</p>
 <h4>2. Purposes of collection and use</h4>
 <p>We use this information to complete the Quick Check, generate and retain the result, provide AI explanations, respond to your enquiry, and assist with a Full Review when you request one.</p>
@@ -184,7 +182,7 @@ Level 12, Tower A, Menara Prudential Jaya<br>
 <strong>Dr. Lawrence Liaw</strong>
 <div class="contact-role">Prudential Malaysia · Senior Insurance Consultant</div>
 <div class="contact-address">
-Level 12, Tower A, Menara Prudential Jaya<br>
+Level 12, Tower A, Menara Prudential Jaya<br/>
 99, Jalan Tun Sri Lanang, 75100 Melaka
 </div>
 <div class="contact-meta">
@@ -193,13 +191,13 @@ Level 12, Tower A, Menara Prudential Jaya<br>
 </div>
 <div class="appointment">By Appointment Only</div>
 </div></div>
-  <div class="legal-bottom">
-    <span class="version">Legal Version: 2026-09-25-v1</span>
-    <a class="other-page" data-base-href="/terms.html" href="/terms.html">View Terms of Use</a>
-  </div>
+<div class="legal-bottom">
+<span class="version">Legal Version: 2026-09-25-v1</span>
+<a class="other-page" data-base-href="/terms.html" href="/terms.html">View Terms of Use</a>
+</div>
 </section>
-<section class="legal-card legal-lang" data-lang="bm" hidden>
-  <div class="legal-content"><h4>1. Maklumat yang kami kumpulkan</h4>
+<section class="legal-card legal-lang" data-lang="bm" hidden="">
+<div class="legal-content"><h4>1. Maklumat yang kami kumpulkan</h4>
 <p>Apabila anda menggunakan Quick Check, kami mungkin mengumpulkan maklumat yang anda berikan secara sukarela, termasuk Full Name, Phone Number dan maklumat Quick Check seperti perbelanjaan sara hidup keluarga, baki pinjaman, simpanan tunai yang boleh digunakan, perlindungan hayat, penyakit kritikal, kemalangan dan perubatan sedia ada, serta skor dan keputusan yang dijana daripada maklumat tersebut. Selepas anda memberikan persetujuan dan memulakan Quick Check, kami juga mungkin merekodkan maklumat sumber dan peristiwa penggunaan yang tidak mengandungi Full Name atau Phone Number anda, seperti sumber trafik, UTM campaign, memulakan atau melengkapkan Quick Check, membuka analisis AI, mengklik WhatsApp, memuat turun atau mencetak keputusan, bagi memahami dan menambah baik perjalanan Quick Check.</p>
 <h4>2. Tujuan pengumpulan dan penggunaan</h4>
 <p>Maklumat ini digunakan untuk melengkapkan Quick Check, menjana dan menyimpan keputusan, menyediakan penjelasan AI, menjawab pertanyaan anda, dan membantu mengatur Full Review apabila anda memintanya.</p>
@@ -222,7 +220,7 @@ Level 12, Tower A, Menara Prudential Jaya<br>
 <strong>Dr. Lawrence Liaw</strong>
 <div class="contact-role">Prudential Malaysia · Senior Insurance Consultant</div>
 <div class="contact-address">
-Level 12, Tower A, Menara Prudential Jaya<br>
+Level 12, Tower A, Menara Prudential Jaya<br/>
 99, Jalan Tun Sri Lanang, 75100 Melaka
 </div>
 <div class="contact-meta">
@@ -231,15 +229,13 @@ Level 12, Tower A, Menara Prudential Jaya<br>
 </div>
 <div class="appointment">By Appointment Only</div>
 </div></div>
-  <div class="legal-bottom">
-    <span class="version">Legal Version: 2026-09-25-v1</span>
-    <a class="other-page" data-base-href="/terms.html" href="/terms.html">Lihat Terma Penggunaan</a>
-  </div>
+<div class="legal-bottom">
+<span class="version">Legal Version: 2026-09-25-v1</span>
+<a class="other-page" data-base-href="/terms.html" href="/terms.html">Lihat Terma Penggunaan</a>
+</div>
 </section>
 </main>
-
 <footer class="footer">© 2026 Insu Lang. All rights reserved</footer>
-
 <script>
 const PAGE_KIND='privacy';
 const TITLES={

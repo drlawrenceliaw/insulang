@@ -935,6 +935,149 @@
     display:none!important;
   }
 }
+
+.mobile-copy-break{display:none}
+@media(max-width:680px){
+  .mobile-copy-break{display:block}
+}
+
+
+@media print{
+  @page{
+    size:A4 portrait;
+    margin:6mm;
+  }
+
+  #result{
+    min-height:0!important;
+    height:auto!important;
+  }
+
+  .print-report-header{
+    padding-bottom:3mm!important;
+    margin-bottom:2mm!important;
+  }
+
+  .print-report-header img{
+    height:9mm!important;
+  }
+
+  .print-report-meta{
+    margin-bottom:1.5mm!important;
+    font-size:7.5pt!important;
+  }
+
+  .result-head{
+    padding:1mm 0 3mm!important;
+  }
+
+  .overall-title{
+    margin-bottom:1.2mm!important;
+    font-size:12pt!important;
+  }
+
+  .overall-score-main span:first-child{
+    font-size:34pt!important;
+  }
+
+  .overall-score-main small{
+    font-size:12pt!important;
+  }
+
+  #result>.result-section{
+    padding:3mm 0!important;
+  }
+
+  .risk-grid{
+    gap:2.6mm!important;
+  }
+
+  .metric{
+    min-height:28mm!important;
+    padding:3mm!important;
+  }
+
+  .metric h4{
+    font-size:9.5pt!important;
+  }
+
+  .metric-score{
+    font-size:16.5pt!important;
+    margin-top:1.2mm!important;
+  }
+
+  .metric p{
+    margin-top:1.4mm!important;
+    font-size:7.4pt!important;
+    line-height:1.25!important;
+  }
+
+  .bar{
+    margin-top:1.2mm!important;
+    height:1.3mm!important;
+  }
+
+  .center-title{
+    margin-bottom:2mm!important;
+    font-size:11.5pt!important;
+  }
+
+  .keys{
+    gap:2.6mm!important;
+  }
+
+  .key{
+    min-height:19mm!important;
+    padding:2.6mm 2mm!important;
+  }
+
+  .key strong{
+    font-size:15pt!important;
+  }
+
+  .key span{
+    margin-top:1mm!important;
+    font-size:7.2pt!important;
+  }
+
+  .cash .big{
+    font-size:18pt!important;
+  }
+
+  .cash-center .hint,
+  #cashText{
+    margin-top:1.2mm!important;
+    font-size:7.2pt!important;
+  }
+
+  .print-report-footer{
+    margin-top:3mm!important;
+    padding-top:3mm!important;
+    gap:2mm 5mm!important;
+    break-inside:avoid!important;
+    page-break-inside:avoid!important;
+  }
+
+  .print-contact strong{
+    font-size:8.5pt!important;
+  }
+
+  .print-contact span{
+    font-size:6.8pt!important;
+  }
+
+  .print-review-cta{
+    min-height:8mm!important;
+    padding:1.6mm 3mm!important;
+    font-size:8pt!important;
+  }
+
+  .print-copyright{
+    padding-top:1mm!important;
+    font-size:6.2pt!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -944,7 +1087,7 @@
   <div class="eyebrow">QUICK CHECK</div>
   <h1>看清楚你的保障Gap。</h1>
   <p class="start-copy">
-    <span class="line">以家庭生活费，贷款及现有保障，3–5 分钟完成初步分析。</span>
+    <span class="line">以家庭生活费，贷款及现有保障，<br class="mobile-copy-break">3–5 分钟完成初步分析。</span>
   </p>
 
   <div class="lead-form">
@@ -1090,7 +1233,7 @@
 
   <div id="selfBox" class="result-section hide self-box print-hide">
     <h3>没问题，谢谢你。</h3>
-    <p class="hint">如果之后生活开销，贷款或保障有变化，需要重新算一次。</p>
+    <p class="hint">如果之后生活开销，贷款或保障有变化，<br class="mobile-copy-break">需要重新算一次。</p>
     <div class="btnrow">
       <button class="btn secondary" id="downloadPdfBtn" onclick="preparePrint()">下载 PDF</button>
       <button class="btn ghost" onclick="restart()">重新自检</button>
@@ -1113,7 +1256,7 @@
     </div>
   </div>
 
-  <p class="small" style="margin-top:18px;text-align:center">估算采用中间值，实际保障规划仍进一步检视。</p>
+  <p class="small" style="margin-top:0px;text-align:center">估算采用中间值，实际保障规划仍进一步检视。</p>
 </section>
 </main>
 <footer class="site-copyright">© 2026 Insu Lang. All rights reserved</footer>
@@ -1124,6 +1267,16 @@ const RMshort=n=>{n=Math.round(Number(n)||0);if(n>=1000000){const v=n/1000000;re
 const $=id=>document.getElementById(id);
 const LEGAL_VERSION="2026-09-25-v1";
 let answers={},idx=0,result=null,leadInfo={name:"",phone:""},leadSubmitted=false,consentAt="";
+
+document.addEventListener("DOMContentLoaded",()=>{
+  const consent=$("legalConsent");
+  if(consent){
+    consent.addEventListener("change",()=>{
+      consentAt=consent.checked ? new Date().toISOString() : "";
+    });
+  }
+});
+
 
 const ATTR_KEY="insu_lang_attribution_v1";
 const SESSION_KEY="insu_lang_session_v1";
@@ -1290,7 +1443,7 @@ function startCheck(){
  if(error)error.textContent="";
  leadInfo={name,phone};
  leadSubmitted=false;
- consentAt=new Date().toISOString();
+ if(!consentAt)consentAt=new Date().toISOString();
  trackingConsentGranted=true;
  trackFunnel("quick_check_start");
  $("start").classList.add("hide");
@@ -1351,8 +1504,8 @@ function renderResult(){
    let detail="";
    if(d.key==="medical"){
      detail=answers.medical==="no"
-       ? `AL = RM0<span class="medical-desktop-sep">；</span><br class="medical-mobile-break">病房 = RM0/天`
-       : `AL = ${RMshort(Number(answers.annual))}；${Number(answers.room)>300?"R&B > RM300":`病房 = RM${answers.room}/天`}`;
+       ? `AL = RM0；<br class="medical-mobile-break">病房 = RM0/天`
+       : `AL = ${RMshort(Number(answers.annual))}；<br class="medical-mobile-break">${Number(answers.room)>300?"R&B > RM300":`病房 = RM${answers.room}/天`}`;
    }else{
      detail=`预期值 = ${RMshort(d.need)}；<br class="mobile-detail-break">现保障 = ${RMshort(d.existing)}。`;
    }
@@ -1415,7 +1568,7 @@ function leadPayload(extra={}){
    source:ATTRIBUTION.source||"Direct",
    campaign:ATTRIBUTION.campaign||"",
    priority_area:result?.priorityArea?.name || "",
-   consent_at:consentAt || "",
+   consent_at:consentAt || ($("legalConsent")?.checked ? new Date().toISOString() : ""),
    legal_version:LEGAL_VERSION,
    utm_medium:ATTRIBUTION.medium||"",
    utm_content:ATTRIBUTION.content||"",
