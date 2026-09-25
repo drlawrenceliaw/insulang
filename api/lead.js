@@ -465,31 +465,6 @@ export default async function handler(
       .status(200)
       .json({
         ok: true
-        debug: {
-          browser_consent_at:
-            cleanText(
-              body.consent_at,
-              40
-            ),
-    
-          browser_legal_version:
-            cleanText(
-              body.legal_version,
-              40
-            ),
-    
-          apps_script_consent_at:
-            cleanText(
-              data?.debug_consent_at,
-              40
-            ),
-    
-          apps_script_legal_version:
-            cleanText(
-              data?.debug_legal_version,
-              40
-            )
-        } 
       });
 
 
