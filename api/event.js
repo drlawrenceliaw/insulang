@@ -6,6 +6,7 @@ const ALLOWED_EVENTS = new Set([
   "whatsapp_result_click",
   "whatsapp_full_review_click",
   "print_result_click",
+  "pdf_download",
   "restart_click"
 ]);
 
@@ -17,51 +18,84 @@ function clean(value, max = 120) {
 }
 
 function cleanDetails(value) {
-  if (!value || typeof value !== "object" || Array.isArray(value)) {
+  if (
+    !value ||
+    typeof value !== "object" ||
+    Array.isArray(value)
+  ) {
     return {};
   }
 
   const output = {};
 
-  for (const [key, val] of Object.entries(value).slice(0, 10)) {
-    const safeKey = clean(key, 40);
+  for (
+    const [key, val] of
+    Object.entries(value).slice(0, 10)
+  ) {
+    const safeKey =
+      clean(key, 40);
 
     if (!safeKey) continue;
 
     if (
-      typeof val === "string" ||
-      typeof val === "number" ||
-      typeof val === "boolean"
+      ["string", "number", "boolean"]
+        .includes(typeof val)
     ) {
       output[safeKey] =
-        typeof val === "string" ? clean(val, 120) : val;
+        typeof val === "string"
+          ? clean(val, 120)
+          : val;
     }
   }
 
   return output;
 }
 
-export default async function handler(req, res) {
+export default async function handler(
+  req,
+  res
+) {
+  res.setHeader(
+    "Cache-Control",
+    "no-store, max-age=0"
+  );
+
+  res.setHeader(
+    "X-Content-Type-Options",
+    "nosniff"
+  );
+
   if (req.method === "GET") {
     return res.status(200).json({
       ok: true,
-      service: "Insu Lang Funnel Event"
+      service:
+        "Insu Lang Funnel Event"
     });
   }
 
   if (req.method !== "POST") {
-    res.setHeader("Allow", "POST, GET");
+    res.setHeader(
+      "Allow",
+      "POST, GET"
+    );
+
     return res.status(405).json({
       ok: false,
       code: "METHOD_NOT_ALLOWED"
     });
   }
 
-  const webhookUrl = process.env.LEAD_WEBHOOK_URL;
-  const webhookSecret = process.env.LEAD_WEBHOOK_SECRET;
+  const webhookUrl =
+    process.env.LEAD_WEBHOOK_URL;
 
-  if (!webhookUrl || !webhookSecret) {
-    return res.status(500).json({
+  const webhookSecret =
+    process.env.LEAD_WEBHOOK_SECRET;
+
+  if (
+    !webhookUrl ||
+    !webhookSecret
+  ) {
+    return res.status(503).json({
       ok: false,
       code: "WEBHOOK_NOT_CONFIGURED"
     });
@@ -73,10 +107,23 @@ export default async function handler(req, res) {
         ? JSON.parse(req.body)
         : req.body || {};
 
-    const eventName = clean(body.event_name, 60);
-    const sessionId = clean(body.session_id, 100);
+    const eventName =
+      clean(
+        body.event_name,
+        60
+      );
 
-    if (!ALLOWED_EVENTS.has(eventName)) {
+    const sessionId =
+      clean(
+        body.session_id,
+        100
+      );
+
+    if (
+      !ALLOWED_EVENTS.has(
+        eventName
+      )
+    ) {
       return res.status(400).json({
         ok: false,
         code: "INVALID_EVENT"
@@ -97,41 +144,102 @@ export default async function handler(req, res) {
       event_name: eventName,
       session_id: sessionId,
 
-      occurred_at: clean(body.occurred_at, 40),
-      page: clean(body.page, 120),
+      occurred_at:
+        clean(
+          body.occurred_at,
+          40
+        ),
 
-      source: clean(body.source, 80) || "Direct",
-      medium: clean(body.medium, 80),
-      campaign: clean(body.campaign, 120),
-      content: clean(body.content, 120),
-      term: clean(body.term, 120),
-      ref: clean(body.ref, 120),
-      referrer: clean(body.referrer, 300),
+      page:
+        clean(
+          body.page,
+          120
+        ),
 
-      details: cleanDetails(body.details)
+      source:
+        clean(
+          body.source,
+          80
+        ) || "Direct",
+
+      medium:
+        clean(
+          body.medium,
+          80
+        ),
+
+      campaign:
+        clean(
+          body.campaign,
+          120
+        ),
+
+      content:
+        clean(
+          body.content,
+          120
+        ),
+
+      term:
+        clean(
+          body.term,
+          120
+        ),
+
+      ref:
+        clean(
+          body.ref,
+          120
+        ),
+
+      referrer:
+        clean(
+          body.referrer,
+          300
+        ),
+
+      details:
+        cleanDetails(
+          body.details
+        )
     };
 
-    const response = await fetch(webhookUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(payload)
-    });
+    const response =
+      await fetch(
+        webhookUrl,
+        {
+          method: "POST",
 
-    const text = await response.text();
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body:
+            JSON.stringify(
+              payload
+            )
+        }
+      );
+
+    const text =
+      await response.text();
 
     let data = {};
 
     try {
-      data = JSON.parse(text);
+      data =
+        JSON.parse(text);
     } catch (_) {}
 
-    if (!response.ok || data?.ok === false) {
+    if (
+      !response.ok ||
+      data?.ok === false
+    ) {
       console.error(
         "Funnel webhook failed:",
         response.status,
-        data?.code || "UNKNOWN"
+        data?.error || "UNKNOWN"
       );
 
       return res.status(502).json({
@@ -143,6 +251,7 @@ export default async function handler(req, res) {
     return res.status(200).json({
       ok: true
     });
+
   } catch (error) {
     console.error(
       "Funnel event error:",
