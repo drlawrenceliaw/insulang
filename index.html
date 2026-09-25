@@ -279,9 +279,6 @@ a{color:inherit}
   padding-bottom:24px;
   overflow:visible;
 }
-#reviews .elfsight-app-b89ff392-96ab-432e-a747-9d65b7e0d287{
-  width:100% !important;
-}
 .panel-head{
   position:relative;
   text-align:center;
@@ -1008,6 +1005,145 @@ a{color:inherit}
   }
 }
 
+
+/* ===== 2026-09-25 requested refinements ===== */
+
+/* Footer copyright spacing */
+.copyright{
+  margin-top:36px!important;
+}
+@media(max-width:620px){
+  .copyright{
+    margin-top:26px!important;
+  }
+}
+
+/* Reviews without a third-party usage quota. */
+#reviews{
+  min-height:0!important;
+  padding-bottom:22px!important;
+}
+#reviews .panel-head{
+  margin-bottom:16px!important;
+}
+#reviews .review-body{
+  min-height:0!important;
+  height:auto!important;
+  margin-top:0!important;
+  padding-bottom:0!important;
+  overflow:visible!important;
+}
+.review-fallback{
+  min-height:250px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:linear-gradient(180deg,#fbfdff 0%,#f7fafc 100%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:34px 26px;
+}
+.review-google-mark{
+  width:46px;
+  height:46px;
+  border:1px solid #dbe6f2;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:#fff;
+  color:#1769e0;
+  font-size:22px;
+  font-weight:900;
+  margin-bottom:14px;
+}
+.review-fallback-copy strong{
+  display:block;
+  color:var(--navy);
+  font-size:18px;
+  margin-bottom:7px;
+}
+.review-fallback-copy p{
+  margin:0;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.6;
+}
+.review-google-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  margin-top:18px;
+  min-height:40px;
+  padding:0 15px;
+  border:1px solid #d6e5f8;
+  border-radius:999px;
+  background:#fff;
+  color:var(--blue);
+  text-decoration:none;
+  font-size:12px;
+  font-weight:820;
+}
+@media(min-width:761px){
+  .info-grid{
+    grid-template-columns:minmax(0,1fr) 460px!important;
+  }
+  #reviews{
+    min-height:0!important;
+    height:auto!important;
+  }
+}
+@media(max-width:760px){
+  #reviews{
+    padding-bottom:20px!important;
+  }
+  .review-fallback{
+    min-height:210px;
+    padding:28px 20px;
+  }
+}
+
+/* Mobile hero: reveal slightly more of Merdeka 118's top. */
+@media(max-width:620px){
+  .hero::before{
+    background-size:auto 114%!important;
+    background-position:49% 102%!important;
+    -webkit-mask-image:linear-gradient(
+      to bottom,
+      rgba(0,0,0,.08) 0%,
+      rgba(0,0,0,.30) 10%,
+      rgba(0,0,0,.82) 32%,
+      #000 54%,
+      #000 100%
+    )!important;
+    mask-image:linear-gradient(
+      to bottom,
+      rgba(0,0,0,.08) 0%,
+      rgba(0,0,0,.30) 10%,
+      rgba(0,0,0,.82) 32%,
+      #000 54%,
+      #000 100%
+    )!important;
+  }
+  .hero::after{
+    background:linear-gradient(
+      180deg,
+      rgba(234,248,252,.92) 0%,
+      rgba(234,248,252,.76) 18%,
+      rgba(234,248,252,.34) 46%,
+      rgba(234,248,252,.07) 72%,
+      rgba(234,248,252,0) 100%
+    )!important;
+  }
+
+  /* Place Brighter Tomorrow to the right of the mascot's head. */
+  .brighter{
+    right:6%!important;
+    top:118px!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1156,12 +1292,15 @@ a{color:inherit}
     <div class="panel" id="reviews">
       <div class="panel-head">
         <h2>客户怎么说？</h2>
-        <a href="https://www.google.com/searchviewer/10?output=search&svid=CAwSKRInCgNwdnESIE9oWXdlREE2TUhoalpHSmlZV1ZrWVRZNVlUSXlPVGN6GAo&hl=en-GB&gl=MY" target="_blank" rel="noopener">查看更多评价 →</a>
       </div>
       <div class="review-body">
-        <div class="review-scale">
-          <script src="https://elfsightcdn.com/platform.js" async></script>
-          <div class="elfsight-app-b89ff392-96ab-432e-a747-9d65b7e0d287" data-elfsight-app-lazy></div>
+        <div class="review-fallback">
+          <div class="review-google-mark" aria-hidden="true">G</div>
+          <div class="review-fallback-copy">
+            <strong>Google 客户评价</strong>
+            <p>查看客户在 Google 留下的公开评价。</p>
+          </div>
+          <a class="review-google-btn" href="https://www.google.com/searchviewer/10?output=search&svid=CAwSKRInCgNwdnESIE9oWXdlREE2TUhoalpHSmlZV1ZrWVRZNVlUSXlPVGN6GAo&hl=en-GB&gl=MY" target="_blank" rel="noopener">查看 Google Reviews →</a>
         </div>
       </div>
     </div>
