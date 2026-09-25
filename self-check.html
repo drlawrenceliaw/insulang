@@ -659,127 +659,282 @@
   .priority-name{font-size:11px!important}
 }
 
-/* ===== Round 4: downloadable PDF report ===== */
-.print-report-meta{
-  justify-content:space-between;
-  gap:16px;
-  color:var(--muted);
-  font-size:10px;
-  margin:-2px 0 7px;
-}
-.pdf-export-stage{
-  position:fixed;
-  left:0;
-  top:0;
-  width:760px;
-  background:#fff;
-  z-index:-2147483647;
-  pointer-events:none;
-}
-.pdf-export{
-  width:760px!important;
-  max-width:760px!important;
-  margin:0!important;
-  padding:24px!important;
-  break-before:auto!important;
-  page-break-before:auto!important;
-  border:0!important;
-  border-radius:0!important;
-  box-shadow:none!important;
-  background:#fff!important;
-}
-.pdf-export .print-only{display:flex!important}
-.pdf-export .print-hide,
-.pdf-export .intent-area,
-.pdf-export #selfBox,
-.pdf-export #fullBox{display:none!important}
-.pdf-export .print-report-header{
-  align-items:center;
-  justify-content:space-between;
-  gap:16px;
-  padding:0 0 8px;
-  margin:0 0 7px;
-  border-bottom:1px solid var(--line);
-}
-.pdf-export .print-report-header img{
-  width:auto;
-  height:34px;
-  display:block;
-}
-.pdf-export .print-report-header div{
-  display:flex;
-  flex-direction:column;
-  text-align:right;
-  gap:2px;
-}
-.pdf-export .print-report-header strong{font-size:13px;color:var(--ink)}
-.pdf-export .print-report-header span{font-size:9px;color:var(--muted)}
-.pdf-export .result-head{padding:8px 0 16px!important}
-.pdf-export .result-head>.eyebrow{display:none!important}
-.pdf-export .overall-title{font-size:16px!important;margin:3px 0 7px!important}
-.pdf-export .overall-score-main span:first-child{font-size:50px!important;line-height:.95!important}
-.pdf-export .overall-score-main small{font-size:15px!important}
-.pdf-export .overall-score-row .badge{font-size:9px!important;padding:4px 7px!important}
-.pdf-export .result-section{padding:15px 0!important;border-top:1px solid #d8e1eb!important;break-inside:avoid}
-.pdf-export .priority-section{padding:9px 0!important}
-.pdf-export .priority-card{padding:7px 11px!important;border-radius:8px!important}
-.pdf-export .priority-label{font-size:8.5px!important;margin:0!important}
-.pdf-export .priority-name{font-size:13px!important}
-.pdf-export .priority-text{display:none!important}
-.pdf-export .risk-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important}
-.pdf-export .metric{padding:12px!important;border-radius:10px!important}
-.pdf-export .metric h4{font-size:11.5px!important}
-.pdf-export .metric-score{font-size:20px!important}
-.pdf-export .metric p{font-size:9px!important;line-height:1.45!important;margin-top:6px!important}
-.pdf-export .bar{height:5px!important}
-.pdf-export .center-title{font-size:14px!important;margin:0 0 11px!important}
-.pdf-export .keys{gap:11px!important}
-.pdf-export .key{padding:12px 8px!important;border-radius:9px!important}
-.pdf-export .key strong{font-size:21px!important}
-.pdf-export .key span{font-size:9px!important;margin-top:4px!important}
-.pdf-export .cash .big{font-size:25px!important}
-.pdf-export .cash-center .hint{font-size:9px!important;margin-top:8px!important}
-.pdf-export .print-report-footer{
-  display:grid!important;
-  grid-template-columns:1fr auto;
-  align-items:center;
-  gap:8px 14px;
-  margin-top:11px;
-  padding-top:10px;
-  border-top:1px solid var(--line);
-}
-.pdf-export .print-contact{
-  display:flex;
-  flex-direction:column;
-  gap:2px;
-}
-.pdf-export .print-contact strong{font-size:11px;color:var(--ink)}
-.pdf-export .print-contact span{font-size:8.5px;color:var(--muted);line-height:1.45}
-.pdf-export .print-review-cta{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-height:29px;
-  padding:6px 10px;
-  border-radius:7px;
-  background:var(--blue);
-  color:#fff!important;
-  text-decoration:none;
-  font-size:8.5px;
-  font-weight:850;
-  white-space:nowrap;
-}
-.pdf-export .print-copyright{
-  grid-column:1 / -1;
-  text-align:center;
-  font-size:7.5px;
-  color:var(--muted);
-  padding-top:3px;
-}
-.pdf-export > p.small{
-  display:none!important;
+/* ===== Native Print / Save as PDF ===== */
+@page{
+  size:A4 portrait;
+  margin:8mm;
 }
 
+@media print{
+  html,body{
+    width:100%;
+    margin:0!important;
+    padding:0!important;
+    background:#fff!important;
+    -webkit-print-color-adjust:exact!important;
+    print-color-adjust:exact!important;
+  }
+
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif!important;
+  }
+
+  .top,
+  .print-hide,
+  .intent-area,
+  #selfBox,
+  #fullBox{
+    display:none!important;
+  }
+
+  .wrap{
+    width:auto!important;
+    max-width:none!important;
+    margin:0!important;
+    padding:0!important;
+  }
+
+  #result{
+    display:flex!important;
+    flex-direction:column!important;
+    width:100%!important;
+    max-width:none!important;
+    min-height:277mm!important;
+    margin:0!important;
+    padding:0!important;
+    border:0!important;
+    border-radius:0!important;
+    box-shadow:none!important;
+    background:#fff!important;
+    overflow:visible!important;
+  }
+
+  .print-only{
+    display:flex!important;
+  }
+
+  .print-report-header{
+    align-items:center!important;
+    justify-content:space-between!important;
+    gap:14px!important;
+    padding:0 0 7mm!important;
+    margin:0 0 3.5mm!important;
+    border-bottom:1px solid #dbe4ee!important;
+  }
+
+  .print-report-header img{
+    width:auto!important;
+    height:11mm!important;
+    display:block!important;
+  }
+
+  .print-report-header div{
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:flex-end!important;
+    text-align:right!important;
+    gap:1mm!important;
+  }
+
+  .print-report-header strong{
+    color:#1769e0!important;
+    font-size:13pt!important;
+    line-height:1.1!important;
+    letter-spacing:.2px!important;
+  }
+
+  .print-report-header span{
+    color:#6c7889!important;
+    font-size:7.8pt!important;
+  }
+
+  .print-report-meta{
+    display:flex!important;
+    justify-content:space-between!important;
+    align-items:center!important;
+    gap:12mm!important;
+    margin:0 0 2.5mm!important;
+    color:#657286!important;
+    font-size:8pt!important;
+  }
+
+  .result-head{
+    padding:2mm 0 5mm!important;
+  }
+
+  .result-head>.eyebrow{
+    display:none!important;
+  }
+
+  .overall-title{
+    margin:0 0 2mm!important;
+    font-size:14pt!important;
+  }
+
+  .overall-score-main span:first-child{
+    font-size:40pt!important;
+    line-height:.9!important;
+  }
+
+  .overall-score-main small{
+    font-size:14pt!important;
+  }
+
+  .overall-score-row .badge{
+    font-size:8.5pt!important;
+    padding:1.7mm 3mm!important;
+  }
+
+  #result>.result-section{
+    padding:5mm 0!important;
+    border-top:1px solid #dbe4ee!important;
+    break-inside:avoid!important;
+    page-break-inside:avoid!important;
+  }
+
+  .risk-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:3.5mm!important;
+  }
+
+  .metric{
+    min-height:35mm!important;
+    padding:3.8mm!important;
+    border-radius:3mm!important;
+    border:1px solid #dfe7f0!important;
+    background:#fff!important;
+    break-inside:avoid!important;
+    page-break-inside:avoid!important;
+  }
+
+  .metric h4{
+    font-size:10.5pt!important;
+  }
+
+  .metric-score{
+    font-size:18pt!important;
+    margin-top:2.2mm!important;
+  }
+
+  .metric .badge{
+    font-size:7.5pt!important;
+    padding:1.3mm 2.4mm!important;
+  }
+
+  .bar{
+    height:1.6mm!important;
+    margin-top:2mm!important;
+  }
+
+  .metric p{
+    margin-top:2.2mm!important;
+    font-size:8pt!important;
+    line-height:1.35!important;
+  }
+
+  .center-title{
+    margin:0 0 3mm!important;
+    font-size:13pt!important;
+  }
+
+  .keys{
+    gap:3.5mm!important;
+  }
+
+  .key{
+    min-height:25mm!important;
+    padding:3.5mm 2.5mm!important;
+    border-radius:2.8mm!important;
+  }
+
+  .key strong{
+    font-size:18pt!important;
+  }
+
+  .key span{
+    margin-top:1.5mm!important;
+    font-size:8pt!important;
+  }
+
+  .cash{
+    padding:0!important;
+  }
+
+  .cash .big{
+    font-size:22pt!important;
+  }
+
+  .cash .badge{
+    font-size:8pt!important;
+  }
+
+  .cash-center .hint{
+    margin-top:2mm!important;
+    font-size:8pt!important;
+  }
+
+  .print-report-footer{
+    display:grid!important;
+    grid-template-columns:1fr auto!important;
+    align-items:end!important;
+    gap:3mm 7mm!important;
+    margin-top:auto!important;
+    padding-top:5mm!important;
+    border-top:1px solid #dbe4ee!important;
+  }
+
+  .print-contact{
+    display:flex!important;
+    flex-direction:column!important;
+    gap:.8mm!important;
+  }
+
+  .print-contact strong{
+    color:#142033!important;
+    font-size:9pt!important;
+  }
+
+  .print-contact span{
+    color:#657286!important;
+    font-size:7.3pt!important;
+    line-height:1.35!important;
+  }
+
+  .print-review-cta{
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:2mm!important;
+    min-height:10mm!important;
+    padding:2mm 4mm!important;
+    border-radius:3mm!important;
+    background:#25D366!important;
+    color:#fff!important;
+    text-decoration:none!important;
+    font-size:9pt!important;
+    font-weight:850!important;
+    white-space:nowrap!important;
+  }
+
+  .print-review-cta svg{
+    width:4.8mm!important;
+    height:4.8mm!important;
+    fill:#fff!important;
+    flex:0 0 auto!important;
+  }
+
+  .print-copyright{
+    grid-column:1/-1!important;
+    text-align:center!important;
+    color:#7b8797!important;
+    font-size:6.8pt!important;
+    padding-top:1.5mm!important;
+  }
+
+  #result>p.small{
+    display:none!important;
+  }
+}
 </style>
 </head>
 <body>
@@ -851,15 +1006,7 @@
       <span id="overallBadge" class="badge"></span>
     </div>
   </div>
-
-  <div class="result-section priority-section">
-    <div class="priority-card">
-      <div class="priority-label">优先关注</div>
-      <div class="priority-name" id="priorityName"></div>
-    </div>
-  </div>
-
-  <div class="result-section">
+<div class="result-section">
     <div class="risk-grid" id="metrics"></div>
   </div>
 
@@ -880,7 +1027,10 @@
       <span>Prudential Malaysia · Senior Insurance Consultant</span>
       <span>HP: 011-1070 0969 · Email: chuinming811@pruparter.com.my</span>
     </div>
-    <a id="printFullReviewLink" class="print-review-cta" href="https://wa.me/601110700969">Full Review / WhatsApp</a>
+    <a id="printFullReviewLink" class="print-review-cta" href="https://wa.me/601110700969">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M19.1 17.4c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.5c.2-.2.2-.3.3-.5.1-.2.1-.4 0-.5-.1-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1.1 1.1-1.1 2.7s1.2 3.1 1.3 3.3c.2.2 2.3 3.5 5.6 4.9.8.3 1.4.5 1.9.6.8.2 1.5.2 2.1.1.6-.1 1.8-.7 2.1-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.3-.6-.5z"/><path d="M16 3C8.8 3 3 8.6 3 15.5c0 2.4.7 4.7 2 6.7L3.1 29l7-1.8c1.8 1 3.8 1.5 5.9 1.5 7.2 0 13-5.6 13-12.5S23.2 3 16 3zm0 23.1c-1.9 0-3.7-.5-5.3-1.4l-.4-.2-4.2 1.1 1.1-4-.3-.4c-1.1-1.7-1.7-3.7-1.7-5.7C5.2 9.9 10 5.5 16 5.5s10.8 4.4 10.8 10-4.8 10.6-10.8 10.6z"/></svg>
+      <span>Full Review</span>
+    </a>
     <div class="print-copyright">© 2026 Insu Lang. All rights reserved</div>
   </div>
 
@@ -944,7 +1094,7 @@
     <h3>没问题，谢谢你。</h3>
     <p class="hint">如果之后生活开销，贷款或保障有变化，需要重新算一次。</p>
     <div class="btnrow">
-      <button class="btn secondary" id="downloadPdfBtn" onclick="downloadPDF()">下载 PDF</button>
+      <button class="btn secondary" id="downloadPdfBtn" onclick="preparePrint()">保存 / 打印 PDF</button>
       <button class="btn ghost" onclick="restart()">重新自检</button>
       <button class="btn primary wa-btn" onclick="contactDr()">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.009-.371-.011-.57-.011-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479s1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.693.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.981.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.89-9.884a9.82 9.82 0 0 1 7.021 2.91 9.82 9.82 0 0 1 2.9 7.019c-.002 5.45-4.437 9.884-9.884 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.14 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
@@ -969,7 +1119,6 @@
 </section>
 </main>
 <footer class="site-copyright">© 2026 Insu Lang. All rights reserved</footer>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.3/html2pdf.bundle.min.js" referrerpolicy="no-referrer"></script>
 <script>
 const CONFIG={whatsappNumber:"601110700969",advisorName:"Dr. Lawrence",aiEndpoint:"/api/analyze",leadEndpoint:"/api/lead",eventEndpoint:"/api/event"};
 const RM=n=>"RM"+Math.round(n||0).toLocaleString("en-MY");
@@ -1066,7 +1215,6 @@ function trackFunnel(eventName,details={}){
    "whatsapp_result_click",
    "whatsapp_full_review_click",
    "print_result_click",
-   "pdf_download",
    "restart_click"
  ];
  if(!allowed.includes(eventName))return;
@@ -1192,19 +1340,13 @@ function score(existing,need,manual){if(manual)return null;return Math.max(0,Mat
 function calculate(){const expense=answers.expense==="over"?Number(answers.expenseExact):Number(answers.expense);const loan=answers.loan==="over"?Number(answers.loanExact):Number(answers.loan);const liquid=answers.liquidMonths==="over"?Number(answers.liquidMonthsExact):Number(answers.liquidMonths);const life=exactOrRange("life"),ci=exactOrRange("ci"),acc=exactOrRange("accident");const complexLoan=loan>5000000;const lifeManual=complexLoan||life>5000000,ciManual=complexLoan||ci>5000000,accManual=complexLoan||acc>5000000;const lifeNeed=expense*120+loan+50000;const ciNeed=expense*120+loan;const accNeed=lifeNeed;const lifeScore=score(life,lifeNeed,lifeManual),ciScore=score(ci,ciNeed,ciManual),accScore=score(acc,accNeed,accManual);
  let medScore=0,annualPts=0,roomPts=0;const medicalAnnual=answers.medical==="yes"?Number(answers.annual||0):0;const medicalRoom=answers.medical==="yes"?Number(answers.room||0):0;if(answers.medical==="no")medScore=0;else{annualPts=medicalAnnual>=1000000?80:medicalAnnual>=500000?60:medicalAnnual>=300000?40:medicalAnnual>=100000?25:10;roomPts=medicalRoom>=300?20:medicalRoom>=250?17:medicalRoom>=200?14:medicalRoom>=150?10:6;medScore=annualPts+roomPts}
  const domains=[{key:"life",name:"人寿保障",score:lifeScore,need:lifeNeed,existing:life,manual:lifeManual},{key:"ci",name:"重疾保障",score:ciScore,need:ciNeed,existing:ci,manual:ciManual},{key:"accident",name:"意外保障",score:accScore,need:accNeed,existing:acc,manual:accManual},{key:"medical",name:"医疗保障",score:medScore,need:null,existing:null,manual:false}].map(d=>({...d,status:status(d.score)}));const sc=domains.filter(d=>d.score!==null).map(d=>d.score);const overall=Math.round(sc.reduce((a,b)=>a+b,0)/Math.max(1,sc.length));const gaps=domains.filter(d=>d.score!==null).sort((a,b)=>a.score-b.score).slice(0,3);const scoredDomains=domains.filter(d=>d.score!==null);const priorityArea=scoredDomains.reduce((best,d)=>best===null||d.score<best.score?d:best,null);const cashStatus=liquid>=7?{label:"较稳定",cls:"green"}:liquid>=4?{label:"基础缓冲",cls:"yellow"}:{label:"缓冲较低",cls:"red"};return{expense,loan,liquid,life,ci,acc,lifeNeed,ciNeed,accNeed,domains,overall,gaps,priorityArea,cashStatus,hasManual:domains.some(d=>d.manual),complexLoan,medicalAnnual,medicalRoom,medicalAnnualPoints:annualPts,medicalRoomPoints:roomPts};}
-function finish(){result=calculate();$("quiz").classList.add("hide");$("result").classList.remove("hide");$("stepText").textContent="完成";$("progress").style.width="100%";renderResult();trackFunnel("quick_check_complete",{overall_score:result.overall,priority_area:result.priorityArea?.key||""});submitLead();window.scrollTo({top:0,behavior:"smooth"});}
+function finish(){result=calculate();$("quiz").classList.add("hide");$("result").classList.remove("hide");$("stepText").textContent="完成";$("progress").style.width="100%";renderResult();trackFunnel("quick_check_complete",{overall_score:result.overall});submitLead();window.scrollTo({top:0,behavior:"smooth"});}
 function renderResult(){
  $("overallScore").textContent=result.overall;
  const os=status(result.overall);
  $("overallBadge").className="badge "+os.cls;
  $("overallBadge").textContent=os.label;
 
- const priority=result.priorityArea;
- if(priority && priority.score<100){
-   $("priorityName").textContent=priority.name;
- }else{
-   $("priorityName").textContent="暂无明显保障Gap";
- }
 
  const box=$("metrics");box.innerHTML="";
  for(const d of result.domains){
@@ -1436,7 +1578,6 @@ function quickCheckWhatsAppText(intent="result"){
 我刚完成 Quick Check。
 
 整体评分：${result.overall}/100
-${result.priorityArea && result.priorityArea.score<100 ? `优先关注：${result.priorityArea.name}` : "优先关注：暂无明显保障Gap"}
 
 ${scoreLines}
 
@@ -1457,100 +1598,32 @@ function fullReview(manual=false){
 }
 function preparePrint(){
  trackFunnel("print_result_click");
+
  const link=$("printFullReviewLink");
  if(link){
    const text=quickCheckWhatsAppText("full");
    link.href=`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`;
  }
+
+ const name=$("reportClientName");
+ const date=$("reportDate");
+
+ if(name){
+   name.textContent=`客户：${leadInfo.name||"-"}`;
+ }
+
+ if(date){
+   date.textContent=`日期：${new Intl.DateTimeFormat("en-GB",{
+     timeZone:"Asia/Kuala_Lumpur",
+     day:"2-digit",
+     month:"2-digit",
+     year:"numeric"
+   }).format(new Date())}`;
+ }
+
  window.print();
 }
 
-async function downloadPDF(){
- if(!result)return;
-
- const btn=$("downloadPdfBtn");
- const oldText=btn?.textContent||"下载 PDF";
- if(btn){
-   btn.disabled=true;
-   btn.textContent="正在生成 PDF…";
- }
-
- trackFunnel("pdf_download",{overall_score:result.overall,priority_area:result.priorityArea?.key||""});
-
- const fullReviewUrl=`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(quickCheckWhatsAppText("full"))}`;
- const source=$("result");
- let stage=null;
-
- try{
-   if(typeof window.html2pdf!=="function"){
-     throw new Error("PDF_LIBRARY_UNAVAILABLE");
-   }
-
-   const clone=source.cloneNode(true);
-   clone.id="pdfReport";
-   clone.classList.remove("hide");
-   clone.classList.add("pdf-export");
-
-   clone.querySelectorAll("[id]").forEach(el=>{
-     if(el.id!=="pdfReport")el.removeAttribute("id");
-   });
-
-   const clientMeta=clone.querySelector(".print-report-meta");
-   if(clientMeta){
-     const spans=clientMeta.querySelectorAll("span");
-     if(spans[0])spans[0].textContent=`客户：${leadInfo.name||"-"}`;
-     if(spans[1])spans[1].textContent=`日期：${new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Kuala_Lumpur",day:"2-digit",month:"2-digit",year:"numeric"}).format(new Date())}`;
-   }
-
-   const cta=clone.querySelector(".print-review-cta");
-   if(cta)cta.href=fullReviewUrl;
-
-   stage=document.createElement("div");
-   stage.className="pdf-export-stage";
-   stage.appendChild(clone);
-   document.body.appendChild(stage);
-
-   await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
-
-   const safeName=(leadInfo.name||"Client")
-     .replace(/[\\/:*?"<>|]+/g,"")
-     .replace(/\s+/g,"-")
-     .slice(0,50) || "Client";
-
-   const filename=`Insu-Lang-Quick-Check-${safeName}.pdf`;
-
-   await window.html2pdf()
-     .set({
-       margin:[5,5,5,5],
-       filename,
-       image:{type:"png",quality:1},
-       html2canvas:{
-         scale:3,
-         useCORS:true,
-         backgroundColor:"#ffffff",
-         logging:false,
-         scrollX:0,
-         scrollY:0
-       },
-       jsPDF:{unit:"mm",format:"a4",orientation:"portrait"},
-       pagebreak:{mode:["css","legacy"]},
-       enableLinks:true
-     })
-     .from(clone)
-     .save();
-
- }catch(e){
-   console.warn("Insu Lang PDF:",e?.message||e);
-   alert("PDF 暂时无法生成，将打开打印页面作为备用。");
-   preparePrint();
- }finally{
-   if(stage?.parentNode)stage.parentNode.removeChild(stage);
-   if(btn){
-     btn.disabled=false;
-     btn.textContent=oldText;
-   }
- }
-}
 function restart(){
  trackFunnel("restart_click");
  answers={};idx=0;result=null;leadInfo={name:"",phone:""};leadSubmitted=false;consentAt="";
