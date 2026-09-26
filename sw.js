@@ -23,7 +23,7 @@ self.addEventListener("fetch", (event) => {
   if (req.url.includes("/api/")) return;
 
   const url = new URL(req.url);
-  const isPage = req.mode === "navigate" || url.pathname === "/" || url.pathname.endsWith(".html");
+  const isPage = req.mode === "navigate" || url.pathname === "/" || ["/", "/self-check", "/privacy", "/terms"].includes(url.pathname);
   const isBrandLogo = url.pathname.endsWith("/images/insu-lang-logo-small.png");
 
   if (isPage || isBrandLogo) {
@@ -34,7 +34,7 @@ self.addEventListener("fetch", (event) => {
           if (res && res.ok) caches.open(CACHE_NAME).then(cache => cache.put(req, res.clone()));
           return res;
         })
-        .catch(() => caches.match(req).then(cached => cached || caches.match("/index.html")))
+        .catch(() => caches.match(req).then(cached => cached || caches.match("/")))
     );
     return;
   }

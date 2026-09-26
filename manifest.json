@@ -2,7 +2,7 @@
   "name": "Insu Lang Quick Check",
   "short_name": "Insu Lang",
   "description": "Insu Lang by Dr. Lawrence Liaw — Protection Quick Check",
-  "start_url": "/self-check.html",
+  "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "background_color": "#f6f8fb",
