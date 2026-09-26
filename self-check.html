@@ -1282,6 +1282,10 @@ document.addEventListener("DOMContentLoaded",()=>{
 const ATTR_KEY="insu_lang_attribution_v1";
 const SESSION_KEY="insu_lang_session_v1";
 let trackingConsentGranted=false;
+let quickCheckInProgress=false;
+let quickCheckCompleted=false;
+let manualReviewTriggered=false;
+let exitBeforeCompleteSent=false;
 
 function inferTrafficSource(referrer=""){
  const r=String(referrer||"").toLowerCase();
@@ -1357,24 +1361,8 @@ function sessionId(){
 const ATTRIBUTION=captureAttribution();
 const FUNNEL_SESSION_ID=sessionId();
 
-function trackFunnel(eventName,details={}){
- if(!trackingConsentGranted)return;
-
- const allowed=[
-   "start_quick_check",
-   "complete_quick_check",
-   "manual_full_review_required",
-   "select_self_intent",
-   "select_full_intent",
-   "ai_open",
-   "result_whatsapp",
-   "full_review_whatsapp",
-   "download_result",
-   "redo_quick_check"
- ];
- if(!allowed.includes(eventName))return;
-
- const body={
+function buildFunnelPayload(eventName,details={}){
+ return {
    event_name:eventName,
    session_id:FUNNEL_SESSION_ID,
    occurred_at:new Date().toISOString(),
@@ -1388,6 +1376,27 @@ function trackFunnel(eventName,details={}){
    referrer:ATTRIBUTION.referrer||"",
    details
  };
+}
+
+function trackFunnel(eventName,details={}){
+ if(!trackingConsentGranted)return;
+
+ const allowed=[
+   "start_quick_check",
+   "complete_quick_check",
+   "manual_full_review_required",
+   "exit_before_complete",
+   "select_self_intent",
+   "select_full_intent",
+   "ai_open",
+   "click_result_whatsapp",
+   "click_full_review_whatsapp",
+   "download_result",
+   "redo_quick_check"
+ ];
+ if(!allowed.includes(eventName))return;
+
+ const body=buildFunnelPayload(eventName,details);
 
  fetch(CONFIG.eventEndpoint,{
    method:"POST",
@@ -1396,6 +1405,42 @@ function trackFunnel(eventName,details={}){
    keepalive:true
  }).catch(()=>{});
 }
+
+function trackExitBeforeComplete(){
+ if(!trackingConsentGranted)return;
+ if(!quickCheckInProgress)return;
+ if(quickCheckCompleted)return;
+ if(manualReviewTriggered)return;
+ if(exitBeforeCompleteSent)return;
+
+ const qs=visible();
+ const currentQuestion=qs[idx];
+ const details={
+   step:Math.min(idx+1,qs.length),
+   total_steps:qs.length,
+   question:currentQuestion?.k||""
+ };
+
+ exitBeforeCompleteSent=true;
+ const body=buildFunnelPayload("exit_before_complete",details);
+
+ try{
+   if(navigator.sendBeacon){
+     const blob=new Blob([JSON.stringify(body)],{type:"application/json"});
+     const sent=navigator.sendBeacon(CONFIG.eventEndpoint,blob);
+     if(sent)return;
+   }
+ }catch(_){}
+
+ fetch(CONFIG.eventEndpoint,{
+   method:"POST",
+   headers:{"Content-Type":"application/json"},
+   body:JSON.stringify(body),
+   keepalive:true
+ }).catch(()=>{});
+}
+
+window.addEventListener("pagehide",trackExitBeforeComplete);
 
 
 const Q=[
@@ -1449,6 +1494,10 @@ function startCheck(){
  leadSubmitted=false;
  if(!consentAt)consentAt=new Date().toISOString();
  trackingConsentGranted=true;
+ quickCheckInProgress=true;
+ quickCheckCompleted=false;
+ manualReviewTriggered=false;
+ exitBeforeCompleteSent=false;
  trackFunnel("start_quick_check");
  $("start").classList.add("hide");
  $("quiz").classList.remove("hide");
@@ -1477,6 +1526,8 @@ function finishManual(key){
  $("stepText").textContent="完成";
  $("progress").style.width="100%";
  $("manualFinalText").innerHTML=`${labels[key]||"金额"}已经超出了 Quick Check 的范围。<br>建议直接做 1对1 Full Review。`;
+ manualReviewTriggered=true;
+ quickCheckInProgress=false;
  trackFunnel("manual_full_review_required",{field:key});
  submitLead({remarks:`超出 Quick Check 范围：${labels[key]||"金额"}`});
  window.scrollTo({top:0,behavior:"smooth"});
@@ -1495,7 +1546,19 @@ function score(existing,need,manual){if(manual)return null;return Math.max(0,Mat
 function calculate(){const expense=answers.expense==="over"?Number(answers.expenseExact):Number(answers.expense);const loan=answers.loan==="over"?Number(answers.loanExact):Number(answers.loan);const liquid=answers.liquidMonths==="over"?Number(answers.liquidMonthsExact):Number(answers.liquidMonths);const life=exactOrRange("life"),ci=exactOrRange("ci"),acc=exactOrRange("accident");const complexLoan=loan>5000000;const lifeManual=complexLoan||life>5000000,ciManual=complexLoan||ci>5000000,accManual=complexLoan||acc>5000000;const lifeNeed=expense*120+loan+50000;const ciNeed=expense*120+loan;const accNeed=lifeNeed;const lifeScore=score(life,lifeNeed,lifeManual),ciScore=score(ci,ciNeed,ciManual),accScore=score(acc,accNeed,accManual);
  let medScore=0,annualPts=0,roomPts=0;const medicalAnnual=answers.medical==="yes"?Number(answers.annual||0):0;const medicalRoom=answers.medical==="yes"?Number(answers.room||0):0;if(answers.medical==="no")medScore=0;else{annualPts=medicalAnnual>=1000000?80:medicalAnnual>=500000?60:medicalAnnual>=300000?40:medicalAnnual>=100000?25:10;roomPts=medicalRoom>=300?20:medicalRoom>=250?17:medicalRoom>=200?14:medicalRoom>=150?10:6;medScore=annualPts+roomPts}
  const domains=[{key:"life",name:"人寿保障",score:lifeScore,need:lifeNeed,existing:life,manual:lifeManual},{key:"ci",name:"重疾保障",score:ciScore,need:ciNeed,existing:ci,manual:ciManual},{key:"accident",name:"意外保障",score:accScore,need:accNeed,existing:acc,manual:accManual},{key:"medical",name:"医疗保障",score:medScore,need:null,existing:null,manual:false}].map(d=>({...d,status:status(d.score)}));const sc=domains.filter(d=>d.score!==null).map(d=>d.score);const overall=Math.round(sc.reduce((a,b)=>a+b,0)/Math.max(1,sc.length));const gaps=domains.filter(d=>d.score!==null).sort((a,b)=>a.score-b.score).slice(0,3);const scoredDomains=domains.filter(d=>d.score!==null);const priorityArea=scoredDomains.reduce((best,d)=>best===null||d.score<best.score?d:best,null);const cashStatus=liquid>=7?{label:"较稳定",cls:"green"}:liquid>=4?{label:"基础缓冲",cls:"yellow"}:{label:"缓冲较低",cls:"red"};return{expense,loan,liquid,life,ci,acc,lifeNeed,ciNeed,accNeed,domains,overall,gaps,priorityArea,cashStatus,hasManual:domains.some(d=>d.manual),complexLoan,medicalAnnual,medicalRoom,medicalAnnualPoints:annualPts,medicalRoomPoints:roomPts};}
-function finish(){result=calculate();$("quiz").classList.add("hide");$("result").classList.remove("hide");$("stepText").textContent="完成";$("progress").style.width="100%";renderResult();trackFunnel("complete_quick_check",{overall_score:result.overall});submitLead();window.scrollTo({top:0,behavior:"smooth"});}
+function finish(){
+ result=calculate();
+ $("quiz").classList.add("hide");
+ $("result").classList.remove("hide");
+ $("stepText").textContent="完成";
+ $("progress").style.width="100%";
+ quickCheckCompleted=true;
+ quickCheckInProgress=false;
+ renderResult();
+ trackFunnel("complete_quick_check",{overall_score:result.overall});
+ submitLead();
+ window.scrollTo({top:0,behavior:"smooth"});
+}
 function renderResult(){
  $("overallScore").textContent=result.overall;
  const os=status(result.overall);
@@ -1745,12 +1808,12 @@ ${scoreLines}
 ${ending}`;
 }
 function contactDr(){
- trackFunnel("result_whatsapp");
+ trackFunnel("click_result_whatsapp");
  const text=quickCheckWhatsAppText("result");
  window.open(`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`,"_blank");
 }
 function fullReview(manual=false){
- trackFunnel("full_review_whatsapp",{manual:!!manual});
+ trackFunnel("click_full_review_whatsapp",{manual:!!manual});
  const text=manual
    ? `你好 ${CONFIG.advisorName}，
 我想进一步做 Full Review 😄`
@@ -1787,6 +1850,10 @@ function preparePrint(){
 
 function restart(){
  trackFunnel("redo_quick_check");
+ quickCheckInProgress=false;
+ quickCheckCompleted=false;
+ manualReviewTriggered=false;
+ exitBeforeCompleteSent=false;
  answers={};idx=0;result=null;leadInfo={name:"",phone:""};leadSubmitted=false;consentAt="";
  if($("leadName"))$("leadName").value="";
  if($("leadPhone"))$("leadPhone").value="";
