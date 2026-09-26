@@ -4,9 +4,10 @@ const ALLOWED_EVENTS = new Set([
   "select_self_intent",
   "select_full_intent",
   "manual_full_review_required",
+  "exit_before_complete",
   "ai_open",
-  "result_whatsapp",
-  "full_review_whatsapp",
+  "click_result_whatsapp",
+  "click_full_review_whatsapp",
   "download_result",
   "redo_quick_check"
 ]);
