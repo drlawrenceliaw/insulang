@@ -1361,16 +1361,16 @@ function trackFunnel(eventName,details={}){
  if(!trackingConsentGranted)return;
 
  const allowed=[
-   "quick_check_start",
-   "quick_check_complete",
+   "start_quick_check",
+   "complete_quick_check",
    "manual_full_review_required",
-   "intent_self_select",
-   "intent_full_select",
+   "select_self_intent",
+   "select_full_intent",
    "ai_open",
-   "whatsapp_result_click",
-   "whatsapp_full_review_click",
-   "print_result_click",
-   "restart_click"
+   "result_whatsapp",
+   "full_review_whatsapp",
+   "download_result",
+   "redo_quick_check"
  ];
  if(!allowed.includes(eventName))return;
 
@@ -1449,7 +1449,7 @@ function startCheck(){
  leadSubmitted=false;
  if(!consentAt)consentAt=new Date().toISOString();
  trackingConsentGranted=true;
- trackFunnel("quick_check_start");
+ trackFunnel("start_quick_check");
  $("start").classList.add("hide");
  $("quiz").classList.remove("hide");
  render();
@@ -1495,7 +1495,7 @@ function score(existing,need,manual){if(manual)return null;return Math.max(0,Mat
 function calculate(){const expense=answers.expense==="over"?Number(answers.expenseExact):Number(answers.expense);const loan=answers.loan==="over"?Number(answers.loanExact):Number(answers.loan);const liquid=answers.liquidMonths==="over"?Number(answers.liquidMonthsExact):Number(answers.liquidMonths);const life=exactOrRange("life"),ci=exactOrRange("ci"),acc=exactOrRange("accident");const complexLoan=loan>5000000;const lifeManual=complexLoan||life>5000000,ciManual=complexLoan||ci>5000000,accManual=complexLoan||acc>5000000;const lifeNeed=expense*120+loan+50000;const ciNeed=expense*120+loan;const accNeed=lifeNeed;const lifeScore=score(life,lifeNeed,lifeManual),ciScore=score(ci,ciNeed,ciManual),accScore=score(acc,accNeed,accManual);
  let medScore=0,annualPts=0,roomPts=0;const medicalAnnual=answers.medical==="yes"?Number(answers.annual||0):0;const medicalRoom=answers.medical==="yes"?Number(answers.room||0):0;if(answers.medical==="no")medScore=0;else{annualPts=medicalAnnual>=1000000?80:medicalAnnual>=500000?60:medicalAnnual>=300000?40:medicalAnnual>=100000?25:10;roomPts=medicalRoom>=300?20:medicalRoom>=250?17:medicalRoom>=200?14:medicalRoom>=150?10:6;medScore=annualPts+roomPts}
  const domains=[{key:"life",name:"人寿保障",score:lifeScore,need:lifeNeed,existing:life,manual:lifeManual},{key:"ci",name:"重疾保障",score:ciScore,need:ciNeed,existing:ci,manual:ciManual},{key:"accident",name:"意外保障",score:accScore,need:accNeed,existing:acc,manual:accManual},{key:"medical",name:"医疗保障",score:medScore,need:null,existing:null,manual:false}].map(d=>({...d,status:status(d.score)}));const sc=domains.filter(d=>d.score!==null).map(d=>d.score);const overall=Math.round(sc.reduce((a,b)=>a+b,0)/Math.max(1,sc.length));const gaps=domains.filter(d=>d.score!==null).sort((a,b)=>a.score-b.score).slice(0,3);const scoredDomains=domains.filter(d=>d.score!==null);const priorityArea=scoredDomains.reduce((best,d)=>best===null||d.score<best.score?d:best,null);const cashStatus=liquid>=7?{label:"较稳定",cls:"green"}:liquid>=4?{label:"基础缓冲",cls:"yellow"}:{label:"缓冲较低",cls:"red"};return{expense,loan,liquid,life,ci,acc,lifeNeed,ciNeed,accNeed,domains,overall,gaps,priorityArea,cashStatus,hasManual:domains.some(d=>d.manual),complexLoan,medicalAnnual,medicalRoom,medicalAnnualPoints:annualPts,medicalRoomPoints:roomPts};}
-function finish(){result=calculate();$("quiz").classList.add("hide");$("result").classList.remove("hide");$("stepText").textContent="完成";$("progress").style.width="100%";renderResult();trackFunnel("quick_check_complete",{overall_score:result.overall});submitLead();window.scrollTo({top:0,behavior:"smooth"});}
+function finish(){result=calculate();$("quiz").classList.add("hide");$("result").classList.remove("hide");$("stepText").textContent="完成";$("progress").style.width="100%";renderResult();trackFunnel("complete_quick_check",{overall_score:result.overall});submitLead();window.scrollTo({top:0,behavior:"smooth"});}
 function renderResult(){
  $("overallScore").textContent=result.overall;
  const os=status(result.overall);
@@ -1532,11 +1532,11 @@ function chooseIntent(type){
  $("fullBox").classList.add("hide");
  if(type==="self"){
    $("selfBox").classList.remove("hide");
-   trackFunnel("intent_self_select");
+   trackFunnel("select_self_intent");
  }
  if(type==="full"){
    $("fullBox").classList.remove("hide");
-   trackFunnel("intent_full_select");
+   trackFunnel("select_full_intent");
  }
  setTimeout(()=>window.scrollBy({top:180,behavior:"smooth"}),50);
 }
@@ -1745,12 +1745,12 @@ ${scoreLines}
 ${ending}`;
 }
 function contactDr(){
- trackFunnel("whatsapp_result_click");
+ trackFunnel("result_whatsapp");
  const text=quickCheckWhatsAppText("result");
  window.open(`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`,"_blank");
 }
 function fullReview(manual=false){
- trackFunnel("whatsapp_full_review_click",{manual:!!manual});
+ trackFunnel("full_review_whatsapp",{manual:!!manual});
  const text=manual
    ? `你好 ${CONFIG.advisorName}，
 我想进一步做 Full Review 😄`
@@ -1758,7 +1758,7 @@ function fullReview(manual=false){
  window.open(`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`,"_blank");
 }
 function preparePrint(){
- trackFunnel("print_result_click");
+ trackFunnel("download_result");
 
  const link=$("printFullReviewLink");
  if(link){
@@ -1786,7 +1786,7 @@ function preparePrint(){
 }
 
 function restart(){
- trackFunnel("restart_click");
+ trackFunnel("redo_quick_check");
  answers={};idx=0;result=null;leadInfo={name:"",phone:""};leadSubmitted=false;consentAt="";
  if($("leadName"))$("leadName").value="";
  if($("leadPhone"))$("leadPhone").value="";
