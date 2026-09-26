@@ -1,15 +1,14 @@
 const ALLOWED_EVENTS = new Set([
-  "quick_check_start",
-  "quick_check_complete",
+  "start_quick_check",
+  "complete_quick_check",
+  "select_self_intent",
+  "select_full_intent",
   "manual_full_review_required",
-  "intent_self_select",
-  "intent_full_select",
   "ai_open",
-  "whatsapp_result_click",
-  "whatsapp_full_review_click",
-  "print_result_click",
-  "pdf_download",
-  "restart_click"
+  "result_whatsapp",
+  "full_review_whatsapp",
+  "download_result",
+  "redo_quick_check"
 ]);
 
 function clean(value, max = 120) {

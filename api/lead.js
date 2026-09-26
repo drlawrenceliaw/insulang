@@ -343,9 +343,33 @@ export default async function handler(
           80
         ) || "Direct",
 
+      medium:
+        cleanText(
+          body.medium ?? body.utm_medium,
+          80
+        ),
+
       campaign:
         cleanText(
           body.campaign,
+          120
+        ),
+
+      content:
+        cleanText(
+          body.content ?? body.utm_content,
+          120
+        ),
+
+      term:
+        cleanText(
+          body.term ?? body.utm_term,
+          120
+        ),
+
+      ref:
+        cleanText(
+          body.ref ?? body.referral_code,
           120
         ),
 
@@ -368,30 +392,6 @@ export default async function handler(
         cleanText(
           body.priority_area,
           40
-        ),
-
-      utm_medium:
-        cleanText(
-          body.utm_medium,
-          80
-        ),
-
-      utm_content:
-        cleanText(
-          body.utm_content,
-          120
-        ),
-
-      utm_term:
-        cleanText(
-          body.utm_term,
-          120
-        ),
-
-      referral_code:
-        cleanText(
-          body.referral_code,
-          120
         ),
 
       funnel_session_id:
