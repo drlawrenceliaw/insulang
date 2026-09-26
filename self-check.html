@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#1769e0">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
 <link rel="manifest" href="/manifest.json">
 <title>Insu Lang Quick Check</title>
 <style>
@@ -1526,8 +1527,14 @@ function fmtMonths(n){if(n<1)return"< 1个月";return Number.isInteger(n)?`${n}�
 function chooseIntent(type){
  $("selfBox").classList.add("hide");
  $("fullBox").classList.add("hide");
- if(type==="self") $("selfBox").classList.remove("hide");
- if(type==="full") $("fullBox").classList.remove("hide");
+ if(type==="self"){
+   $("selfBox").classList.remove("hide");
+   trackFunnel("intent_self_select");
+ }
+ if(type==="full"){
+   $("fullBox").classList.remove("hide");
+   trackFunnel("intent_full_select");
+ }
  setTimeout(()=>window.scrollBy({top:180,behavior:"smooth"}),50);
 }
 
@@ -1566,14 +1573,14 @@ function leadPayload(extra={}){
        : Number(answers.liquidMonths||0)
    ),
    source:ATTRIBUTION.source||"Direct",
+   medium:ATTRIBUTION.medium||"",
    campaign:ATTRIBUTION.campaign||"",
+   content:ATTRIBUTION.content||"",
+   term:ATTRIBUTION.term||"",
+   ref:ATTRIBUTION.ref||"",
    priority_area:result?.priorityArea?.name || "",
    consent_at:consentAt || ($("legalConsent")?.checked ? new Date().toISOString() : ""),
    legal_version:LEGAL_VERSION,
-   utm_medium:ATTRIBUTION.medium||"",
-   utm_content:ATTRIBUTION.content||"",
-   utm_term:ATTRIBUTION.term||"",
-   referral_code:ATTRIBUTION.ref||"",
    funnel_session_id:FUNNEL_SESSION_ID,
    remarks:String(extra.remarks||"").slice(0,300)
  };
