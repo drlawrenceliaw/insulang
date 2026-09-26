@@ -1473,6 +1473,7 @@ function captureAttribution(){
   try{previous=JSON.parse(sessionStorage.getItem(ATTR_KEY)||"{}")||{};}catch(_){}
 
   const explicitSource=
+    qs.get("source") ||
     qs.get("utm_source") ||
     (qs.get("ref") ? "Referral" : "") ||
     previous.source ||
@@ -1480,10 +1481,10 @@ function captureAttribution(){
 
   const data={
     source:normalizeSource(explicitSource)||"Direct",
-    medium:(qs.get("utm_medium")||previous.medium||"").slice(0,80),
-    campaign:(qs.get("utm_campaign")||previous.campaign||"").slice(0,120),
-    content:(qs.get("utm_content")||previous.content||"").slice(0,120),
-    term:(qs.get("utm_term")||previous.term||"").slice(0,120),
+    medium:(qs.get("medium")||qs.get("utm_medium")||previous.medium||"").slice(0,80),
+    campaign:(qs.get("campaign")||qs.get("utm_campaign")||previous.campaign||"").slice(0,120),
+    content:(qs.get("content")||qs.get("utm_content")||previous.content||"").slice(0,120),
+    term:(qs.get("term")||qs.get("utm_term")||previous.term||"").slice(0,120),
     ref:(qs.get("ref")||previous.ref||"").slice(0,120),
     referrer:(previous.referrer||document.referrer||"").slice(0,300),
     first_landing:previous.first_landing||`${location.pathname}${location.search}`,
@@ -1501,11 +1502,11 @@ const ATTRIBUTION=captureAttribution();
 document.querySelectorAll('a[href^="/self-check"]').forEach(a=>{
   try{
     const u=new URL(a.getAttribute("href"),location.origin);
-    if(ATTRIBUTION.source && ATTRIBUTION.source!=="Direct")u.searchParams.set("utm_source",ATTRIBUTION.source);
-    if(ATTRIBUTION.medium)u.searchParams.set("utm_medium",ATTRIBUTION.medium);
-    if(ATTRIBUTION.campaign)u.searchParams.set("utm_campaign",ATTRIBUTION.campaign);
-    if(ATTRIBUTION.content)u.searchParams.set("utm_content",ATTRIBUTION.content);
-    if(ATTRIBUTION.term)u.searchParams.set("utm_term",ATTRIBUTION.term);
+    if(ATTRIBUTION.source && ATTRIBUTION.source!=="Direct")u.searchParams.set("source",ATTRIBUTION.source);
+    if(ATTRIBUTION.medium)u.searchParams.set("medium",ATTRIBUTION.medium);
+    if(ATTRIBUTION.campaign)u.searchParams.set("campaign",ATTRIBUTION.campaign);
+    if(ATTRIBUTION.content)u.searchParams.set("content",ATTRIBUTION.content);
+    if(ATTRIBUTION.term)u.searchParams.set("term",ATTRIBUTION.term);
     if(ATTRIBUTION.ref)u.searchParams.set("ref",ATTRIBUTION.ref);
     a.setAttribute("href",u.pathname+u.search);
   }catch(_){}

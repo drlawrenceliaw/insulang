@@ -26,3 +26,7 @@ All three are generated from the existing Insu Lang wordmark and are used for Ad
 - Lead/Funnel attribution aligned as Source → Medium → Campaign → Content → Term → Ref.
 - Added separate intent tracking for Self Review and Full Review.
 - PWA icons retained.
+
+
+## Tracking URL convention
+Preferred short parameters: `source`, `medium`, `campaign`, `content`, `term`, and `ref`. Legacy `utm_*` parameters remain accepted for compatibility.

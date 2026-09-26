@@ -1320,6 +1320,7 @@ function captureAttribution(){
  try{previous=JSON.parse(sessionStorage.getItem(ATTR_KEY)||"{}")||{};}catch(_){}
 
  const explicitSource=
+   qs.get("source") ||
    qs.get("utm_source") ||
    (qs.get("ref") ? "Referral" : "") ||
    previous.source ||
@@ -1327,10 +1328,10 @@ function captureAttribution(){
 
  const data={
    source:normalizeSource(explicitSource)||"Direct",
-   medium:(qs.get("utm_medium")||previous.medium||"").slice(0,80),
-   campaign:(qs.get("utm_campaign")||previous.campaign||"").slice(0,120),
-   content:(qs.get("utm_content")||previous.content||"").slice(0,120),
-   term:(qs.get("utm_term")||previous.term||"").slice(0,120),
+   medium:(qs.get("medium")||qs.get("utm_medium")||previous.medium||"").slice(0,80),
+   campaign:(qs.get("campaign")||qs.get("utm_campaign")||previous.campaign||"").slice(0,120),
+   content:(qs.get("content")||qs.get("utm_content")||previous.content||"").slice(0,120),
+   term:(qs.get("term")||qs.get("utm_term")||previous.term||"").slice(0,120),
    ref:(qs.get("ref")||previous.ref||"").slice(0,120),
    referrer:(previous.referrer||document.referrer||"").slice(0,300),
    first_landing:previous.first_landing||`${location.pathname}${location.search}`,
@@ -1363,6 +1364,8 @@ function trackFunnel(eventName,details={}){
    "quick_check_start",
    "quick_check_complete",
    "manual_full_review_required",
+   "intent_self_select",
+   "intent_full_select",
    "ai_open",
    "whatsapp_result_click",
    "whatsapp_full_review_click",
